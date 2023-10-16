@@ -11,21 +11,27 @@ export class LoginComponent {
 
   form: FormGroup;
   err='';
+  router: any;
   
   constructor (
     private formBuilder: FormBuilder,
     private auth: AuthService
   ){
-      this.form=this.formBuilder.group({
+      this.form = this.formBuilder.group({
           login:[null,Validators.compose([Validators.required])],
           password: [null,Validators.compose([Validators.required])]
       });
   }
 
   ngOnInit():void{}
-  
+  /*login(): void {
+    const val = this.form?.value;
+    this.auth.login(val.login!).then(
+      this.router.navigateByUrl('/')
+    );
+  }*/
   login(){
-    const val=this.form?.value
+    const val = this.form?.value;
     if(val.login && val.password){
       this.auth.login(val).then(
         (x)=>{

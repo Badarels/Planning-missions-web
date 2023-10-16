@@ -3,28 +3,32 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './layouts/header/header.component';
-import { SidebarComponent } from './layouts/sidebar/sidebar.component';
-import { AuthentificationComponent } from './authentification/authentification.component';
-import { LoginComponent } from './authentification/login/login.component';
-import { MainContaintsComponent } from './layouts/main-containts/main-containts.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { LayoutsModule } from './layouts/layouts.module';
+import { AuthetificationModule } from './authentification/authetification.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SharedModule } from './shared/shared.module';
+import { FormsModule } from '@angular/forms';
+import { EditUtilisateurComponent } from './Utilisateur/Components/edit-utilisateur/edit-utilisateur.component';
+import { AjoutMedecinComponent } from './Medecin/Components/ajout-medecin/ajout-medecin.component';
+import { ListeMedecinComponent } from './Medecin/Components/liste-medecin/liste-medecin.component';
+
 
 @NgModule({
   declarations: [
-    AppComponent,
-    HeaderComponent,
-    SidebarComponent,
-    AuthentificationComponent,
-    LoginComponent,
-    MainContaintsComponent
+    AppComponent,   
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    LayoutsModule,
+    AuthetificationModule, 
+    NgbModule,
+    SharedModule,
+    FormsModule,
+    
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
+
 export class AppModule { }

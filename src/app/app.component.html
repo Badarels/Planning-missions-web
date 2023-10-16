@@ -1,1 +1,388 @@
-<router-outlet></router-outlet>
+<div class="col-lg-12">
+    <div class="row tab-content">
+        <div id="list-view" class="tab-pane fade active show col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Tout les Utilisateurs</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <div class="datatable-container">
+                         <!-- Table with stripped rows -->
+                         <table id="example" class="table table-sm" style="width:100%">
+                            <thead>
+                                <tr  style="width: 250px;">
+                                    <th>Nom</th>
+                                    <th>Prenom</th>
+                                    <th>Email</th>
+                                    <th>Date de naissance</th>
+                                    <th>Sexe</th>
+                                    <th>INE</th>  
+                                    <th>Adresse</th>
+                                    <th>Archive</th>   
+                                </tr>
+                            </thead>
+                            <tbody>
+                               <tr *ngFor="let user of users">
+                                    <td style="width: 250px;">{{user?.nomUser}}</td>
+                                    <td style="width: 250px;">{{user?.prenomUser}}</td>
+                                    <td style="width: 250px;">{{user?.emailUser}}</td>
+                                    <td style="width: 250px;" >{{user?.date_naissanceUser}}</td>
+                                    <td style="width: 250px;">masculin</td>
+                                    <td style="width: 250px;">{{user?.numero_piece_identiteUser}}</td>
+                                    <td style="width: 250px;">{{user?.adresseuser}}</td>
+                                    <td style="width: 250px;">{{user?.archive}}</td>                     
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                            </tfoot>
+                        </table>
+                            <!-- End Table with stripped rows -->
+                        </div>
+                        <div class="datatable-bottom">
+                            <div class="datatable-info"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Affichage de 1 à 5 sur 5 entrées</font></font></div>
+                            <nav class="datatable-pagination"><ul class="datatable-pagination-list"></ul></nav>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="grid-view" class="tab-pane fade col-lg-12">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                    <div class="card card-profile">
+                        <div class="card-header justify-content-end pb-0">
+                            <div class="dropdown">
+                                <button class="btn btn-link" type="button" data-toggle="dropdown">
+                                    <span class="dropdown-dots fs--1"></span>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right border py-0">
+                                    <div class="py-2">
+                                        <a class="dropdown-item" href="javascript:void(0);">Edit</a>0
+                                        <a class="dropdown-item text-danger" href="javascript:void(0);">Delete</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body pt-2">
+                            <div class="text-center">
+                                <div class="profile-photo">
+                                    <img src="images/profile/small/pic2.jpg" width="100" class="img-fluid rounded-circle" alt="">
+                                </div>
+                                <h3 class="mt-4 mb-1">Alexander</h3>
+                                <p class="text-muted">M.COM., P.H.D.</p>
+                                <ul class="list-group mb-3 list-group-flush">
+                                    <li class="list-group-item px-0 d-flex justify-content-between">
+                                        <span>Roll No.</span><strong>02</strong></li>
+                                    <li class="list-group-item px-0 d-flex justify-content-between">
+                                        <span class="mb-0">Phone No. :</span><strong>+01 123 456 7890</strong></li>
+                                    <li class="list-group-item px-0 d-flex justify-content-between">
+                                        <span class="mb-0">Admission Date. :</span><strong>01 July 2020</strong></li>
+                                    <li class="list-group-item px-0 d-flex justify-content-between">
+                                        <span class="mb-0">Email:</span><strong>info@example.com</strong></li>
+                                </ul>
+                                <a class="btn btn-outline-primary btn-rounded mt-3 px-4" href="about-student.html">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                    <div class="card card-profile">
+                        <div class="card-header justify-content-end pb-0">
+                            <div class="dropdown">
+                                <button class="btn btn-link" type="button" data-toggle="dropdown">
+                                    <span class="dropdown-dots fs--1"></span>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right border py-0">
+                                    <div class="py-2">
+                                        <a class="dropdown-item" href="javascript:void(0);">Modifier</a>
+                                        <a class="dropdown-item text-danger" href="javascript:void(0);">Supprimer</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body pt-2">
+                            <div class="text-center">
+                                <div class="profile-photo">
+                                    <img src="images/profile/small/pic3.jpg" width="100" class="img-fluid rounded-circle" alt="">
+                                </div>
+                                <h3 class="mt-4 mb-1">Elizabeth</h3>
+                                <p class="text-muted">B.COM., M.COM.</p>
+                                <ul class="list-group mb-3 list-group-flush">
+                                    <li class="list-group-item px-0 d-flex justify-content-between">
+                                        <span>Roll No.</span><strong>03</strong></li>
+                                    <li class="list-group-item px-0 d-flex justify-content-between">
+                                        <span class="mb-0">Phone No. :</span><strong>+01 123 456 7890</strong></li>
+                                    <li class="list-group-item px-0 d-flex justify-content-between">
+                                        <span class="mb-0">Admission Date. :</span><strong>01 July 2020</strong></li>
+                                    <li class="list-group-item px-0 d-flex justify-content-between">
+                                        <span class="mb-0">Email:</span><strong>info@example.com</strong></li>
+                                </ul>
+                                <a class="btn btn-outline-primary btn-rounded mt-3 px-4" href="about-student.html">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                    <div class="card card-profile">
+                        <div class="card-header justify-content-end pb-0">
+                            <div class="dropdown">
+                                <button class="btn btn-link" type="button" data-toggle="dropdown">
+                                    <span class="dropdown-dots fs--1"></span>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right border py-0">
+                                    <div class="py-2">
+                                        <a class="dropdown-item" href="javascript:void(0);">Modifier</a>
+                                        <a class="dropdown-item text-danger" href="javascript:void(0);">Supprimer</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body pt-2">
+                            <div class="text-center">
+                                <div class="profile-photo">
+                                    <img src="images/profile/small/pic4.jpg" width="100" class="img-fluid rounded-circle" alt="">
+                                </div>
+                                <h3 class="mt-4 mb-1">Amelia</h3>
+                                <p class="text-muted">M.COM., P.H.D.</p>
+                                <ul class="list-group mb-3 list-group-flush">
+                                    <li class="list-group-item px-0 d-flex justify-content-between">
+                                        <span>Roll No.</span><strong>04</strong></li>
+                                    <li class="list-group-item px-0 d-flex justify-content-between">
+                                        <span class="mb-0">Phone No. :</span><strong>+01 123 456 7890</strong></li>
+                                    <li class="list-group-item px-0 d-flex justify-content-between">
+                                        <span class="mb-0">Admission Date. :</span><strong>01 July 2020</strong></li>
+                                    <li class="list-group-item px-0 d-flex justify-content-between">
+                                        <span class="mb-0">Email:</span><strong>info@example.com</strong></li>
+                                </ul>
+                                <a class="btn btn-outline-primary btn-rounded mt-3 px-4" href="about-student.html">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                    <div class="card card-profile">
+                        <div class="card-header justify-content-end pb-0">
+                            <div class="dropdown">
+                                <button class="btn btn-link" type="button" data-toggle="dropdown">
+                                    <span class="dropdown-dots fs--1"></span>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right border py-0">
+                                    <div class="py-2">
+                                        <a class="dropdown-item" href="javascript:void(0);">Edit</a>
+                                        <a class="dropdown-item text-danger" href="javascript:void(0);">Delete</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body pt-2">
+                            <div class="text-center">
+                                <div class="profile-photo">
+                                    <img src="images/profile/small/pic5.jpg" width="100" class="img-fluid rounded-circle" alt="">
+                                </div>
+                                <h3 class="mt-4 mb-1">Charlotte</h3>
+                                <p class="text-muted">B.COM., M.COM.</p>
+                                <ul class="list-group mb-3 list-group-flush">
+                                    <li class="list-group-item px-0 d-flex justify-content-between">
+                                        <span>Roll No.</span><strong>05</strong></li>
+                                    <li class="list-group-item px-0 d-flex justify-content-between">
+                                        <span class="mb-0">Phone No. :</span><strong>+01 123 456 7890</strong></li>
+                                    <li class="list-group-item px-0 d-flex justify-content-between">
+                                        <span class="mb-0">Admission Date. :</span><strong>01 July 2020</strong></li>
+                                    <li class="list-group-item px-0 d-flex justify-content-between">
+                                        <span class="mb-0">Email:</span><strong>info@example.com</strong></li>
+                                </ul>
+                                <a class="btn btn-outline-primary btn-rounded mt-3 px-4" href="about-student.html">Read More</a>
+                            </div>
+                        </div>  
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                    <div class="card card-profile">
+                        <div class="card-header justify-content-end pb-0">
+                            <div class="dropdown">
+                                <button class="btn btn-link" type="button" data-toggle="dropdown">
+                                    <span class="dropdown-dots fs--1"></span>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right border py-0">
+                                    <div class="py-2">
+                                        <a class="dropdown-item" href="javascript:void(0);">Edit</a>
+                                        <a class="dropdown-item text-danger" href="javascript:void(0);">Delete</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body pt-2">
+                            <div class="text-center">
+                                <div class="profile-photo">
+                                    <img src="images/profile/small/pic6.jpg" width="100" class="img-fluid rounded-circle" alt="">
+                                </div>
+                                <h3 class="mt-4 mb-1">Isabella</h3>
+                                <p class="text-muted">B.A, B.C.A</p>
+                                <ul class="list-group mb-3 list-group-flush">
+                                    <li class="list-group-item px-0 d-flex justify-content-between">
+                                        <span>Roll No.</span><strong>06</strong></li>
+                                    <li class="list-group-item px-0 d-flex justify-content-between">
+                                        <span class="mb-0">Phone No. :</span><strong>+01 123 456 7890</strong></li>
+                                    <li class="list-group-item px-0 d-flex justify-content-between">
+                                        <span class="mb-0">Admission Date. :</span><strong>01 July 2020</strong></li>
+                                    <li class="list-group-item px-0 d-flex justify-content-between">
+                                        <span class="mb-0">Email:</span><strong>info@example.com</strong></li>
+                                </ul>
+                                <a class="btn btn-outline-primary btn-rounded mt-3 px-4" href="about-student.html">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                    <div class="card card-profile">
+                        <div class="card-header justify-content-end pb-0">
+                            <div class="dropdown">
+                                <button class="btn btn-link" type="button" data-toggle="dropdown">
+                                    <span class="dropdown-dots fs--1"></span>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right border py-0">
+                                    <div class="py-2">
+                                        <a class="dropdown-item" href="javascript:void(0);">Edit</a>
+                                        <a class="dropdown-item text-danger" href="javascript:void(0);">Delete</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body pt-2">
+                            <div class="text-center">
+                                <div class="profile-photo">
+                                    <img src="images/profile/small/pic7.jpg" width="100" class="img-fluid rounded-circle" alt="">
+                                </div>
+                                <h3 class="mt-4 mb-1">Sebastian</h3>
+                                <p class="text-muted">M.COM., P.H.D.</p>
+                                <ul class="list-group mb-3 list-group-flush">
+                                    <li class="list-group-item px-0 d-flex justify-content-between">
+                                        <span>Roll No.</span><strong>07</strong></li>
+                                    <li class="list-group-item px-0 d-flex justify-content-between">
+                                        <span class="mb-0">Phone No. :</span><strong>+01 123 456 7890</strong></li>
+                                    <li class="list-group-item px-0 d-flex justify-content-between">
+                                        <span class="mb-0">Admission Date. :</span><strong>01 July 2020</strong></li>
+                                    <li class="list-group-item px-0 d-flex justify-content-between">
+                                        <span class="mb-0">Email:</span><strong>info@example.com</strong></li>
+                                </ul>
+                                <a class="btn btn-outline-primary btn-rounded mt-3 px-4" href="about-student.html">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                    <div class="card card-profile">
+                        <div class="card-header justify-content-end pb-0">
+                            <div class="dropdown">
+                                <button class="btn btn-link" type="button" data-toggle="dropdown">
+                                    <span class="dropdown-dots fs--1"></span>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right border py-0">
+                                    <div class="py-2">
+                                        <a class="dropdown-item" href="javascript:void(0);">Edit</a>
+                                        <a class="dropdown-item text-danger" href="javascript:void(0);">Delete</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body pt-2">
+                            <div class="text-center">
+                                <div class="profile-photo">
+                                    <img src="images/profile/small/pic8.jpg" width="100" class="img-fluid rounded-circle" alt="">
+                                </div>
+                                <h3 class="mt-4 mb-1">Olivia</h3>
+                                <p class="text-muted">B.COM., M.COM.</p>
+                                <ul class="list-group mb-3 list-group-flush">
+                                    <li class="list-group-item px-0 d-flex justify-content-between">
+                                        <span>Roll No.</span><strong>08</strong></li>
+                                    <li class="list-group-item px-0 d-flex justify-content-between">
+                                        <span class="mb-0">Phone No. :</span><strong>+01 123 456 7890</strong></li>
+                                    <li class="list-group-item px-0 d-flex justify-content-between">
+                                        <span class="mb-0">Admission Date. :</span><strong>01 July 2020</strong></li>
+                                    <li class="list-group-item px-0 d-flex justify-content-between">
+                                        <span class="mb-0">Email:</span><strong>info@example.com</strong></li>
+                                </ul>
+                                <a class="btn btn-outline-primary btn-rounded mt-3 px-4" href="about-student.html">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                    <div class="card card-profile">
+                        <div class="card-header justify-content-end pb-0">
+                            <div class="dropdown">
+                                <button class="btn btn-link" type="button" data-toggle="dropdown">
+                                    <span class="dropdown-dots fs--1"></span>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right border py-0">
+                                    <div class="py-2">
+                                        <a class="dropdown-item" href="javascript:void(0);">Edit</a>
+                                        <a class="dropdown-item text-danger" href="javascript:void(0);">Delete</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body pt-2">
+                            <div class="text-center">
+                                <div class="profile-photo">
+                                    <img src="images/profile/small/pic9.jpg" width="100" class="img-fluid rounded-circle" alt="">
+                                </div>
+                                <h3 class="mt-4 mb-1">Emma</h3>
+                                <p class="text-muted">B.A, B.C.A</p>
+                                <ul class="list-group mb-3 list-group-flush">
+                                    <li class="list-group-item px-0 d-flex justify-content-between">
+                                        <span>Roll No.</span><strong>09</strong></li>
+                                    <li class="list-group-item px-0 d-flex justify-content-between">
+                                        <span class="mb-0">Phone No. :</span><strong>+01 123 456 7890</strong></li>
+                                    <li class="list-group-item px-0 d-flex justify-content-between">
+                                        <span class="mb-0">Admission Date. :</span><strong>01 July 2020</strong></li>
+                                    <li class="list-group-item px-0 d-flex justify-content-between">
+                                        <span class="mb-0">Email:</span><strong>info@example.com</strong></li>
+                                </ul>
+                                <a class="btn btn-outline-primary btn-rounded mt-3 px-4" href="about-student.html">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                    <div class="card card-profile">
+                        <div class="card-header justify-content-end pb-0">
+                            <div class="dropdown">
+                                <button class="btn btn-link" type="button" data-toggle="dropdown">
+                                    <span class="dropdown-dots fs--1"></span>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right border py-0">
+                                    <div class="py-2">
+                                        <a class="dropdown-item" href="javascript:void(0);">Edit</a>
+                                        <a class="dropdown-item text-danger" href="javascript:void(0);">Delete</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body pt-2">²
+                            <div class="text-center">
+                                <div class="profile-photo">
+                                    <img src="images/profile/small/pic10.jpg" width="100" class="img-fluid rounded-circle" alt="">
+                                </div>
+                                <h3 class="mt-4 mb-1">Jackson</h3>
+                                <p class="text-muted">M.COM., P.H.D.</p>
+                                <ul class="list-group mb-3 list-group-flush">
+                                    <li class="list-group-item px-0 d-flex justify-content-between">
+                                        <span>Roll No.</span><strong>10</strong></li>
+                                    <li class="list-group-item px-0 d-flex justify-content-between">
+                                        <span class="mb-0">Phone No. :</span><strong>+01 123 456 7890</strong></li>
+                                    <li class="list-group-item px-0 d-flex justify-content-between">
+                                        <span class="mb-0">Admission Date. :</span><strong>01 July 2020</strong></li>
+                                    <li class="list-group-item px-0 d-flex justify-content-between">
+                                        <span class="mb-0">Email:</span><strong>info@example.com</strong></li>
+                                </ul>
+                                <a class="btn btn-outline-primary btn-rounded mt-3 px-4" href="about-student.html">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+ </div>

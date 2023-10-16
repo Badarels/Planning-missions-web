@@ -1,0 +1,149 @@
+<main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Liste des utilisateurs</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">ACCUEIL</a></li>
+          <li class="breadcrumb-item">Liste</li>
+          
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+<section class="section">
+<!--**********************************
+    Nav header end
+***********************************-->
+
+<!--**********************************
+    Content body start
+***********************************-->
+<div class="content-body">
+    <!-- row -->
+    <div class="container-fluid">       
+        <div class="row">
+            
+				<div class="row">
+                    <div class="col-lg-12">
+                        <ul class="nav nav-pills mb-3">
+                            <li class="nav-item"><a href="#list-view" data-toggle="tab" class="nav-link btn-primary mr-1 show active">Vue Liste</a></li>
+                            <li class="nav-item"><a href="#grid-view" data-toggle="tab" class="nav-link btn-primary">Vue Grille</a></li>
+                            <li class="nav-item"><a  data-toggle="tab" class="nav-link btn-primary" [routerLink]="'/ajoutUtilisateur/Ajout-Utilisateur'">+ Ajouter nouveau</a></li>
+
+                        </ul>
+                    </div>
+            
+                    <div class="col-lg-12">
+                        <div class="row tab-content">
+                            <div id="list-view" class="tab-pane fade active show col-lg-12">
+                                
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4 class="card-title">Liste des utilisateurs</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            
+                                            <table class="table datatable">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Nom</th>
+                                                        <th>Prenom</th>
+                                                        <th>Adresse</th>
+                                                        <th>Sexe</th>
+                                                        <th>Date de Naissance</th>
+                                                        <th>Email</th>
+                                                        <th>Telephone</th>
+                                                        
+                                                        <th style="min-width: 200px">N° piece d'indentité</th>
+                                                        <th>Role</th>
+                                                        <th style="text-align: center;">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                     <tr *ngFor="let user of users">
+                                                        <td style="min-width: 200px">{{user?.nomUser}}</td>
+                                                        <td style="min-width: 250px">
+                                                            {{user?.prenomUser}}</td>
+                                                        <td style="min-width: 200px">{{user?.adresseuser}}</td>
+                                                        <td style="min-width: 200px">{{user?.sexeUser}}</td>    
+                                                        <td style="min-width: 250px">{{user?.date_naissanceUser}}</td>
+                                                        <td style="min-width: 200px">{{user?.emailUser}}</td>
+                                                        <td style="min-width: 200px">{{user?.telephoneUser}}</td>
+                                                        
+                                                        <td>{{user?.numero_piece_identiteUser}}</td>
+                                                        
+                                                        <td style="min-width: 200px">
+                                                            {{user?.roles?.nomRoles}} <!-- Affiche le contenu du rôle -->
+                                                        </td>
+
+
+                                                        <td style="min-width: 250px; text-align: center;">
+                                                            <a href="assets/js/javascript:void(0);" class="btn btn-sm btn-primary" style="margin: 5px;" ><i class="la la-pencil"></i>Modifier</a>
+                                                            <a href="assets/js/javascript:void(0);" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i>Supprimer</a>
+                                                        </td>												
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="grid-view" class="tab-pane fade col-lg-12">
+                                <div class="row">
+                              
+                                    <div class="col-lg-4 col-md-6 col-sm-6 col-12" *ngFor="let user of users">
+                                        <div class="card card-profile">
+                                            <div class="card-header justify-content-end pb-0">
+                                                <div class="dropdown">
+                                                    <button class="btn btn-link" type="button" data-toggle="dropdown">
+                                                        <span class="dropdown-dots fs-1"></span>
+                                                    </button>
+                                                    <div class="dropdown-menu dropdown-menu-right border py-0">
+                                                        <div class="py-2">
+                                                            <a class="dropdown-item" href="javascript:void(0);">Modifier</a>
+                                                            <a class="dropdown-item text-danger" href="javascript:void(0);">Suprimer</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-body pt-2">
+                                                <div class="text-center">
+                                                    <div class="profile-photo">
+                                                        <img src="images/profile/small/pic2.jpg" width="100" class="img-fluid rounded-circle" alt="">
+                                                    </div>
+                                                    <h3 class="mt-4 mb-1">{{user?.nomUser}}</h3>
+                                                    <p class="text-muted">{{user?.prenomUser}}</p>
+                                                    <ul class="list-group mb-3 list-group-flush">
+                                                        <li class="list-group-item px-0 d-flex justify-content-between">
+                                                            <span>Role :</span><strong>{{user?.roles?.nomRoles}}</strong></li>
+                                                        <li class="list-group-item px-0 d-flex justify-content-between">
+                                                            <span class="mb-0">N° Telephone :</span><strong>{{user?.telephoneUser}}</strong></li>
+                                                        <li class="list-group-item px-0 d-flex justify-content-between">
+                                                            <span class="mb-0">Adresse. :</span><strong>{{user?.adresseuser}}</strong></li>
+                                                        <li class="list-group-item px-0 d-flex justify-content-between">
+                                                            <span class="mb-0">Email:</span><strong>{{user?.emailUser}}</strong></li>
+                                                    </ul>
+                                                    <a class="btn btn-outline-primary btn-rounded mt-3 px-4" onclick="window.open('https://app.ringover.com/call-logs', '_blank')" 
+                                                    value="782593695" href="">{{user?.telephoneUser}}</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+            </div>
+        </div>
+       
+    
+
+<!--**********************************
+    Content body end
+***********************************-->
+</section>
+</main>

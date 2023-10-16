@@ -1,0 +1,112 @@
+
+<main id="main" class="main">
+
+  <div class="pagetitle">
+    <h1>Ajout D'utilisateur</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="'/listeUtilisateur/list-utilisateur'">Liste utilisateurs</a></li>
+        <li class="breadcrumb-item">Formulaire</li>
+      
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+  <section class="section">
+    <div class="row">
+     
+<div class="col-lg-12">
+
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> formulaire d'ajout utilisateur</font></font></h5>
+
+      <!-- General Form Elements -->
+      <form [formGroup]="userForm" (submit)="onSaveUtilisateur()">
+        <div class="row mb-3 offset-md-1">
+          <label class="form-label" for="form3Example3">Prenom: </label>
+            <div class="col-sm-11">
+            <input type="text" id="prenomuser" formControlName="prenomuser" class="form-control input-small">
+          </div>
+        </div>
+        <div class="row mb-3 offset-md-1">
+          <label class="form-label" for="form3Example3">Nom: </label>
+            <div class="col-sm-11">
+            <input type="text" id="nomuser" formControlName="nomuser" class="form-control input-small">
+          </div>
+        </div>
+        <div class="row mb-3 offset-md-1">
+          <label class="form-label" for="form3Example3">Email: </label>
+            <div class="col-sm-11">
+            <input type="email" id="emailuser" formControlName="emailuser" class="form-control input-small">
+          </div>
+        </div>
+        <div class="row mb-3 offset-md-1">
+          <label class="form-label" for="form3Example3">Mot de passe: </label>
+            <div class="col-sm-11">
+            <input type="password" id="passworduser" formControlName="passworduser" class="form-control input-small">
+          </div>
+        </div>
+
+        <div class="row mb-3 offset-md-1">
+          <label class="form-label" for="form3Example3 ">Telephone: </label>
+            <div class="col-sm-11">
+            <input type="text" id="telephoneuser" formControlName="telephoneuser" class="form-control input-small">
+          </div>
+        </div>
+      
+        <div class="row mb-3 offset-md-1" >
+            <label class="form-label" for="form3Example3 ">INE: </label>
+            <div class="col-sm-11">
+            <input type="text" id="ineuser" formControlName="ineuser" class="form-control input-small">
+          </div>
+        </div>
+
+        <div class="row mb-3 offset-md-1" >
+          <label class="form-label" for="form3Example3 ">Adresse: </label>
+            <div class="col-sm-11">
+            <textarea id="adresseuser" formControlName="adresseuser" class="form-control input-small"  rows="5">Adresse</textarea>
+          </div>
+        </div>
+        
+        <div class="row mb-3 offset-md-1" >
+          <label class="form-label" for="form3Example3 ">Date de Naissance: </label>
+            <div class="col-sm-11">
+            <input type="date" id="datenaissuser" formControlName="datenaissuser" class="form-control input-small">
+          </div>
+        </div>
+  
+        <fieldset class="row mb-3 offset-md-1" >
+          <legend class="form-label" for="form3Example3" style="font-size:medium">Sexe: </legend>
+            <div class="col-sm-11">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" formControlName="sexeuser" name="gridRadios" id="gridRadios1" value="Masculin" checked="">
+              <label class="form-check-label" style="font-size:small" for="gridRadios1">
+                MASCULIN
+             </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="gridRadios" formControlName="sexeuser" id="gridRadios2" value="Feminin">
+              <label class="form-check-label" style="font-size:small" for="gridRadios2">
+                FEMININ
+              </label>
+            </div>
+          </div>
+        </fieldset>
+   
+        <div class="row mb-3">
+          <div class="col-sm-10">
+            <button type="submit" class="btn btn-primary"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Soumettre</font></font></button>
+          </div>
+        </div>
+
+        <div *ngIf="onSaveUtilisateur()" class="alert alert-success alert-dismissible fade show" role="alert">
+          <i class="bi bi-check-circle me-1"></i>
+          A simple success alert with icon—check it out!
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      </form><!-- End General Form Elements -->
+
+    </div>
+  </div>
+</div>
+</div>

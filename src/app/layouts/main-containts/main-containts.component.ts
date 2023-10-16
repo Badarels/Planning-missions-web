@@ -6,5 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./main-containts.component.css']
 })
 export class MainContaintsComponent {
-
+  toggle(){
+    const element= document.body as HTMLElement
+    element.classList.toggle('toggle-sidebar')
+ }
 }

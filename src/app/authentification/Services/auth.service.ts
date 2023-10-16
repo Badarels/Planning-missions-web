@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http'
 import { Router } from '@angular/router';
 import { UtilisateurModel } from 'src/app/shared/Model/Utilisateur.model';
-//E:\BCS\CRM\Angular\Businesscenterservices-web\src\app\shared\Model\Utilisateur.model.ts
 
 
 @Injectable({
@@ -11,7 +10,7 @@ import { UtilisateurModel } from 'src/app/shared/Model/Utilisateur.model';
 export class AuthService {
   
   SECRET = 'smartmaskosc2020';
-  errCon = false;
+  errCon = false; 
 
   constructor(
     private http: HttpClient,
@@ -28,12 +27,12 @@ export class AuthService {
               if (this.hasAuthority(['ADMIN'], user)){
                 this.storeUser(user)
                   .then(() => {
-                    this.router.navigate(['/admin/dashboard']);
+                    this.router.navigate(['']);
                   });
               } else {
                 this.storeUser(user)
                   .then(() => {
-                    this.router.navigate(['/admin/dashboard']);
+                    this.router.navigate(['']);
                   });
               }
             } else {
@@ -93,7 +92,7 @@ export class AuthService {
 
   hasAuthority(authorities: string[], user: UtilisateurModel): boolean {
     for (const authority of authorities) {
-      if (user?.RoleModel?.nameRole === authority) {
+      if (user?.roles?.nomRoles === authority) {
         return true;  
       }
     }
