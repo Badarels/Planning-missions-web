@@ -9,12 +9,12 @@ import { UtilisateurModel } from 'src/app/shared/Model/Utilisateur.model';
 })
 export class UtilisateurService {
 
-  private baseUrl = 'http://localhost:9006/api/'; 
+  private baseUrl = 'http://localhost:9006/api'; 
 
   constructor(private http: HttpClient) {}
 
   getUsers(): Observable<UtilisateurModel[]> {
-    return this.http.get<UtilisateurModel[]>(this.baseUrl+'listeUser');
+    return this.http.get<UtilisateurModel[]>(this.baseUrl+'/listeUser');
 
   } 
 

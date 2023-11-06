@@ -4,3 +4,30 @@ body {
     background: #f6f9ff !important;
     color: #444444;
   }
+
+.thformat{
+    width: 60px;
+}
+.tdformat{
+    width: 500px;
+}
+.card{
+    font-size: smaller;
+}
+.content-body{
+    font-size: smaller;
+}
+.labelprofil{
+
+    font-weight: 600;
+    color: rgba(1, 41, 112, 0.6);
+    font-size: 15px;
+
+}
+.rowprofil{
+    margin-bottom: 20px;
+    font-size: 15px;
+}
+.separator {
+    margin: 0 5px; /* Espace horizontal entre les traits */
+  }

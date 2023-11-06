@@ -10,6 +10,7 @@ import { RoleModel } from 'src/app/shared/Model/Role.Model';
   styleUrls: ['./liste-utilisateur.component.css']
 })
 export class ListeUtilisateurComponent implements OnInit {
+  
   ngOnInit(): void {
     this.getUtilisateur();
   }
@@ -21,7 +22,7 @@ export class ListeUtilisateurComponent implements OnInit {
   connectedUser = new UtilisateurModel();
 
   constructor(
-    private UtilisateurServices: UtilisateurService,
+    private UtilisateurServices: UtilisateurService
    
   ){}
 
@@ -32,7 +33,7 @@ export class ListeUtilisateurComponent implements OnInit {
           // Assurez-vous que la structure des données correspond à ce que vous attendez
           // Si les utilisateurs sont directement dans 'data', vous pouvez faire comme ceci :
           this.users = data;
-  
+          console.log(this.users)  
           // Créez un tableau pour stocker tous les rôles
          /* this.roles = [];
   

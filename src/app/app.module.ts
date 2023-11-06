@@ -11,11 +11,13 @@ import { FormsModule } from '@angular/forms';
 import { EditUtilisateurComponent } from './Utilisateur/Components/edit-utilisateur/edit-utilisateur.component';
 import { AjoutMedecinComponent } from './Medecin/Components/ajout-medecin/ajout-medecin.component';
 import { ListeMedecinComponent } from './Medecin/Components/liste-medecin/liste-medecin.component';
+import { MedecinComponentComponent } from './Medecin/Components/medecin-component/medecin-component.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent,   
+    AppComponent,
+    
   ],
   imports: [
     BrowserModule,

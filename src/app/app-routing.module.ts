@@ -33,8 +33,12 @@ const routes: Routes = [
       {
         path: 'listeMedecin',
         loadChildren: () => import('./Medecin/medecin.module').then(m => m.MedecinModule)
+      },
+      {
+        path: 'profilMedecin',
+        loadChildren: () => import('./Medecin/medecin.module').then(m => m.MedecinModule)
       }
-
+      
     ]
   },
   {

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ListeMedecinComponent } from './Components/liste-medecin/liste-medecin.component';
 import { AjoutMedecinComponent } from './Components/ajout-medecin/ajout-medecin.component';
+import { ProfilMedecinComponent } from './Components/profil-medecin/profil-medecin.component';
 
 
 
@@ -17,6 +18,10 @@ import { AjoutMedecinComponent } from './Components/ajout-medecin/ajout-medecin.
         path: 'list-medecin',
         component: ListeMedecinComponent,
         
+      },
+      {
+        path: 'profil-medecin/:id',
+        component: ProfilMedecinComponent
       }
     ])
   ],

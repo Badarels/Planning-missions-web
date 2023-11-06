@@ -1,9 +1,11 @@
 import { Adresse } from "./Adresse";
+import { Specialite } from "./Specialite";
 
 export class Medecin{
     public id: number | undefined;
     public nomMedecin : string | undefined;
     public prenomMedecin:string | undefined ;
+    public sexeMedecin:string | undefined ;
     public emailMedecin: string | undefined;
     public dateDeNaissanceMedecin: string | undefined;
     public lieuDeNaissanceMedecin: string | undefined;
@@ -14,5 +16,6 @@ export class Medecin{
     public numeroRpps: string | undefined;
     public inscription_A_lordre: boolean | undefined;
     public adresse :Adresse | undefined; 
+    public specialites :Specialite[] | undefined; 
 }
 
