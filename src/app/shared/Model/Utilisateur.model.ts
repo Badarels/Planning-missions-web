@@ -11,7 +11,7 @@ export class UtilisateurModel{
     public telephoneUser: string | undefined;
     public emailUser: string | undefined;
     public sexeUser: string | undefined;
-    public adresseuser: string | undefined;
+    public adresseUser: string | undefined;
     public archive: boolean | undefined;
     public passwordChange: boolean | undefined;
     public numero_piece_identiteUser: boolean | undefined;

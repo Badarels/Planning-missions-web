@@ -37,8 +37,15 @@ const routes: Routes = [
       {
         path: 'profilMedecin',
         loadChildren: () => import('./Medecin/medecin.module').then(m => m.MedecinModule)
-      }
-      
+      },
+      {
+        path: 'ajoutCentreHospitalier',
+        loadChildren: () => import('./centreHospitalier/centre-hospitalier.module').then(ch => ch.CentreHospitalierModule)
+      },
+      {
+        path: 'listeCentreHospitalier',
+        loadChildren: () => import('./centreHospitalier/centre-hospitalier.module').then(ch => ch.CentreHospitalierModule)
+      },
     ]
   },
   {

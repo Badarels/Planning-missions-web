@@ -8,16 +8,15 @@ import { AuthetificationModule } from './authentification/authetification.module
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from './shared/shared.module';
 import { FormsModule } from '@angular/forms';
-import { EditUtilisateurComponent } from './Utilisateur/Components/edit-utilisateur/edit-utilisateur.component';
-import { AjoutMedecinComponent } from './Medecin/Components/ajout-medecin/ajout-medecin.component';
-import { ListeMedecinComponent } from './Medecin/Components/liste-medecin/liste-medecin.component';
-import { MedecinComponentComponent } from './Medecin/Components/medecin-component/medecin-component.component';
+import { ToastrModule } from 'ngx-toastr'; 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { JsonContentTypeInterceptor } from './shared/helper/jsonContentType.interceptor';
 
 
 @NgModule({
   declarations: [
-    AppComponent,
-    
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -27,10 +26,16 @@ import { MedecinComponentComponent } from './Medecin/Components/medecin-componen
     NgbModule,
     SharedModule,
     FormsModule,
-    
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
+   
+
   ],
-  providers: [],
+  providers: [ 
+    {provide: HTTP_INTERCEPTORS, useClass: JsonContentTypeInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent],
+  
 })
 
 export class AppModule { }

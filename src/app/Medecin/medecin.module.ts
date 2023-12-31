@@ -5,6 +5,8 @@ import { AjoutMedecinComponent } from './Components/ajout-medecin/ajout-medecin.
 import { ListeMedecinComponent } from './Components/liste-medecin/liste-medecin.component';
 import { SharedModule } from '../shared/shared.module';
 import { ProfilMedecinComponent } from './Components/profil-medecin/profil-medecin.component';
+import { SearchPipe } from '../pipe/search.pipe';
+import { SearchAdressePipe } from '../pipe/search-adresse.pipe';
 
 
 
@@ -12,11 +14,14 @@ import { ProfilMedecinComponent } from './Components/profil-medecin/profil-medec
   declarations: [
     AjoutMedecinComponent,
     ListeMedecinComponent,
-    ProfilMedecinComponent
+    ProfilMedecinComponent,
+    SearchPipe,
+    SearchAdressePipe
   ],
   imports: [
     SharedModule,
-    MedecinRoutingModule
+    MedecinRoutingModule,
+  
   ]
 })
 export class MedecinModule { }

@@ -28,7 +28,7 @@
                         <ul class="nav nav-pills mb-3">
                             <li class="nav-item"><a href="#list-view" data-toggle="tab" class="nav-link btn-primary mr-1 show active">Vue Liste</a></li>
                             <li class="nav-item"><a href="#grid-view" data-toggle="tab" class="nav-link btn-primary">Vue Grille</a></li>
-                            <li class="nav-item"><a  data-toggle="tab" class="nav-link btn-primary" [routerLink]="'/ajoutUtilisateur/Ajout-Utilisateur'">+ Ajouter nouveau</a></li>
+                            <li class="nav-item"><a  data-toggle="tab" class="nav-link btn-primary" [routerLink]="'/ajoutMedecin/Ajout-Utilisateur'">+ Ajouter nouveau</a></li>
 
                         </ul>
                     </div>
@@ -39,7 +39,7 @@
                                 
                                 <div class="card">
                                     <div class="card-header">
-                                        <h4 class="card-title">Liste des utilisateurs</h4>
+                                        <h4 class="card-title">Utilisateurs</h4>
                                     </div>
                                     <div class="card-body">
                                         <div class="table-responsive">
@@ -65,7 +65,7 @@
                                                         <td style="min-width: 200px">{{user?.nomUser}}</td>
                                                         <td style="min-width: 250px">
                                                             {{user?.prenomUser}}</td>
-                                                        <td style="min-width: 200px">{{user?.adresseuser}}</td>
+                                                        <td style="min-width: 200px">{{user?.adresseUser}}</td>
                                                         <td style="min-width: 200px">{{user?.sexeUser}}</td>    
                                                         <td style="min-width: 250px">{{user?.date_naissanceUser}}</td>
                                                         <td style="min-width: 200px">{{user?.emailUser}}</td>
@@ -76,12 +76,25 @@
                                                         <td style="min-width: 200px">
                                                             {{user?.roles?.nomRoles}} <!-- Affiche le contenu du rôle -->
                                                         </td>
-
-
-                                                        <td style="min-width: 250px; text-align: center;">
-                                                            <a href="assets/js/javascript:void(0);" class="btn btn-sm btn-primary" style="margin: 5px;" ><i class="la la-pencil"></i>Modifier</a>
-                                                            <a href="assets/js/javascript:void(0);" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i>Supprimer</a>
-                                                        </td>												
+                                                                        
+                                                        <td>
+                                                        <div class="dropdown">
+                                                            <button
+                                                              class="btn btn-primary dropdown-toggle hidden-arrow"
+                                                              type="button"
+                                                              id="dropdownMenuButton1"
+                                                              data-mdb-toggle="dropdown"
+                                                              aria-expanded="false"
+                                                            >
+                                                              <i class="fas fa-ellipsis-v fa-lg"></i>
+                                                            </button>
+                                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                                              <li><a class="dropdown-item" href="#"> <i class="fas fa-user-alt pe-2"></i>My Profile</a></li>
+                                                              <li><a class="dropdown-item" href="#"> <i class="fas fa-cog pe-2"></i>Settings</a></li>
+                                                              <li><a class="dropdown-item" href="#"> <i class="fas fa-door-open pe-2"></i>Logout</a></li>
+                                                            </ul>
+                                                          </div>
+                                                        </td>											
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -120,12 +133,12 @@
                                                         <li class="list-group-item px-0 d-flex justify-content-between">
                                                             <span class="mb-0">N° Telephone :</span><strong>{{user?.telephoneUser}}</strong></li>
                                                         <li class="list-group-item px-0 d-flex justify-content-between">
-                                                            <span class="mb-0">Adresse. :</span><strong>{{user?.adresseuser}}</strong></li>
+                                                            <span class="mb-0">Adresse. :</span><strong>{{user?.adresseUser}}</strong></li>
                                                         <li class="list-group-item px-0 d-flex justify-content-between">
                                                             <span class="mb-0">Email:</span><strong>{{user?.emailUser}}</strong></li>
                                                     </ul>
                                                     <a class="btn btn-outline-primary btn-rounded mt-3 px-4" onclick="window.open('https://app.ringover.com/call-logs', '_blank')" 
-                                                    value="782593695" href="">{{user?.telephoneUser}}</a>
+                                                    value="782593695" href="">Voir plus</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -146,4 +159,6 @@
     Content body end
 ***********************************-->
 </section>
+
 </main>
+

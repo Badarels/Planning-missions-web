@@ -4,8 +4,13 @@ import { Subscription } from 'rxjs';
 import { RoleModel } from 'src/app/shared/Model/Role.Model';
 import { UtilisateurModel } from 'src/app/shared/Model/Utilisateur.model';
 import { UtilisateurService } from '../../Services/utilisateur.service';
-import { ToastrService } from 'ngx-toastr';
+//import { ToastrService } from 'ngx-toastr';
+import { ToastService } from 'src/app/Utilisateur/Services/toast.service'
+//import toastr from 'toastr';
 
+
+import Swal from 'sweetalert2';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-ajouter-utilisateur',
@@ -13,6 +18,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./ajouter-utilisateur.component.css']
 })
 export class AjouterUtilisateurComponent implements OnInit{
+  
 
   subscriptions = [] as Subscription[];
   connectedUser = new UtilisateurModel();
@@ -25,9 +31,9 @@ export class AjouterUtilisateurComponent implements OnInit{
 
 
 constructor(
-  //private toastr: ToastrService,
-  private UtilisateurServices: UtilisateurService
-){}
+  private UtilisateurServices: UtilisateurService,
+  private toastService: ToastService
+  ){}
 
 private initForm(utilisateur: UtilisateurModel){
   if(utilisateur){
@@ -37,7 +43,7 @@ private initForm(utilisateur: UtilisateurModel){
     this.userForm=new FormGroup({
       'nomuser':new FormControl(utilisateur?.nomUser,[Validators.required]),
       'prenomuser': new FormControl(utilisateur?.prenomUser, [Validators.required]),
-      'adresseuser': new FormControl(utilisateur?.adresseuser, [Validators.required]),
+      'adresseuser': new FormControl(utilisateur?.adresseUser, [Validators.required]),
       'passworduser': new FormControl(utilisateur?.passwordUser, [Validators.required]),
       'telephoneuser': new FormControl(utilisateur?.telephoneUser, [Validators.required]),
       'datenaissuser': new FormControl(utilisateur?.date_naissanceUser,[Validators.required]),
@@ -61,25 +67,38 @@ private initForm(utilisateur: UtilisateurModel){
   }
 }
 
+
   ngOnInit(): void {
       this.initForm(new UtilisateurModel());
+    
   }
 
+
   shouldShowNomRequiredError() {
-    const nomuser = this.userForm.controls['nomUser'];
+    const nomuser = this.userForm.controls['nomuser'];
     return nomuser.touched && nomuser.hasError('required');
   }
-  shouldShowPreomRequiredError() {
-    const prenomuser= this.userForm.controls['prenomUser'];
+  shouldShowPrenomRequiredError() {
+    const prenomuser= this.userForm.controls['prenomuser'];
     return prenomuser.touched && prenomuser.hasError('required');
   }
+  shouldShowEmailuserRequiredError() {
+    const emailuser= this.userForm.controls['emailuser'];
+    return emailuser.touched && emailuser.hasError('required');
+  }
+
+  shouldShowPassworduserRequiredError() {
+    const passworduser = this.userForm.controls['passworduser'];
+    return passworduser.touched && passworduser.hasError('required');
+  }
+  
   shouldShowAdresseRequiredError() {
     const adresseuser = this.userForm.controls['adresseuser'];
     return adresseuser.touched && adresseuser.hasError('required');
   }
   shouldShowTelephoneRequiredError() {
-    const telephoneUser = this.userForm.controls['nomUser'];
-    return telephoneUser.touched && telephoneUser.hasError('required');
+    const telephoneuser = this.userForm.controls['telephoneuser'];
+    return telephoneuser.touched && telephoneuser.hasError('required');
   }
 
   shouldShowDateNaissanceRequiredError() {
@@ -87,13 +106,14 @@ private initForm(utilisateur: UtilisateurModel){
     return datenaissuser.touched && datenaissuser.hasError('required');
   }
   shouldShowSexeRequiredError() {
-    const sexeuser = this.userForm.controls['sexeUser'];
+    const sexeuser = this.userForm.controls['sexeuser'];
     return sexeuser.touched && sexeuser.hasError('required');
   }
   shouldShowIneRequiredError() {
     const ineuser = this.userForm.controls['ineUser'];
     return ineuser.touched && ineuser.hasError('ineUser');
   }
+
  /* showCustomToast() {
     this.toastr.success('Message personnalisé', 'Titre personnalisé', {
       timeOut: 3000, // Temps en millisecondes avant que la notification disparaisse (facultatif)
@@ -102,34 +122,42 @@ private initForm(utilisateur: UtilisateurModel){
       positionClass: 'toast-top-right', // Position de la notification (facultatif)
     });
   }*/
-  onSaveUtilisateur() {
-    if (this.utilisateur) {
-      this.utilisateur.nomUser= this.userForm.value.nomuser;
-      this.utilisateur.prenomUser = this.userForm.value.prenomuser;
-      this.utilisateur.adresseuser = this.userForm.value.adresseuser;
-      this.utilisateur.passwordUser = this.userForm.value.passworduser;
-      this.utilisateur.date_naissanceUser = this.userForm.value.datenaissuser;
-      this.utilisateur.telephoneUser=this.userForm.value.telephoneuser;
-      this.utilisateur.sexeUser=this.userForm.value.sexeuser;
-      this.utilisateur.emailUser=this.userForm.value.emailuser;
-      this.utilisateur.numero_piece_identiteUser=this.userForm.value.ineuser;
-      
-      this.subscriptions.push(
-        (this.utilisateur.id ? this.UtilisateurServices.editUser(this.utilisateur,this.utilisateur.id)
-          : this.UtilisateurServices.addUser(this.utilisateur))
-        .subscribe(
-          () => {
-            console.log('');
-          },(error) => {
-            console.error('Erreur lors de l\'ajout des utilisateurs :', error);
-          }, () => {
-            //alert('ajout d\'utilisateur avec succes');
-           // this.showCustomToast();
-           return true;
-          }
-        )
-      );
+
+  onSaveUtilisateurs() {
+    if (this.userForm.valid) {
+      const formData = this.userForm.value;
+  
+      if (this.utilisateur) {
+        this.utilisateur.nomUser = formData.nomuser;
+        this.utilisateur.prenomUser = formData.prenomuser;
+        this.utilisateur.adresseUser = formData.adresseuser;
+        this.utilisateur.passwordUser = formData.passworduser;
+        this.utilisateur.date_naissanceUser = formData.datenaissuser;
+        this.utilisateur.telephoneUser = formData.telephoneuser;
+        this.utilisateur.sexeUser = formData.sexeuser;
+        this.utilisateur.emailUser = formData.emailuser;
+        this.utilisateur.numero_piece_identiteUser = formData.ineuser;
+  
+        const userObservable = this.utilisateur.id
+          ? this.UtilisateurServices.editUser(this.utilisateur, this.utilisateur.id)
+          : this.UtilisateurServices.addUser(this.utilisateur);
+  
+        this.subscriptions.push(
+          userObservable.subscribe(
+            () => {
+              console.log('Utilisateur ajouté ou mis à jour avec succès.');
+              this.toastService.showSuccessToast()
+              // Réinitialiser le formulaire après la soumission
+              this.userForm.reset();
+            },
+            (error) => {
+              console.error('Erreur lors de l\'ajout ou de la mise à jour de l\'utilisateur :', error);
+              this.toastService.showErrorToast()
+            }
+          )
+        );
+      }
     }
   }
-
+  
 }

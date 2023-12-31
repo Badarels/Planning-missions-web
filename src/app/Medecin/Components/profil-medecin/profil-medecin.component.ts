@@ -16,8 +16,7 @@ import { AnyCatcher } from 'rxjs/internal/AnyCatcher';
 export class ProfilMedecinComponent implements OnInit{
   
   medecinId: number=0;
-  medecin:any;
-
+  medecin?:Medecin;
  
   Specialite=[] as Specialite[];
   subscription= [] as Subscription[];
@@ -34,13 +33,13 @@ getMedecin(){
   }, (error) => console.log(error));
 }
 
-ngOnInit(): void {
-  this.route.params.subscribe(params => {
-    this.medecinId = +params['id']; // Convertir l'ID en nombre
-    this.getMedecin();
-  });
-  console.log('ID Médecin récupéré dans Oninit:',this.medecinId )
+  ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      this.medecinId = +params['id']; // Convertir l'ID en nombre
+      this.getMedecin();
+    });
+    console.log('ID Médecin récupéré dans Oninit:',this.medecinId )
 
-}
+  }
  
 }

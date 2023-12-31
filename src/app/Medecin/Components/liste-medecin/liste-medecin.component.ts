@@ -3,8 +3,9 @@ import { Adresse } from 'src/app/shared/Model/Adresse';
 import { Medecin } from 'src/app/shared/Model/Medecin';
 import { MedecinService } from '../../Services/medecin.service';
 import { Subscription } from 'rxjs';
-import { DataServicesService } from 'src/app/shared/Services/data-services.service';
-import { Specialite } from 'src/app/shared/Model/Specialite';
+import { AdresseService } from 'src/app/Adresses/Services/adresse.service';
+
+
 
 @Component({
   selector: 'app-liste-medecin',
@@ -14,24 +15,49 @@ import { Specialite } from 'src/app/shared/Model/Specialite';
 export class ListeMedecinComponent implements OnInit {
 
 
-
-  //@Output() medecinSelectionne = new EventEmitter<any>();
-
   ngOnInit(): void {
     this.getMedecin();
-    //this.getSpecialite
+    this.getAdresses();
   }
   Medecin=[] as Medecin[];
   medecin=new  Medecin;
   Adresse=[] as Adresse[]; 
   specialite: any;
   medecinId:number=0;
+  selectedVille: string = '';
+  medecins: Medecin[] = [];
+  medecinsfilter: Medecin[] = [];
+  filterText: string = '';
+  filteredMedecin: Medecin[] = [];
+
+  items: string[] = [];
+  searchText = '';
 
   subscriptions = [] as Subscription[];
  
-constructor(private medecinServices: MedecinService){
+constructor(private medecinServices: MedecinService, private adresseServices: AdresseService){
   
 }
+
+formatDate(date: Date): string {
+  return new Date(date).toISOString().slice(0, 10);
+}
+
+getAdresses(){
+  this.subscriptions.push(
+    this.adresseServices.getAllAdresses().subscribe(
+      (adresse: any) => {
+        this.Adresse = adresse;
+      },
+      (error)=> {
+        console.error('Erreur lors de la récupération des adresses :', error)
+      }
+    )
+  );
+
+}
+
+
 getMedecin() {
   this.subscriptions.push(
     this.medecinServices.getMedecin().subscribe(
@@ -52,8 +78,19 @@ getSpecialite(medecinId: number){
     });
 }
 
+searchMedecins(): void {
+  if (this.selectedVille) {
+    this.medecinServices.searchMedecinsByVille(this.selectedVille)
+      .subscribe(medecins => this.medecins = medecins);
+  } else {
+    // Si aucune ville sélectionnée, affichez tous les médecins
+    this.medecinServices.getMedecin()
+      .subscribe(medecins => this.medecins = medecins);
+  }
+}
+
 ngOnDestroy() {
-  //this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+  this.subscriptions.forEach((subscription) => subscription.unsubscribe());
 }
 
 }

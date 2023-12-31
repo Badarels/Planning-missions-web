@@ -4,13 +4,21 @@
 
     <div class="pagetitle">
       <h1>Liste des Medecins</h1>
+      <div class="col-lg-12">
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.html">ACCUEIL</a></li>
           <li class="breadcrumb-item">Liste</li>
-          
+          <li class="navmedecin">
+            <div class="row mb-3">
+              <div class="col-sm-10 col-lg-12">
+                <button type="submit" class="btn btn-primary" [routerLink]="'/ajoutMedecin/Ajout-medecin'">+Ajout nouveau medecin</button>
+              </div>
+            </div>
+          </li>
         </ol>
       </nav>
+      </div>
     </div><!-- End Page Title -->
 <section class="section">
 <!--**********************************
@@ -22,31 +30,51 @@
 ***********************************-->
 <div class="content-body">
     <!-- row -->
-    <div class="container-fluid">       
-        <div class="row">
-            
+    <div class="container-fluid">            
 				<div class="row">
-                    <div class="col-lg-12">
-                        <ul class="nav nav-pills mb-3">
-                            <li class="nav-item"><a href="#list-view" data-toggle="tab" class="nav-link btn-primary mr-1 show active">Vue Liste</a></li>
-                            <li class="nav-item"><a href="#grid-view" data-toggle="tab" class="nav-link btn-primary">Vue Grille</a></li>
-                            <li class="nav-item"><a  data-toggle="tab" class="nav-link btn-primary">+ Ajouter nouveau</a></li>
-
-                        </ul>
+          <div class="col-lg-12">
+            <!-- Default Card  champ de recherche et choix de l'affichage des medecins-->
+            <div class="card" style="height: 60%;">
+              <div class="card-body py-2">
+                <ul class="nav nav-pills" style="margin-top: 0%;">
+                  <li class="nav-item">
+                    <a href="#grid-view" data-toggle="tab" class="nav-link active" aria-current="page">Vue Grille</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link mr-1" href="#list-view" data-toggle="tab">Vue Liste</a>
+                  </li>
+                  <li class="nav-item ml-auto offset-md-6 justify-content-md-end">
+                    <div class="col-md-12 col-lg-12 d-flex"> <!-- Utilisation de col-md-8 pour une longueur plus grande et d-flex pour la flexibilité -->
+                      <form class="form-inline mb-1">
+                        <div class="form-group">
+                          <div class="input-group" style="height: 30px;"> 
+                            <input class="form-control form-control-sm with-blue-border fas fa-search" type="search" [(ngModel)]="filterText" placeholder="Rechercher" aria-label="Search" name="filterText">
+                            <div class="input-group-append" style="height: 30px;">
+                              <span class="input-group-text"><i class="fas fa-search"></i></span>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
                     </div>
+                  </li>                  
+                  
+                </ul>
+              </div>
+            </div>
             
+            
+            <!-- End Default Card -->     
+         </div>
                     <div class="col-lg-12">
                         <div class="row tab-content">
-                            <div id="list-view" class="tab-pane fade active show col-lg-12">
-                                
+                            <div id="list-view" class="tab-pane fade  col-lg-12">
+                                <!-- medecin-search.component.html -->
                                 <div class="card">
-                                    <div class="card-header">
-                                        <h4 class="card-title">Liste des medecins</h4>
-                                    </div>
+                                        <h4 class="card-title" style="margin-left: 15px;">Medecins</h4>
+                                  <div *ngIf="!(medecins.length > 0)">
                                     <div class="card-body">
                                         <div class="table-responsive">
-                                            
-                                            <table class="table datatable">
+                                           <table class="table datatable">
                                                 <thead>
                                                     <tr>
                                                         <th>Nom</th>
@@ -56,20 +84,19 @@
                                                         <th>Date de Naissance</th>
                                                         <th>Email</th>
                                                         <th>Telephone</th>
-                                                        <th>Specialité</th>
-                                                       
+                                                        <th>Specialité</th>  
                                                         <th style="min-width: 200px">N° Rpps</th>
                                                         <th>N° Securite Sociale</th>
                                                         <th style="text-align: center;">Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                     <tr *ngFor="let medecin of Medecin" >
-                                                        <td style="min-width: 200px">{{medecin?.nomMedecin}}</td>
+                                                     <tr *ngFor="let medecin of Medecin | search: filterText">
+                                                        <td style="min-width: 200px">Dr. {{medecin?.nomMedecin}}</td>
                                                         <td style="min-width: 250px">{{medecin?.prenomMedecin}}</td>
                                                         <td style="min-width: 200px">{{medecin?.adresse?.ville}}</td>
                                                         <td style="min-width: 200px">{{medecin?.sexeMedecin}}</td>    
-                                                        <td style="min-width: 250px">{{medecin?.dateDeNaissanceMedecin}}</td>
+                                                        <td style="min-width: 250px">{{ medecin?.dateDeNaissanceMedecin| date:'dd-MM-yyyy' }}</td>
                                                         <td style="min-width: 200px">{{medecin?.emailMedecin}}</td>
                                                         <td style="min-width: 200px;">
                                                             <div style="display: flex;">
@@ -94,14 +121,17 @@
                                                     </tr>
                                                 </tbody>
                                             </table>
-                                        </div>
+                                      </div>
                                     </div>
+                                  </div>
+                                    
                                 </div>
                             </div>
-                            <div id="grid-view" class="tab-pane fade col-lg-12">
+
+                            <div id="grid-view" class="tab-pane active show fade col-lg-12">
                                 <div class="row">
-                              
-                                    <div class="col-lg-4 col-md-6 col-sm-6 col-12" *ngFor="let medecin of Medecin" >
+                                 <!-- <div *ngIf="!(medecins.length > 0)">-->
+                                    <div class="col-lg-4 col-md-6 col-sm-6 col-12 " *ngFor="let medecin of Medecin | search: filterText" >
                                         <div class="card card-profile" >
                                             <div class="card-header justify-content-end pb-0">
                                                 <div class="dropdown">
@@ -118,10 +148,10 @@
                                             </div>
                                             <div class="card-body pt-2">
                                                 <div class="text-center">
-                                                  <div class="profile-photo">
+                                                  <!--<div class="profile-photo">
                                                     <img src="" width="100" class="img-fluid rounded-circle" alt="">
-                                                  </div>
-                                                  <h3 class="mt-4 mb-1">{{medecin?.nomMedecin}}</h3>
+                                                  </div>-->
+                                                  <h3 class="mt-4 mb-1"> Dr. {{medecin?.nomMedecin}}</h3>
                                                   <p class="text-muted">{{medecin?.prenomMedecin}}</p>
                                                   <ul class="list-group mb-3 list-group-flush">
                                                     <li class="list-group-item px-0 d-flex justify-content-between">
@@ -132,42 +162,32 @@
                                                     </li>
                                                     <li class="list-group-item px-0 d-flex justify-content-between">
                                                       <span class="mb-0">N° Telephone 1 :</span>
-                                                      <strong>{{ medecin?.telephoneMedecin_1 }}</strong>
+                                                      <strong>{{medecin?.telephoneMedecin_1}}</strong>
                                                     </li>
-                                                    <li class="list-group-item px-0 d-flex justify-content-between">
-                                                      <span class="mb-0">N° Telephone 2 :</span>
-                                                      <strong>{{ medecin?.telephoneMedecin_2 }}</strong>
-                                                    </li>
+                                
                                                     <li class="list-group-item px-0 d-flex justify-content-between">
                                                       <span class="mb-0">Adresse :</span>
-                                                      <strong>{{ medecin?.adresse?.ville }}</strong>
+                                                      <strong>{{medecin?.adresse?.ville}}</strong>
                                                     </li>
                                                     <li class="list-group-item px-0 d-flex justify-content-between">
                                                       <span class="mb-0">Email:</span>
-                                                      <strong>{{ medecin?.emailMedecin }}</strong>
+                                                      <strong>{{medecin?.emailMedecin}}</strong>
                                                     </li>
                                                   </ul>
                                                   <a class="btn btn-outline-primary btn-rounded mt-3 px-4" 
                                                     [routerLink]="['/profilMedecin/profil-medecin', medecin?.id]">Voir plus</a>
                                                 </div>
                                               </div>
-                                              
+        
                                         </div>
                                     </div>
-                            </div>
-                            
+                                  </div>
                             </div>
                         </div>
-                    </div>
-                </div>
+          </div>
         </div>
-            </div>
-        </div>
-       
-    
-      
-
-     
+     </div>
+  </div>     
 </section>
 </main>
 

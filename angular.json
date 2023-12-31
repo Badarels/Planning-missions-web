@@ -16,23 +16,27 @@
             "outputPath": "dist/businesscenterservice-web",
             "index": "src/index.html",
             "main": "src/main.ts",
+            "tsConfig": "tsconfig.app.json",
             "polyfills": [
               "zone.js"
             ],
-            "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
               "src/assets"
             ],
             "styles": [
               "src/styles.css",
-              "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "src/assets/css/style.css",
-              "node_modules/bootstrap-icons/font/bootstrap-icons.css"
-
+              "./node_modules/ngx-toastr/toastr.css"
             ],
+           
             "scripts": [
-              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+              "./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+              "./node_modules/popper.js/dist/umd/popper.min.js",
+              "./node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "src/assets/vendor/bootstrap/js/bootstrap.min.js",
+              "src/assets/js/main.js",
+              "src/assets/vendor/apexcharts/apexcharts.min.js",
+              "src/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"
             ]
           },
           "configurations": {

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 
+
 @Component({
   selector: 'app-main-containts',
   templateUrl: './main-containts.component.html',
@@ -10,4 +11,6 @@ export class MainContaintsComponent {
     const element= document.body as HTMLElement
     element.classList.toggle('toggle-sidebar')
  }
+
+
 }

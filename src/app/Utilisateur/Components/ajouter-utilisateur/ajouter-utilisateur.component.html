@@ -21,7 +21,7 @@
       <h5 class="card-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> formulaire d'ajout utilisateur</font></font></h5>
 
       <!-- General Form Elements -->
-      <form [formGroup]="userForm" (submit)="onSaveUtilisateur()">
+      <form [formGroup]="userForm" (submit)="onSaveUtilisateurs()">
         <div class="row mb-3 offset-md-1">
           <label class="form-label" for="form3Example3">Prenom: </label>
             <div class="col-sm-11">
@@ -79,13 +79,13 @@
           <legend class="form-label" for="form3Example3" style="font-size:medium">Sexe: </legend>
             <div class="col-sm-11">
             <div class="form-check">
-              <input class="form-check-input" type="radio" formControlName="sexeuser" name="gridRadios" id="gridRadios1" value="Masculin" checked="">
+              <input class="form-check-input" type="radio"  name="sexeuser" formControlName="sexeuser" id="gridRadios1" value="Masculin" checked="">
               <label class="form-check-label" style="font-size:small" for="gridRadios1">
                 MASCULIN
              </label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="gridRadios" formControlName="sexeuser" id="gridRadios2" value="Feminin">
+              <input class="form-check-input" type="radio" name="sexeuser" formControlName="sexeuser" id="gridRadios2" value="Feminin">
               <label class="form-check-label" style="font-size:small" for="gridRadios2">
                 FEMININ
               </label>
@@ -99,11 +99,6 @@
           </div>
         </div>
 
-        <div *ngIf="onSaveUtilisateur()" class="alert alert-success alert-dismissible fade show" role="alert">
-          <i class="bi bi-check-circle me-1"></i>
-          A simple success alert with icon—check it out!
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
       </form><!-- End General Form Elements -->
 
     </div>

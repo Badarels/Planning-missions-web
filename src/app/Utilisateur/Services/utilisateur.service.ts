@@ -24,10 +24,11 @@ export class UtilisateurService {
 
   }*/
   addUser(Utilisateur: UtilisateurModel){
-    return this.http.post<UtilisateurModel>(this.baseUrl+'AjoutUsers',Utilisateur);
+    return this.http.post<UtilisateurModel>(this.baseUrl+'/AjoutUsers',Utilisateur);
   }
+  
   editUser(Utilisateur: UtilisateurModel, UtilisateurID: number){
-    return this.http.put<UtilisateurModel>(this.baseUrl+'modifierUser/'+UtilisateurID,Utilisateur);
+    return this.http.put<UtilisateurModel>(this.baseUrl+'/modifierUser/'+UtilisateurID,Utilisateur);
   }
 
 }

@@ -7,7 +7,7 @@ export class Medecin{
     public prenomMedecin:string | undefined ;
     public sexeMedecin:string | undefined ;
     public emailMedecin: string | undefined;
-    public dateDeNaissanceMedecin: string | undefined;
+    public dateDeNaissanceMedecin: Date | undefined;
     public lieuDeNaissanceMedecin: string | undefined;
     public numeroSecuriteSocialeMedecin: string | undefined;
     public telephoneMedecin_1 : string | undefined;
