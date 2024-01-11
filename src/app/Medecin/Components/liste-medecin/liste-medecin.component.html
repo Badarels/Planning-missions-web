@@ -133,18 +133,8 @@
                                  <!-- <div *ngIf="!(medecins.length > 0)">-->
                                     <div class="col-lg-4 col-md-6 col-sm-6 col-12 " *ngFor="let medecin of Medecin | search: filterText" >
                                         <div class="card card-profile" >
-                                            <div class="card-header justify-content-end pb-0">
-                                                <div class="dropdown">
-                                                    <button class="btn btn-link" type="button" data-toggle="dropdown">
-                                                        <span class="dropdown-dots fs-1"></span>
-                                                    </button>
-                                                    <div class="dropdown-menu dropdown-menu-right border py-0">
-                                                        <div class="py-2">
-                                                            <a class="dropdown-item" href="javascript:void(0);">Modifier</a>
-                                                            <a class="dropdown-item text-danger" href="javascript:void(0);">Suprimer</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                            <div class="card-header justify-content-end">
+                                              
                                             </div>
                                             <div class="card-body pt-2">
                                                 <div class="text-center">
@@ -178,13 +168,12 @@
                                                     [routerLink]="['/profilMedecin/profil-medecin', medecin?.id]">Voir plus</a>
                                                 </div>
                                               </div>
-        
                                         </div>
                                     </div>
                                   </div>
                             </div>
                         </div>
-          </div>
+          </div> 
         </div>
      </div>
   </div>     

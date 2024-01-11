@@ -4,6 +4,7 @@ import { ListeCentreHospitalierComponent } from './Component/liste-centre-hospit
 
 import { RouterModule } from '@angular/router';
 import { AjoutCentreHospitalierComponent } from './Component/ajout-centre-hospitalier/ajout-centre-hospitalier.component';
+import { EditCentreHospitalierComponent } from './Component/edit-centre-hospitalier/edit-centre-hospitalier.component';
 
 
 
@@ -18,6 +19,10 @@ imports: [
     {
       path: 'list-CentreHospitalier',
       component: ListeCentreHospitalierComponent
+    },
+    {
+      path: 'edit-CentreHospitalier/:id',
+      component: EditCentreHospitalierComponent  
     },
   ])
 ],

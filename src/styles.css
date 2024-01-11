@@ -1,8 +1,46 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
 body {
-    font-family: "Open Sans", sans-serif;
+    /*font-family: "Open Sans", sans-serif;*/
+    font-family: 'Roboto', sans-serif;
     background: #f6f9ff !important;
     color: #444444;
+  }
+
+  :root {
+  --font-family-base: 'Open Sans', sans-serif; /* Remplacez par votre choix de police */
+}
+
+.buttonMenu.dropdown-toggle::after {
+  display: none;  /* Masque la flèche du dropdown */
+}
+
+  .menu-button {
+    background-color: transparent;
+    color: #333; /* Couleur du texte */
+  }
+  
+  .menu-button:hover {
+    background-color: #f0f0f0; /* Couleur de fond au survol */
+  }
+  
+  .mat-menu-panel {
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2); /* Ombre légère */
+  }
+  
+  .mat-menu-item {
+    padding: 8px 16px; /* Espacement du texte à l'intérieur de chaque élément de menu */
+    color: #333; /* Couleur du texte */
+  }
+  
+  .mat-menu-item:hover {
+    background-color: #f0f0f0; /* Couleur de fond au survol */
+  }
+  
+  /* Classe pour la ligne de séparation */
+  .menu-divider {
+    border-top: 1px solid #ccc; /* Ligne de séparation entre les éléments de menu */
+    margin: 8px 0; /* Ajoute un peu d'espace entre les éléments du menu */
   }
 
   .with-blue-border {
@@ -483,6 +521,10 @@ h6 {
   font-weight: 700;
   color: #012970;
   font-family: "Nunito", sans-serif;
+}
+
+.border-subtle-blue {
+  border-color: #85a1c1; /* Couleur bleue avec une saturation réduite */
 }
 
 .header {
@@ -1340,3 +1382,5 @@ h6 {
   font-size: 13px;
   color: #012970;
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

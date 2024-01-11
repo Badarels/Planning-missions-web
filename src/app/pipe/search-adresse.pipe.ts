@@ -11,12 +11,16 @@ export class SearchAdressePipe implements PipeTransform {
       return adresses;
     }
   
-    const searchTextLower = searchText.trim().toLowerCase();
+    const searchTextLower = this.removeAccents(searchText.trim().toLowerCase());
 
     return adresses.filter(adresse => {
       const fullAdresse = ` ${adresse?.ville} ${adresse?.departement} ${adresse?.nomRue} ${adresse?.numeroRue} `.toLowerCase();
-      return fullAdresse.includes(searchTextLower);
+      return this.removeAccents(fullAdresse).includes(searchTextLower);
     });
   }    
 
+  private removeAccents(str: string): string {
+    return str?.normalize('NFD').replace(/[\u0300-\u036f]/g, '') || '';
+  }
 }
+

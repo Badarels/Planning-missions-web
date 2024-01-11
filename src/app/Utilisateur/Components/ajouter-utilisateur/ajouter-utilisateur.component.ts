@@ -9,7 +9,7 @@ import { ToastService } from 'src/app/Utilisateur/Services/toast.service'
 //import toastr from 'toastr';
 
 
-import Swal from 'sweetalert2';
+
 import { ToastrService } from 'ngx-toastr';
 
 @Component({

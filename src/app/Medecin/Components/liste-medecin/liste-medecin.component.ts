@@ -29,15 +29,13 @@ export class ListeMedecinComponent implements OnInit {
   medecinsfilter: Medecin[] = [];
   filterText: string = '';
   filteredMedecin: Medecin[] = [];
-
   items: string[] = [];
   searchText = '';
+  isDropdownOpen = false;
 
   subscriptions = [] as Subscription[];
  
-constructor(private medecinServices: MedecinService, private adresseServices: AdresseService){
-  
-}
+constructor(private medecinServices: MedecinService, private adresseServices: AdresseService){}
 
 formatDate(date: Date): string {
   return new Date(date).toISOString().slice(0, 10);
@@ -57,6 +55,19 @@ getAdresses(){
 
 }
 
+toggleDropdown() {
+  this.isDropdownOpen = !this.isDropdownOpen;
+}
+
+modifier() {
+  // Logique pour l'action "Modifier"
+  console.log('Modifier cliqué');
+}
+
+supprimer() {
+  // Logique pour l'action "Supprimer"
+  console.log('Supprimer cliqué');
+}
 
 getMedecin() {
   this.subscriptions.push(

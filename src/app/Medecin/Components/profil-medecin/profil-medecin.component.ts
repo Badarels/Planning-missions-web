@@ -21,9 +21,7 @@ export class ProfilMedecinComponent implements OnInit{
   Specialite=[] as Specialite[];
   subscription= [] as Subscription[];
 
-constructor(private route: ActivatedRoute,private router: Router,private dataService: DataServicesService, private medecinServices: MedecinService){
- 
-}
+constructor(private route: ActivatedRoute, private medecinServices: MedecinService){}
 
 getMedecin(){
   this.medecinServices.getMedecinById(this.medecinId)
@@ -33,13 +31,11 @@ getMedecin(){
   }, (error) => console.log(error));
 }
 
-  ngOnInit(): void {
-    this.route.params.subscribe(params => {
+ngOnInit(): void {
+  this.route.params.subscribe(params => {
       this.medecinId = +params['id']; // Convertir l'ID en nombre
       this.getMedecin();
     });
     console.log('ID Médecin récupéré dans Oninit:',this.medecinId )
-
   }
- 
 }

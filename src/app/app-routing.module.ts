@@ -46,6 +46,10 @@ const routes: Routes = [
         path: 'listeCentreHospitalier',
         loadChildren: () => import('./centreHospitalier/centre-hospitalier.module').then(ch => ch.CentreHospitalierModule)
       },
+      {
+        path: 'editCentreHospitalier',
+        loadChildren: () => import('./centreHospitalier/centre-hospitalier.module').then(ch => ch.CentreHospitalierModule)
+      },
     ]
   },
   {

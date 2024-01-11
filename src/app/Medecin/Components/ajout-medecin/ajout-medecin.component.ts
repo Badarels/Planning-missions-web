@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Medecin } from 'src/app/shared/Model/Medecin';
 import { MedecinService } from '../../Services/medecin.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -17,7 +17,7 @@ import { MedecinSpecialite } from 'src/app/shared/Model/MedecinSpecialite';
 })
 export class AjoutMedecinComponent implements OnInit{
 
-
+  @ViewChild('dropdown') dropdown: any;
   medecin= new  Medecin();
   adresse=new Adresse();
   medecinForm!: FormGroup;
@@ -30,6 +30,7 @@ export class AjoutMedecinComponent implements OnInit{
   adresseSelectionnee: any = null;  // Stocke l'adresse sélectionnée
   specialiteSelectionnee: Specialite | null = null;
   specialitesSelectionnees: Specialite[] = [];
+  showDropdown: boolean = false;
   
 
  
@@ -66,12 +67,24 @@ export class AjoutMedecinComponent implements OnInit{
   }
 
   // Fonction appelée lorsqu'une adresse est sélectionnée
-  selectAddress(adresse: any) {
+ /* selectAddress(adresse: any) {
     this.selectedAddress = adresse;
+  }*/
+
+  selectAddress(address: any) {
+    this.selectedAddress = address;
+    this.showDropdown = false; // Masquer la liste déroulante après la sélection
   }
-  selectAddresse(adresse: any) {
-    this.adresseSelectionnee = adresse;
+  
+  deselectAddress() {
+    this.selectedAddress = null;
+    this.showDropdown = false; // Ne pas dérouler la liste après la désélection
   }
+  
+  toggleDropdown() {
+    this.showDropdown = !this.showDropdown;
+  }
+
 // La fonction pour sélectionner/désélectionner une spécialité
 selectSpecialite(specialite: Specialite): void {
   // Vérifiez si la spécialité est déjà sélectionnée
@@ -108,8 +121,6 @@ toggleSpecialiteSelection(specialite: Specialite): void {
   }
 
   private initForm(medecin: Medecin, adresse: Adresse){
-
-
     if(medecin){
       this.medecinForm=new FormGroup(
         {
@@ -319,11 +330,9 @@ onSaveMedecinAndAdresse() {
     }
   }
 }
-
-
  
 onSaveMedecinAndAdresses(){
-  if (this.medecinForm.valid) {
+  if(this.medecinForm.valid){
     this.submitted=true;
     console.log("medcinForm valide");
     const formData = this.medecinForm.value;
@@ -465,3 +474,6 @@ ngOnDestroy() {
 }
 
 } 
+
+
+

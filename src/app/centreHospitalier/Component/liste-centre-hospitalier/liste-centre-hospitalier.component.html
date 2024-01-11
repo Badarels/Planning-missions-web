@@ -27,9 +27,7 @@
             <div class="card">
                 <div class="card-body">
               
-                  <h5 class="card-title">Centre Hospitaliers</h5>
-                  <p>Add lightweight datatables to your project with using the <a href="https://github.com/fiduswriter/Simple-DataTables" target="_blank">Simple DataTables</a> library. Just add <code>.datatable</code> class name to any table you wish to conver to a datatable</p>
-              
+                  <h2 class="card-title">Centre Hospitaliers</h2>              
                   <!-- Formulaire de recherche à droite avec une taille md-5 -->
                   <div class="col-md-4 col-lg-4 offset-md-8 justify-content-md-end">
                     <form class="form-inline mb-3 ml-auto">
@@ -42,12 +40,13 @@
                         </div>
                       </div>
                     </form>
-                  </div>
+                  </div> 
                   <!-- Tableau avec des lignes rayées -->
                   <table class="table datatable" id="">
                     <thead>
                       <tr>
                         <th scope="col">Nom de la Structure</th>
+                        <th scope="col">Siret</th>
                         <th scope="col">Email</th>
                         <th scope="col">Région</th>
                         <th scope="col">Ville</th>
@@ -59,8 +58,9 @@
                       </tr>
                     </thead> 
                     <tbody>
-                      <tr *ngFor="let ch of centreHospitaliers | searchCH: filteText ">
-                        <td>{{ch?.nom_Ch}}</td>
+                      <tr *ngFor="let ch of centreHospitaliers | searchCH: filteText">
+                        <td>{{ch?.nom_ch}}</td>
+                        <td>{{ch?.siret}}</td>
                         <td>{{ch?.email_ch}}</td>
                         <td>{{ch?.adresse?.region}}</td>
                         <td>{{ch?.adresse?.ville}}</td>
@@ -68,10 +68,21 @@
                         <td>{{ch?.adresse?.codePostal}}</td>
                         <td>{{ch?.adresse?.nomRue}}</td>
                         <td>{{ch?.telephone}}</td>
-                        <td><i class="bi bi-three-dots-vertical"></i></td>
+                        <td>
+                          <div ngbDropdown class="d-inline-block">
+                            <button class="btn btn-light buttonMenu d-inline-flex align-items-start" id="dropdownMenuButton" ngbDropdownToggle>
+                              <i class="bi bi-three-dots-vertical"></i>
+                            </button>
+                            <div ngbDropdownMenu [ngClass]="{'show': isDropdownOpen}" aria-labelledby="dropdownMenuButton">
+                              <button class="dropdown-item" [routerLink]="['/editCentreHospitalier/edit-CentreHospitalier', ch?.id]">Modifier</button>
+                              <button class="dropdown-item" (click)="supprimerCentreHospitalier(ch?.id)">Supprimer</button>
+                            </div>
+                          </div>
+                        </td>
                       </tr>
                     </tbody>
                   </table>
+                  
                   <!-- Fin du tableau avec des lignes rayées -->
                 </div>
               </div>

@@ -5,18 +5,21 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LayoutsModule } from './layouts/layouts.module';
 import { AuthetificationModule } from './authentification/authetification.module';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDropdownModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from './shared/shared.module';
 import { FormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr'; 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JsonContentTypeInterceptor } from './shared/helper/jsonContentType.interceptor';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
+import { EditCentreHospitalierComponent } from './centreHospitalier/Component/edit-centre-hospitalier/edit-centre-hospitalier.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -28,6 +31,9 @@ import { JsonContentTypeInterceptor } from './shared/helper/jsonContentType.inte
     FormsModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
+    [MatMenuModule],
+    NgbDropdownModule,
+    NgbModule,
    
 
   ],

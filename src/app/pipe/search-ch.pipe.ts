@@ -1,6 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { CentreHospitalier } from '../shared/Model/CentreHospitalier';
-import { Adresse } from '../shared/Model/Adresse';
 
 @Pipe({
   name: 'searchCH'
@@ -8,26 +7,29 @@ import { Adresse } from '../shared/Model/Adresse';
 export class SearchCHPipe implements PipeTransform {
 
   transform(centreHospitalier: CentreHospitalier[], searchChText: string): any[] {
-    if(!centreHospitalier || !searchChText){
+    if (!centreHospitalier || !searchChText) {
       return centreHospitalier;
     }
 
-    const searchCHLower= searchChText.trim().toLowerCase();
+    const searchCHLower = this.removeAccents(searchChText.trim().toLowerCase());
 
-    return centreHospitalier.filter(centreHospitalier => {  
-      const fulladresse = `${centreHospitalier.adresse?.region} ${centreHospitalier.adresse?.ville} ${centreHospitalier.adresse?.departement} ${centreHospitalier.adresse?.nomRue}`.toLowerCase();
+    return centreHospitalier.filter(ch => {
+      const fulladresse = this.removeAccents(`${ch?.adresse?.ville} ${ch?.adresse?.departement} ${ch?.adresse?.nomRue} ${ch?.adresse?.numeroRue} ${ch?.adresse?.region}`.toLowerCase());
+
+      const emailChLower = this.removeAccents(ch?.email_ch ?? '')?.toLowerCase() || '';
+      const nomChLower = this.removeAccents(ch?.nom_ch ?? '')?.toLowerCase() || '';
+      const telephoneChLower = this.removeAccents(ch?.telephone ?? '')?.toLowerCase() || '';
+
       return (
-          (fulladresse.includes(searchCHLower)) ||
-          (centreHospitalier.email_ch?.toLowerCase().includes(searchCHLower)) ||  
-          (centreHospitalier.nom_Ch?.toLowerCase().includes(searchCHLower)) ||   
-          (centreHospitalier.telephone?.toLowerCase().includes(searchCHLower))
+        fulladresse.includes(searchCHLower) ||
+        emailChLower.includes(searchCHLower) ||
+        nomChLower.includes(searchCHLower) ||
+        telephoneChLower.includes(searchCHLower)
       );
-  });
-  
-    
+    });
   }
 
-  
-
-
+  private removeAccents(str: string): string {
+    return str?.normalize('NFD').replace(/[\u0300-\u036f]/g, '') || '';
+  }
 }
