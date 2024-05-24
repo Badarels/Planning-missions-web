@@ -4,11 +4,29 @@ body {
     /*font-family: "Open Sans", sans-serif;*/
     font-family: 'Roboto', sans-serif;
     background: #f6f9ff !important;
+
     color: #444444;
   }
 
   :root {
   --font-family-base: 'Open Sans', sans-serif; /* Remplacez par votre choix de police */
+}
+.toast {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  position: fixed;
+  min-width: 200px;
+  max-width: 300px;
+  padding: 12px;
+  margin-bottom: 15px;
+  z-index: 999999;
+  background-color: #212529; /* couleur de fond de Bootstrap */
+  color: #ffffff; /* couleur du texte de Bootstrap */
+  border-radius: 5px;
+  opacity: 0.85;
+}
+
+.toast .btn {
+  margin-top: 5px;
 }
 
 .buttonMenu.dropdown-toggle::after {
@@ -19,7 +37,7 @@ body {
     background-color: transparent;
     color: #333; /* Couleur du texte */
   }
-  
+
   .menu-button:hover {
     background-color: #f0f0f0; /* Couleur de fond au survol */
   }
@@ -51,15 +69,31 @@ body {
 .thformat{
     width: 60px;
 }
+
 .tdformat{
     width: 500px;
+}
+.user_card{
+  font-size: small;
 }
 .card{
     font-size: smaller;  
 }
+.fa-search{
+  height: 30px;
+}
+.fa-recherche{
+  width: 20px;
+  height: 17px;
+}
+.gridUserbtnmenu:hover {
+  background-color: #717ff5;/* Couleur de fond grise */
+}
+
 .content-body{
     font-size: smaller;
 }
+
 .card-grid{
   max-width: 100px;
   max-height: 100px;
@@ -1172,6 +1206,12 @@ h6 {
   transition: 0.3s;
 }
 
+.hovered-row {
+  cursor: pointer; /* ou le style de curseur souhaité */
+    border: 1px rgb(100, 32, 211); /* ou le style de bordure et la couleur souhaités */
+
+}
+
 .profile .profile-card .social-links a:hover {
   color: #012970;
 }
@@ -1190,6 +1230,14 @@ h6 {
   color: rgba(1, 41, 112, 0.6);
 }
 
+.horairelabel {
+  font-weight: 600;
+  font-size: small;
+  color: rgba(1, 41, 112, 0.6);
+}
+.horaire_date{
+  width: 300px;
+}
 .profile .profile-edit label {
   font-weight: 600;
   color: rgba(1, 41, 112, 0.6);

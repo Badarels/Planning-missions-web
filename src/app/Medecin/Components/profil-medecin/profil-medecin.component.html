@@ -6,7 +6,7 @@
       <h1>Profile</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a [routerLink]="'/main'">Accueil</a></li>
+          <li class="breadcrumb-item"><a [routerLink]="'/Accueil/accueil'">Accueil</a></li>
           <li class="breadcrumb-item"><a [routerLink]="'/listeMedecin/list-medecin'">Medecins</a></li>
           <li class="breadcrumb-item active">Profile</li>
         </ol>
@@ -15,26 +15,7 @@
 
     <section class="section profile" *ngIf="medecin">
       <div class="row">
-        <div class="col-xl-4">
-
-          <div class="card">
-            <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-
-              <!--<img src="" alt="Profile" class="rounded-circle">-->
-              <h2> Dr. {{medecin.prenomMedecin}} {{medecin.nomMedecin}}</h2>
-              <span *ngFor="let specialite of medecin.specialites; let last = last">{{specialite.nomSpecialite}}<span *ngIf="!last"></span></span>
-              <h3>
-                </h3>
-              <div class="social-links mt-2">
-                <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-                <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-                <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-                <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
-              </div>
-            </div>
-          </div>
-
-        </div>
+  
 
         <div class="col-xl-8">
 
@@ -99,7 +80,6 @@
                 <div class="tab-pane fade pt-3" id="profile-settings">
 
                   <h5 class="card-title">Details Adresse</h5>
-
               
                     <div class="row rowprofil">
                       <div class="col-lg-3 col-md-4 label labelprofil">Nom Rue </div>
@@ -172,19 +152,12 @@
 
                   <div class="row rowprofil">
                     <div class="col-lg-3 col-md-4 label labelprofil">Qualifaications</div>
-                      <div class="col-md-6">
-                        <select id="inputState" class="form-select">
-                          <option selected>Qualifaications</option>
-                          <ng-container>
-                            <option></option>
-                          </ng-container>
-                        </select>
-                      </div>  
+                    <div class="col-lg-9 col-md-8">{{medecin.qualifications}}</div>
                   </div>
 
                     <div class="row rowprofil">
                       <div class="col-lg-3 col-md-4 label labelprofil">Statut</div>
-                      <div class="col-lg-9 col-md-8"></div>
+                      <div class="col-lg-9 col-md-8">{{medecin.statutMedecin}}</div>
                     </div>
 
                     <div class="row rowprofil">
@@ -194,12 +167,12 @@
 
                     <div class="row rowprofil">
                       <div class="col-lg-3 col-md-4 label labelprofil">Inscription à L'ordre</div>
-                      <div class="col-lg-9 col-md-8"></div>
+                      <div class="col-lg-9 col-md-8">{{medecin.inscription_A_lordre}}</div>
                     </div>
                     
                     <div class="row rowprofil">
                       <div class="col-lg-3 col-md-4 label labelprofil"> Date d'échéance</div>
-                      <div class="col-lg-9 col-md-8"></div>
+                      <div class="col-lg-9 col-md-8">{{medecin.dateEcheance}}</div>
                     </div>
                   <!-- End Change Password Form -->
 
@@ -304,14 +277,30 @@
                     </div>
 
                     <div class="text-center">
-                      <button type="submit" class="btn btn-primary">Save Changes</button>
+                      <button type="submit" class="btn btn-primary">Enregistrer</button>
                     </div>
                   </form><!-- End Profile Edit Form -->
-
                 </div>
-
               </div><!-- End Bordered Tabs -->
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-4">
 
+          <div class="card">
+            <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+
+              <!--<img src="" alt="Profile" class="rounded-circle">-->
+              <h2> Dr. {{medecin.prenomMedecin}} {{medecin.nomMedecin}}</h2>
+              <span *ngFor="let specialite of medecin.specialites; let last = last">{{specialite.nomSpecialite}}<span *ngIf="!last"></span></span>
+              <h3>
+                </h3>
+              <div class="social-links mt-2">
+                <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+                <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+                <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+                <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+              </div>
             </div>
           </div>
 

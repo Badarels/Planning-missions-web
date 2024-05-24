@@ -19,6 +19,7 @@ export class ListeMedecinComponent implements OnInit {
     this.getMedecin();
     this.getAdresses();
   }
+
   Medecin=[] as Medecin[];
   medecin=new  Medecin;
   Adresse=[] as Adresse[]; 
@@ -32,7 +33,6 @@ export class ListeMedecinComponent implements OnInit {
   items: string[] = [];
   searchText = '';
   isDropdownOpen = false;
-
   subscriptions = [] as Subscription[];
  
 constructor(private medecinServices: MedecinService, private adresseServices: AdresseService){}
@@ -52,7 +52,6 @@ getAdresses(){
       }
     )
   );
-
 }
 
 toggleDropdown() {
@@ -89,8 +88,8 @@ getSpecialite(medecinId: number){
     });
 }
 
-searchMedecins(): void {
-  if (this.selectedVille) {
+searchMedecins(): void{
+  if (this.selectedVille){
     this.medecinServices.searchMedecinsByVille(this.selectedVille)
       .subscribe(medecins => this.medecins = medecins);
   } else {
@@ -100,8 +99,7 @@ searchMedecins(): void {
   }
 }
 
-ngOnDestroy() {
-  this.subscriptions.forEach((subscription) => subscription.unsubscribe());
-}
-
+  ngOnDestroy(){
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+  }
 }

@@ -1,13 +1,17 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Medecin } from 'src/app/shared/Model/Medecin';
 import { MedecinService } from '../../Services/medecin.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Adresse } from 'src/app/shared/Model/Adresse';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription, catchError, switchMap, tap } from 'rxjs';
+
 import { AdresseService } from 'src/app/Adresses/Services/adresse.service';
 import { Specialite } from 'src/app/shared/Model/Specialite';
-import { forkJoin } from 'rxjs';
-import { MedecinSpecialite } from 'src/app/shared/Model/MedecinSpecialite';
+
+import { ToastrService } from 'ngx-toastr';
+import { formatDate } from '@angular/common';
+
+
 
 
 @Component({
@@ -24,13 +28,15 @@ export class AjoutMedecinComponent implements OnInit{
   adresseForm!: FormGroup;
   Specialite: Specialite[] = [];
   adresses: Adresse[] = [];
-  searchText: string = '';
+  filtreText: string = '';
   selectedAddress: any; 
   submitted: boolean= false;
   adresseSelectionnee: any = null;  // Stocke l'adresse sélectionnée
   specialiteSelectionnee: Specialite | null = null;
   specialitesSelectionnees: Specialite[] = [];
   showDropdown: boolean = false;
+  adresse_id: number | undefined;
+
   
 
  
@@ -39,8 +45,14 @@ export class AjoutMedecinComponent implements OnInit{
   afficherFormulaireAdresse: boolean = false;
 
 
-  constructor(private medecinservices: MedecinService, private adresseServices: AdresseService){}
+  constructor(
+    private medecinservices: MedecinService,
+     private adresseServices: AdresseService,
+     private formBuilder: FormBuilder,
+     private toastServices: ToastrService
+     ){}
 
+    // Méthode pour récupérer les spécialités
   getSpecialite() {
     this.medecinservices.getSpecialite()
       .subscribe(
@@ -53,6 +65,8 @@ export class AjoutMedecinComponent implements OnInit{
         }
       );
   }
+    // Méthode pour récupérer les adresses
+
   getAdresse() {
     this.medecinservices.getAdresse() 
       .subscribe(
@@ -71,8 +85,9 @@ export class AjoutMedecinComponent implements OnInit{
     this.selectedAddress = adresse;
   }*/
 
-  selectAddress(address: any) {
+  selectAddress(address: Adresse) {
     this.selectedAddress = address;
+    this.adresse_id = address.id;
     this.showDropdown = false; // Masquer la liste déroulante après la sélection
   }
   
@@ -80,7 +95,7 @@ export class AjoutMedecinComponent implements OnInit{
     this.selectedAddress = null;
     this.showDropdown = false; // Ne pas dérouler la liste après la désélection
   }
-  
+ 
   toggleDropdown() {
     this.showDropdown = !this.showDropdown;
   }
@@ -120,83 +135,129 @@ toggleSpecialiteSelection(specialite: Specialite): void {
     this.afficherFormulaireAdresse = !this.afficherFormulaireAdresse;
   }
 
-  private initForm(medecin: Medecin, adresse: Adresse){
-    if(medecin){
-      this.medecinForm=new FormGroup(
-        {
-          'nomMedecin': new FormControl(medecin?.nomMedecin, [Validators.required]),
-          'prenomMedecin': new FormControl(medecin?.prenomMedecin,[Validators.required]),
-          'dateNaissanceMedecin': new FormControl(medecin?.dateDeNaissanceMedecin,[Validators.required]),
-          'lieuNaissanceMedecin':new FormControl(medecin?.lieuDeNaissanceMedecin,[Validators.required]),
-          'numeroRpps':new FormControl(medecin?.numeroRpps, [Validators.required]),
-          'emailMedecin': new FormControl(medecin?.emailMedecin, [Validators.required]),
-          'numeroSecuriteSocialeMedecin': new FormControl(medecin?.numeroSecuriteSocialeMedecin, [Validators.required]),
-          'inscription_A_lordre': new FormControl(medecin?.inscription_A_lordre, [Validators.required]),
-          'telephoneMedecin_1': new FormControl(medecin?.telephoneMedecin_1,[Validators.required]),
-          'telephoneMedecin_2': new FormControl(medecin?.telephoneMedecin_2,[Validators.required]),
-          'sexeMedecin': new FormControl(medecin?.sexeMedecin,[Validators.required]),
-          'statutMedecin': new FormControl(medecin?.statutMedecin,[Validators.required]),
-          'specialite': new FormControl([],[Validators.required]),
-
-          'nomRue': new FormControl(adresse?.nomRue,[Validators.required]),
-          'numeroRue': new FormControl(adresse?.numeroRue,[Validators.required]),
-          'complement': new FormControl(adresse?.complement, [Validators.required]),
-          'departement': new FormControl(adresse?.departement, [Validators.required]),
-          'ville': new FormControl(adresse?.ville, [Validators.required]),
-          'region': new FormControl(adresse?.region, [Validators.required]),
-          'codePostal': new FormControl(adresse?.codePostal, [Validators.required]),
-
-        }
-      );
-    }else{
-      this.medecinForm=new FormGroup({
-        'nomMedecin': new FormControl(null, [Validators.required]),
-        'prenomMedecin': new FormControl(null,[Validators.required]),
-        'dateNaissanceMedecin': new FormControl(null,[Validators.required]),
-        'lieuNaissanceMedecin':new FormControl(null,[Validators.required]),
-        'numeroRpps':new FormControl(null, [Validators.required]),
-        'emailMedecin': new FormControl(null, [Validators.required]),
-        'numeroSecuriteSocialeMedecin': new FormControl(null, [Validators.required]),
-        'inscription_A_lordre': new FormControl(null, [Validators.required]),
-        'telephoneMedecin_1': new FormControl(null,[Validators.required]),
-        'telephoneMedecin_2': new FormControl(null,[Validators.required]),
-        'sexeMedecin': new FormControl(null,[Validators.required]),
-        'statutMedecin': new FormControl(null,[Validators.required]),
-        'specialite': new FormControl(null,[Validators.required]),
-        //'date_d'echeance': new FormControl(null, )
-        'nomRue': new FormControl(null,[Validators.required]),
-        'numeroRue': new FormControl(null,[Validators.required]),
-        'complement': new FormControl(null, [Validators.required]),
-        'departement': new FormControl(null, [Validators.required]),
-        'ville': new FormControl(null, [Validators.required]),
-        'region': new FormControl(null, [Validators.required]),
-        'codePostal': new FormControl(null, [Validators.required]),
-
-      })
-    }
-  }
   ngOnInit(): void {
     this.getSpecialite(); 
     this.getAdresse();
-    this.initForm(new Medecin(),new Adresse());
+    this.initForm();
   }
 
   get f(){
     return this.medecinForm.controls;
   }
 
+  initForm() {
+    this.medecinForm = this.formBuilder.group({
+      nomMedecin: ['', Validators.required],
+      prenomMedecin: ['', Validators.required],
+      dateNaissanceMedecin: ['', Validators.required],
+      dateEcheance: ['', Validators.required],
+      lieuNaissanceMedecin: ['', Validators.required],
+      numeroRpps: ['', Validators.required],
+      emailMedecin: ['', [Validators.required, Validators.email]], // Changement ici
+      numeroSecuriteSocialeMedecin: ['', Validators.required],
+      inscription_A_lordre: ['', Validators.required],
+      telephoneMedecin_1: ['', Validators.required],
+      telephoneMedecin_2: ['', Validators.required],
+      sexeMedecin: ['', Validators.required],
+      statutMedecin: ['', Validators.required],
+      nomRue: ['', Validators.required],
+      numeroRue: ['', Validators.required],
+      complement: ['', Validators.required],
+      departement: ['', Validators.required],
+      ville: ['', Validators.required],
+      region: ['', Validators.required],
+      codePostal: ['', Validators.required],
+      qualifications: ['', Validators.required],
+      //adresse_id: [this.adresse_id, Validators.required], 
+      specialites: [[], Validators.required],
+      // Ajoutez d'autres contrôles si nécessaire
+    });
+  }
+  ajoutMedecin() {
+    /*if (!this.medecinForm.valid || this.specialitesSelectionnees.length === 0) {
+      // Vérifiez si le formulaire est valide et s'il y a des spécialités sélectionnées
+      return; // Si non, arrêtez l'exécution de la méthode
+    }*/
+  
+    const formData = this.medecinForm.value;
+    const nouveauMedecin: Medecin = {
+      nomMedecin: formData.nomMedecin,
+      prenomMedecin: formData.prenomMedecin,
+      dateDeNaissanceMedecin: formData.dateNaissanceMedecin,
+      lieuDeNaissanceMedecin: formData.lieuNaissanceMedecin,
+      emailMedecin: formData.emailMedecin,
+      numeroRpps: formData.numeroRpps,
+      numeroSecuriteSocialeMedecin: formData.numeroSecuriteSocialeMedecin,
+      inscription_A_lordre: formData.inscription_A_lordre,
+      telephoneMedecin_1: formData.telephoneMedecin_1,
+      telephoneMedecin_2: formData.telephoneMedecin_2,
+      sexeMedecin: formData.sexeMedecin,
+      qualifications: formData.qualifications,
+      statutMedecin: formData.statutMedecin,
+      dateEcheance: formData.dateEcheance,
+      specialites: this.specialitesSelectionnees,
+      adresse: this.selectedAddress,
+      id: undefined // Laissez le serveur attribuer l'ID
+    };
+  
+    let medecinObservable: Observable<Medecin>;
+  
+    if (this.selectedAddress) {
+      medecinObservable = this.medecinservices.ajoutMedecin(nouveauMedecin);
+    } else {
+      const nouvelleAdresse: Adresse = {
+        nomRue: formData.nomRue,
+        numeroRue: formData.numeroRue,
+        departement: formData.departement,
+        ville: formData.ville,
+        region: formData.region,
+        codePostal: formData.codePostal,
+        complement: formData.complement,
+        id: undefined // Laissez le serveur attribuer l'ID
+      };
+  
+      // Appelez le service pour ajouter la nouvelle adresse
+      medecinObservable = this.adresseServices.ajoutAdresse(nouvelleAdresse).pipe(
+        switchMap((addedAdresse: Adresse) => {
+          // Enregistrez l'adresse nouvellement ajoutée dans le médecin
+          nouveauMedecin.adresse = addedAdresse;
+          // Appelez ensuite le service pour ajouter le nouveau médecin
+          return this.medecinservices.ajoutMedecin(nouveauMedecin);
+        })
+      );
+    }
+  
+    medecinObservable.subscribe(
+      (addedMedecin: Medecin) => {
+        console.log('Ajout réussi', addedMedecin);
+        this.toastServices.success();
+        // Réinitialiser le formulaire après l'ajout réussi
+        this.medecinForm.reset();
+      },
+      (error) => {
+        console.error('Erreur lors de l\'ajout du médecin', error);
+        // Gérer l'erreur ici
+      }
+    );
+  }
+  
+  
+
 shouldShowNomRequiredError() {
   const nomMedecin = this.medecinForm.controls['nomMedecin'];
   return nomMedecin.touched && nomMedecin.hasError('required');
 }
+
 shouldShowPrenomRequiredError() {
   const prenomMedecin = this.medecinForm.controls['prenomMedecin'];
   return prenomMedecin.touched && prenomMedecin.hasError('required');
 }
+
 shouldShowDateNaissanceMedecinRequiredError() {
   const dateNaissanceMedecin = this.medecinForm.controls['dateNaissanceMedecin'];
   return dateNaissanceMedecin.touched && dateNaissanceMedecin.hasError('required');
 }
+
 shouldShowLieuNaissanceMedecinRequiredError() {
   const lieuNaissanceMedecin = this.medecinForm.controls['lieuNaissanceMedecin'];
   return lieuNaissanceMedecin.touched && lieuNaissanceMedecin.hasError('required');
@@ -206,6 +267,7 @@ shouldShowNumeroRppsRequiredError() {
   const numeroRpps = this.medecinForm.controls['numeroRpps'];
   return numeroRpps.touched && numeroRpps.hasError('required');
 }
+
 shouldShowEmailMedecinRequiredError() {
   const emailMedecin = this.medecinForm.controls['emailMedecin'];
   return emailMedecin.touched && emailMedecin.hasError('required');
@@ -225,6 +287,7 @@ shouldShowTelephoneMedecin_1RequiredError() {
   const telephoneMedecin_1 = this.medecinForm.controls['telephoneMedecin_1'];
   return telephoneMedecin_1.touched && telephoneMedecin_1.hasError('required');
 }
+
 shouldShowTelephoneMedecin_2RequiredError() {
   const telephoneMedecin_2 = this.medecinForm.controls['telephoneMedecin_2'];
   return telephoneMedecin_2.touched && telephoneMedecin_2.hasError('required');
@@ -234,26 +297,32 @@ shouldShowSexeMedecinRequiredError() {
   const sexeMedecin = this.medecinForm.controls['sexeMedecin'];
   return sexeMedecin.touched && sexeMedecin.hasError('required');
 }
+
 shouldShowStatutMedecinRequiredError() {
   const statutMedecin = this.medecinForm.controls['statutMedecin'];
   return statutMedecin.touched && statutMedecin.hasError('required');
 }
+
 shouldShowNomRueAdresseRequiredError() {
   const nomRue = this.medecinForm.controls['nomRue'];
   return nomRue.touched && nomRue.hasError('required');
 }
+
 shouldShowNumeroRueAdresseRequiredError() {
   const numeroRue = this.medecinForm.controls['numeroRue'];
   return numeroRue.touched && numeroRue.hasError('required');
 }
+
 shouldShowComplementAdresseRequiredError() {
   const complement = this.medecinForm.controls['complement'];
   return complement.touched && complement.hasError('required');
 }
+
 shouldShowDepartementAdresseRequiredError() {
   const departement = this.medecinForm.controls['departement'];
   return departement.touched && departement.hasError('required');
 }
+
 shouldShowVilleAdresseRequiredError() {
   const ville = this.medecinForm.controls['ville'];
   return ville.touched && ville.hasError('required');
@@ -269,211 +338,11 @@ shouldShowCodePostalAdresseRequiredError() {
   return codePostal.touched && codePostal.hasError('required');
 }
 
-
-onSaveMedecinAndAdresse() {
-  if (this.medecinForm.valid) {
-    this.submitted = true;
-    console.log("Formulaire du médecin valide");
-
-    // Accédez aux données du formulaire, y compris les spécialités
-    const formData = this.medecinForm.value;
-
-    // Mettez à jour le champ 'specialites' dans formData avec les spécialités sélectionnées
-    formData.specialites = this.specialitesSelectionnees.map(specialite => specialite.id);
-
-    if (this.medecin && this.adresse) {
-      // Mettez à jour les propriétés du médecin et de l'adresse
-      this.medecin.nomMedecin = formData.nomMedecin;
-      this.medecin.prenomMedecin = formData.prenomMedecin;
-      this.medecin.dateDeNaissanceMedecin = formData.dateDeNaissanceMedecin;
-      this.medecin.emailMedecin = formData.emailMedecin;
-      this.medecin.numeroRpps = formData.numeroRpps;
-      this.medecin.inscription_A_lordre = formData.inscription_A_lordre;
-      this.medecin.sexeMedecin = formData.sexeMedecin;
-      this.medecin.numeroSecuriteSocialeMedecin = formData.numeroSecuriteSocialeMedecin;
-      this.medecin.statutMedecin = formData.statutMedecin;
-      this.medecin.inscription_A_lordre=formData.inscription_A_lordre;
-      this.medecin.lieuDeNaissanceMedecin=formData.lieuDeNaissanceMedecin;
-      this.medecin.telephoneMedecin_1=formData.telephoneMedecin_1;
-      this.medecin.telephoneMedecin_2=formData.telephoneMedecin_2;
-      this.adresse.codePostal=formData.codePostal;
-      this.adresse.complement=formData.complement;
-      this.adresse.nomRue=formData.nomRue;
-      this.adresse.departement=formData.departement;
-      this.adresse.numeroRue=formData.numeroRue;
-      this.adresse.region=formData.region;
-      this.adresse.ville=formData.ville;
-      this.medecin.adresse=formData.adresse;
-      this.medecin.specialites=formData.specialite;
-
-      const medecinObservable = this.medecinservices.ajoutMedecin(this.medecin);
-      const adresseObservable = this.adresseServices.ajoutAdresse(this.adresse);
-
-      const combinedObservables = forkJoin([medecinObservable, adresseObservable]);
-
-      this.subscriptions.push(
-        combinedObservables.subscribe(
-          ([medecinResponse, adresseResponse]) => {
-            console.log('Médecin ajouté ou mis à jour avec succès:', medecinResponse);
-            console.log('Adresse ajoutée ou mise à jour avec succès:', adresseResponse);
-
-            // Réinitialiser les formulaires après la soumission
-            this.medecinForm.reset();
-            this.specialitesSelectionnees = []; // Réinitialiser la liste des spécialités sélectionnées
-          },
-          (error: any) => {
-            console.error('Erreur lors de l\'ajout ou de la mise à jour :', error);
-            // Gérer l'erreur de manière appropriée (afficher un message d'erreur, etc.)
-          }
-        )
-      );
-    }
-  }
-}
- 
-onSaveMedecinAndAdresses(){
-  if(this.medecinForm.valid){
-    this.submitted=true;
-    console.log("medcinForm valide");
-    const formData = this.medecinForm.value;
-    if (this.medecin && this.adresse) {
-      console.log("medecin et adresse chargés");
-      // Mettez à jour les propriétés du médecin et de l'adresse
-      this.medecin.nomMedecin = formData.nomMedecin;
-      this.medecin.prenomMedecin = formData.prenomMedecin;
-      this.medecin.dateDeNaissanceMedecin = formData.dateDeNaissanceMedecin;
-      this.medecin.emailMedecin = formData.emailMedecin;
-      this.medecin.numeroRpps = formData.numeroRpps;
-      this.medecin.inscription_A_lordre = formData.inscription_A_lordre;
-      this.medecin.sexeMedecin = formData.sexeMedecin;
-      this.medecin.numeroSecuriteSocialeMedecin = formData.numeroSecuriteSocialeMedecin;
-      this.medecin.statutMedecin = formData.statutMedecin;
-      this.medecin.inscription_A_lordre=formData.inscription_A_lordre;
-      this.medecin.lieuDeNaissanceMedecin=formData.lieuDeNaissanceMedecin;
-      this.medecin.telephoneMedecin_1=formData.telephoneMedecin_1;
-      this.medecin.telephoneMedecin_2=formData.telephoneMedecin_2;
-      this.adresse.codePostal=formData.codePostal;
-      this.adresse.complement=formData.complement;
-      this.adresse.nomRue=formData.nomRue;
-      this.adresse.departement=formData.departement;
-      this.adresse.numeroRue=formData.numeroRue;
-      this.adresse.region=formData.region;
-      this.adresse.ville=formData.ville;
-      this.medecin.adresse=formData.adresse;
-      this.medecin.specialites=formData.specialite;
-
-   
-     // const medecinObservable = this.medecinservices.ajoutMedecin(JSON.stringify(this.medecin), httpOptions);
-
-      const medecinObservable = this.medecinservices.ajoutMedecin(this.medecin);
-      const adresseObservable = this.adresseServices.ajoutAdresse(this.adresse);
-     // const medecinSpecialite=this.medecinservices.ajoutMedecinSpecialite(this.medcinspecialite);
-      
-
-      const combinedObservables = forkJoin([medecinObservable, adresseObservable]);
-
-      this.subscriptions.push(
-        combinedObservables.subscribe(
-          ([medecinResponse, adresseResponse]) => {
-            console.log('Médecin ajouté ou mis à jour avec succès:', medecinResponse);
-            console.log('Adresse ajoutée ou mise à jour avec succès:', adresseResponse);
-
-            // Réinitialiser les formulaires après la soumission
-            this.medecinForm.reset();
-          },
-          (error: any) => {
-            console.error('Erreur lors de l\'ajout ou de la mise à jour :', error);
-            // Gérer l'erreur de manière appropriée (afficher un message d'erreur, etc.)
-          }
-        )
-      );
-    }
-  }
-}
-
-
-
-/*SaveMedecinAndAdresse() {
-  if (this.medecinForm.valid) {
-    const formData = this.medecinForm.value;
-
-    if (this.medecin && this.adresse) {
-      // ... (code existant)
-
-      console.log("medecin et adresse chargés");
-      // Mettez à jour les propriétés du médecin et de l'adresse
-      this.medecin.nomMedecin = formData.nomMedecin;
-      this.medecin.prenomMedecin = formData.prenomMedecin;
-      this.medecin.dateDeNaissanceMedecin = formData.dateDeNaissanceMedecin;
-      this.medecin.emailMedecin = formData.emailMedecin;
-      this.medecin.numeroRpps = formData.numeroRpps;
-      this.medecin.inscription_A_lordre = formData.inscription_A_lordre;
-      this.medecin.sexeMedecin = formData.sexeMedecin;
-      this.medecin.numeroSecuriteSocialeMedecin = formData.numeroSecuriteSocialeMedecin;
-      this.medecin.statutMedecin = formData.statutMedecin;
-      this.medecin.inscription_A_lordre=formData.inscription_A_lordre;
-      this.medecin.lieuDeNaissanceMedecin=formData.lieuDeNaissanceMedecin;
-      this.medecin.telephoneMedecin_1=formData.telephoneMedecin_1;
-      this.medecin.telephoneMedecin_2=formData.telephoneMedecin_2;
-      this.adresse.codePostal=formData.codePostal;
-      this.adresse.complement=formData.complement;
-      this.adresse.nomRue=formData.nomRue;
-      this.adresse.departement=formData.departement;
-      this.adresse.numeroRue=formData.numeroRue;
-      this.adresse.region=formData.region;
-      this.adresse.ville=formData.ville;
-      this.medecin.adresse=formData.adresse;
-      this.medecin.specialites=formData.specialite;
-
-      const medecinObservable = this.medecinservices.ajoutMedecin(this.medecin);
-      const adresseObservable = this.adresseServices.ajoutAdresse(this.adresse);
-
-      forkJoin([medecinObservable, adresseObservable]).subscribe(
-        ([medecinResponse, adresseResponse]) => {
-          console.log('Médecin ajouté ou mis à jour avec succès:', medecinResponse);
-          console.log('Adresse ajoutée ou mise à jour avec succès:', adresseResponse);
-
-          // Enregistrement dans la table d'association medecin_specialite
-          const medecinId = medecinResponse.id; // Assurez-vous que votre service retourne l'ID du médecin
-          const specialiteId = formData.specialite.id; // Assurez-vous que votre formulaire contient un champ spécialité
-
-          const medecinSpecialite: MedecinSpecialite = {
-            medecinId: medecinId,
-            specialiteId: specialiteId
-          };
-
-          // Appelez le service pour enregistrer dans la table d'association
-        /*  this.medecinservices.ajoutMedecinSpecialite(medecinSpecialite).subscribe(
-            (medecinSpecialiteResponse) => {
-              console.log('Association medecin_specialite ajoutée avec succès:', medecinSpecialiteResponse);
-
-              // Réinitialiser les formulaires après la soumission
-              this.medecinForm.reset();
-            },
-            (error: any) => {
-              console.error('Erreur lors de l\'ajout de l\'association medecin_specialite:', error);
-              // Gérer l'erreur de manière appropriée (afficher un message d'erreur, etc.)
-            }
-          );
-        },
-        (error: any) => {
-          console.error('Erreur lors de l\'ajout ou de la mise à jour :', error);
-          // Gérer l'erreur de manière appropriée (afficher un message d'erreur, etc.)
-        }
-      );
-    }
-  }
-}*/
-
-
-// ...
-
 // Dans ngOnDestroy ou là où vous nettoyez vos abonnements
 ngOnDestroy() {
   this.subscriptions.forEach(sub => sub.unsubscribe());
 }
 
 } 
-
 
 

@@ -19,10 +19,10 @@ imports: [
     {
       path: 'list-CentreHospitalier',
       component: ListeCentreHospitalierComponent
-    },
+    },  
     {
       path: 'edit-CentreHospitalier/:id',
-      component: EditCentreHospitalierComponent  
+      component: EditCentreHospitalierComponent
     },
   ])
 ],

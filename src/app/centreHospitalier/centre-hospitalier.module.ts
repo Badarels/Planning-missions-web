@@ -19,6 +19,7 @@ import { EditCentreHospitalierComponent } from './Component/edit-centre-hospital
   ],
   imports: [
     SharedModule,
+    CommonModule,
     CentreHospitalierRoutingModule,
     [MatMenuModule],
     NgbDropdownModule,

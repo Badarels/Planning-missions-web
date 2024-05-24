@@ -4,7 +4,7 @@
       <h1>Ajout Medecin</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a [routerLink]="'/main'">Accueil</a></li>
+          <li class="breadcrumb-item"><a [routerLink]="'/Accueil/accueil'">Accueil</a></li>
           <li class="breadcrumb-item"><a [routerLink]="'/listeMedecin/list-medecin'">Formulaire</a></li>
         </ol>
       </nav>
@@ -12,32 +12,27 @@
 
     <section class="section profile">
       <div class="row">
-    
         <div class="col-xl-12">
-
         <div class="card">
-          <form [formGroup]="medecinForm" (submit)="onSaveMedecinAndAdresse()">
+          <form [formGroup]="medecinForm" (submit)="ajoutMedecin()">
             <div class="card-body pt-3">
               <!-- Bordered Tabs -->
               <ul class="nav nav-tabs nav-tabs-bordered">
                 <li class="nav-item">
-                  <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview"><strong>ETAT CIVIL</strong></button>
+                  <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview"><strong>ETAT CIVIL</strong></a>
                 </li>
                 <li class="nav-item">
-                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-settings"><strong>Coordonnées</strong></button>
+                  <a class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-settings"><strong>Coordonnées</strong></a>
                 </li>
 
                 <li class="nav-item">
-                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password"><strong>Profession</strong></button>
+                  <a class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password"><strong>Profession</strong></a>
                 </li>
               </ul>
               
               <div class="tab-content pt-2">
-
                 <div class="tab-pane fade show active profile-overview" id="profile-overview">
-                  
                   <h5 class="card-title">Details Medecin</h5>
-
                   <div class="row rowprofil">
                     <div class="col-lg-3 col-md-4 label labelprofil">Nom </div>
                     <div class="col-md-5 col-lg-5">
@@ -51,6 +46,13 @@
                         <input type="text" class="form-control border-subtle-blue" id="prenomMedecin" formControlName="prenomMedecin">
                     </div>
                   </div>
+
+                  <div class="row rowprofil">
+                    <div class="col-lg-3 col-md-1 label labelprofil">Email</div>
+                      <div class="col-md-5 col-lg-5">
+                        <input type="email" class="form-control border-subtle-blue" id="emailMedecin" formControlName="emailMedecin">
+                      </div>
+                  </div>
                   
                     <div class="row rowprofil">
                       <div class="col-lg-3 col-md-1 label labelprofil">Lieu de Naissance</div>
@@ -62,10 +64,23 @@
                     <div class="row rowprofil">
                       <div class="col-lg-3 col-md-4 label labelprofil">Date de Naissance</div>
                       <div class="col-md-5 col-lg-5">
-                        <input    type="date" id="dateNaissanceMedecin" formControlName="dateNaissanceMedecin" class="form-control input-small border-subtle-blue">                 
+                        <input type="date" id="dateNaissanceMedecin" formControlName="dateNaissanceMedecin" class="form-control input-small border-subtle-blue">                 
                        </div>
                     </div>
 
+                    <div class="row rowprofil">
+                      <div class="col-lg-3 col-md-4 label labelprofil">N° Telephone 1</div>
+                      <div class="col-md-5 col-lg-5">
+                          <input  type="text" class="form-control" id="telephoneMedecin_1" formControlName="telephoneMedecin_1">
+                      </div>
+                    </div>
+                    
+                    <div class="row rowprofil">
+                      <div class="col-lg-3 col-md-4 label labelprofil">N° Telephone 2</div>
+                      <div class="col-md-5 col-lg-5">
+                          <input    type="text" class="form-control" id="telephoneMedecin_2" formControlName="telephoneMedecin_2">
+                      </div>
+                    </div>
 
                     <div class="row rowprofil">
                       <div class="col-lg-3 col-md-4 label labelprofil">Sexe</div>
@@ -92,7 +107,7 @@
                     <div class="row rowprofil">
                       <div class="col-lg-3 col-md-4 label labelprofil">Numéro Sécurité Sociale</div>
                       <div class="col-md-5 col-lg-5">
-                        <input    type="text" class="form-control border-subtle-blue" id="numeroSecuriteSocialeMedecin" formControlName="numeroSecuriteSocialeMedecin">
+                        <input type="text" class="form-control border-subtle-blue" id="numeroSecuriteSocialeMedecin" formControlName="numeroSecuriteSocialeMedecin">
                     </div>
                     </div>
 
@@ -101,14 +116,13 @@
                 <div class="tab-pane fade pt-3" id="profile-settings">
                    <!-- Nouveau bouton pour basculer le formulaire d'adresse 
                    <h5 class="card-title">Details Adresse</h5>-->
-
                         
                   <div class="row rowprofil justify-content-center">
                     <div class="col-lg-6 d-flex align-items-center">
-                      <button class="btn btn-light border-subtle-blue" style="margin: 20px;" (click)="basculerFormulaireAdresse()">Nouveau Adresse</button>
+                      <button type="button" class="btn btn-light border-subtle-blue" style="margin: 20px;" (click)="basculerFormulaireAdresse()">Nouveau Adresse</button>
 
                       <div #dropdown class="dropdown" (click)="toggleDropdown()">
-                        <button type="button" class="btn btn-light dropdown-toggle border-subtle-blue" data-bs-toggle="dropdown" aria-expanded="false" [disabled]="afficherFormulaireAdresse">
+                        <button type="button" class="btn btn-light dropdown-toggle border-subtle-blue" data-bs-toggle="dropdown" aria-expanded="false"  [disabled]="afficherFormulaireAdresse">
                           <span *ngIf="!selectedAddress">Choisir une adresse...</span>
                           <span *ngIf="selectedAddress">
                             {{ selectedAddress.ville + ' ' + selectedAddress.departement + ' ' + selectedAddress.nomRue + ' ' + selectedAddress.numeroRue }}
@@ -119,14 +133,14 @@
                           <li style="margin: 10px;">
                             <div class="col-md-8 col-lg-8">
                               <div class="input-group" style="width: 350px;">
-                                <input type="search" class="form-control fas fa-search with-blue-border" placeholder="Rechercher" [(ngModel)]="searchText" name="searchText" style="width: 300px;">
-                                <div class="input-group-append">
-                                  <span class="input-group-text"><i class="fas fa-search"></i></span>
+                                <input type="search" class="form-control fas fa-search with-blue-border" placeholder="Rechercher" [(ngModel)]="filtreText" name="filtreText" style="width: 300px;" (click)="$event.stopPropagation()">
+                                <div class="input-group-append" style="height: 30px;">
+                                  <span class="input-group-text"><i class="fas fa-search fa-recherche"></i></span>
                                 </div>
                               </div>
                             </div>
                           </li>
-                          <li *ngFor="let adresse of adresses | searchAdresse: searchText">
+                          <li *ngFor="let adresse of adresses | searchAdresse: filtreText">
                             <a class="dropdown-item" (click)="selectAddress(adresse)">
                               {{ adresse.ville }} {{ adresse.departement }} {{ adresse.nomRue }} {{ adresse.numeroRue }}
                             </a>
@@ -136,101 +150,6 @@
                     </div>
                   </div>
               
- <!-- Modal Dialog Scrollable 
- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalDialogScrollable">
-  Modal Dialog Scrollable
-</button>
-<div class="modal fade" id="modalDialogScrollable" tabindex="-1">
-  <div class="modal-dialog modal-dialog-scrollable">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Modal Dialog Scrollable</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-             
-          formulaire de saise d'une nouvelle adresse! 
-          
-            <h5 class="card-title">Saisie Nouvelle adresse</h5>
-            <div class="row rowprofil">
-              <div class="col-lg-5 col-md-4 label labelprofil">Nom Rue </div>
-              <div class="col-md-5 col-lg-7">
-                <input    type="text" class="form-control" id="nomRue" formControlName="nomRue">
-            </div>
-            </div>
-
-              <div class="row rowprofil">
-                <div class="col-lg-5 col-md-4 label labelprofil">Numero Rue</div>
-                <div class="col-md-5 col-lg-7">
-                    <input    type="text" class="form-control" id="numeroRue" formControlName="numeroRue">
-                </div>
-              </div>
-
-              <div class="row rowprofil">
-                <div class="col-lg-5 col-md-4 label labelprofil">N° Telephone 1</div>
-                <div class="col-md-5 col-lg-7">
-                    <input  type="text" class="form-control" id="telephoneMedecin_1" formControlName="telephoneMedecin_1">
-                </div>
-              </div>
-              
-              <div class="row rowprofil">
-                <div class="col-lg-5 col-md-4 label labelprofil">N° Telephone 2</div>
-                <div class="col-md-5 col-lg-7">
-                    <input    type="text" class="form-control" id="telephoneMedecin_2" formControlName="telephoneMedecin_2">
-                </div>
-              </div>
-
-              <div class="row rowprofil">
-                <div class="col-lg-5 col-md-4 label labelprofil">Email</div>
-                <div class="col-md-5 col-lg-7">
-                    <input    type="text" class="form-control" id="emailMedecin" formControlName="emailMedecin">
-                </div>
-              </div>
-
-              <div class="row rowprofil">
-                <div class="col-lg-5 col-md-4 label labelprofil">Departement</div>
-                <div class="col-md-5 col-lg-7">
-                    <input    type="text" class="form-control" id="departement" formControlName="departement">
-                </div>
-              </div>
-
-              <div class="row rowprofil">
-                <div class="col-lg-3 col-md-4 label labelprofil">Ville</div>
-                <div class="col-md-5 col-lg-5">
-                    <input    type="text" class="form-control" id="ville" formControlName="ville">
-                </div>
-              </div>
-
-              <div class="row rowprofil">
-                <div class="col-lg-3 col-md-4 label labelprofil">Region</div>
-                <div class="col-md-5 col-lg-5">
-                    <input    type="text" class="form-control" id="region" formControlName="region">
-              </div>
-            </div>
-              
-              <div class="row rowprofil">
-                <div class="col-lg-3 col-md-4 label labelprofil">Code postal</div>
-                <div class="col-md-5 col-lg-5">
-                    <input  type="text" class="form-control" id="codePostal" formControlName="codePostal">
-                </div>
-              </div>
-              
-              <div class="row rowprofil">
-                <div class="col-lg-3 col-md-4 label labelprofil">Complement</div>
-                <div class="col-md-5 col-lg-5">
-                    <input    type="text" class="form-control" id="complement" formControlName="complement">
-                </div>
-              </div>
-           End settings Form 
-        
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>--><!-- End Modal Dialog Scrollable-->
                   <div *ngIf="afficherFormulaireAdresse">
                     
                     <!-- formulaire de saise d'une nouvelle adresse! -->
@@ -239,38 +158,17 @@
                       <div class="row rowprofil">
                         <div class="col-lg-3 col-md-4 label labelprofil">Nom Rue </div>
                         <div class="col-md-5 col-lg-5">
-                          <input    type="text" class="form-control" id="nomRue" formControlName="nomRue">
+                          <input type="text" class="form-control" id="nomRue" formControlName="nomRue">
                       </div>
                       </div>
 
                         <div class="row rowprofil">
                           <div class="col-lg-3 col-md-4 label labelprofil">Numero Rue</div>
                           <div class="col-md-5 col-lg-5">
-                              <input    type="text" class="form-control" id="numeroRue" formControlName="numeroRue">
-                          </div>
-                        </div>
-
-                        <div class="row rowprofil">
-                          <div class="col-lg-3 col-md-4 label labelprofil">N° Telephone 1</div>
-                          <div class="col-md-5 col-lg-5">
-                              <input  type="text" class="form-control" id="telephoneMedecin_1" formControlName="telephoneMedecin_1">
+                              <input type="text" class="form-control" id="numeroRue" formControlName="numeroRue">
                           </div>
                         </div>
                         
-                        <div class="row rowprofil">
-                          <div class="col-lg-3 col-md-4 label labelprofil">N° Telephone 2</div>
-                          <div class="col-md-5 col-lg-5">
-                              <input    type="text" class="form-control" id="telephoneMedecin_2" formControlName="telephoneMedecin_2">
-                          </div>
-                        </div>
-
-                        <div class="row rowprofil">
-                          <div class="col-lg-3 col-md-4 label labelprofil">Email</div>
-                          <div class="col-md-5 col-lg-5">
-                              <input    type="text" class="form-control" id="emailMedecin" formControlName="emailMedecin">
-                          </div>
-                        </div>
-
                         <div class="row rowprofil">
                           <div class="col-lg-3 col-md-4 label labelprofil">Departement</div>
                           <div class="col-md-5 col-lg-5">
@@ -302,13 +200,12 @@
                         <div class="row rowprofil">
                           <div class="col-lg-3 col-md-4 label labelprofil">Complement</div>
                           <div class="col-md-5 col-lg-5">
-                              <input    type="text" class="form-control" id="complement" formControlName="complement">
+                              <input type="text" class="form-control" id="complement" formControlName="complement">
                           </div>
                         </div>
                     <!-- End settings Form -->
                   </div>
 
-                  
                 </div>
                 <div class="tab-pane fade pt-3" id="profile-change-password">
                  
@@ -343,7 +240,7 @@
                   <div class="row rowprofil">
                     <div class="col-lg-3 col-md-4 label labelprofil">Qualifaications</div>
                       <div class="col-md-6">
-                        <select id="inputState" class="form-select">
+                        <select id="inputState" class="form-select" formControlName="qualifications">
                           <option selected disabled>Qualifaications</option>
                           <ng-container>
                             <option>NIVEAU 3</option>
@@ -359,22 +256,21 @@
                       <div class="col-md-6">
                         <select id="inputState"  class="form-select" formControlName="statutMedecin">
                           <option selected>Statut</option>
-                            <option [value]="">Praticien Hospitalier</option>
-                            <option [value]="">Remplaçant</option>
-                            <option [value]="">Temps Plein</option>
-                            <option [value]="">Temps Partiel</option>
+                          <option [value]="">Praticien Hospitalier</option>
+                          <option [value]="">Remplaçant</option>
+                          <option [value]="">Temps Plein</option>
+                          <option [value]="">Temps Partiel</option>
                         </select>
-
                       </div>
                     </div>
-
                     <div class="row rowprofil">
                       <div class="col-lg-3 col-md-4 label labelprofil">Inscription à L'ordre</div>
                       <div class="col-md-5 col-lg-5">
                         <fieldset class="row mb-3" >
                             <div class="col-sm-11">
                               <div class="form-check">
-                                <input class="form-check-input" type="radio"  name="inscription_A_lordre" formControlName="inscription_A_lordre" id="gridRadios1" value="Oui" checked="">
+                                <input class="form-check-input"
+                                 type="radio" name="inscription_A_lordre" formControlName="inscription_A_lordre" id="gridRadios1" value="Oui" checked="">
                                 <label class="form-check-label" style="font-size:small" for="gridRadios1">
                                   OUI
                                </label>
@@ -393,23 +289,19 @@
                       <div class="row rowprofil">
                         <div class="col-lg-3 col-md-4 label labelprofil">Numéro RPPS</div>
                         <div class="col-md-5 col-lg-5">
-                          <input     type="text" class="form-control" id="numeroRpps" formControlName="numeroRpps">
+                          <input type="text" class="form-control" id="numeroRpps" formControlName="numeroRpps">
                       </div>
                      </div>
                     
                     <div class="row rowprofil">
-                      <div class="col-lg-3 col-md-4 label labelprofil"> Date d'échéance</div>
+                      <div class="col-lg-3 col-md-4 label labelprofil">Date d'écheance</div>
                       <div class="col-md-5 col-lg-5">
-                        <input     type="date" id="dateNaissanceMedecin" formControlName="dateNaissanceMedecin" class="form-control input-small">                    </div>
-
+                        <input  type="date" id="dateEcheance" formControlName="dateEcheance" class="form-control input-small">       
+                      </div>
                       </div>
                     </div>
-                 
-                    
                   <!-- End Change Password Form -->
-
-              </div><!-- End Bordered Tabs -->
-              
+              </div><!-- End Bordered Tabs -->              
             </div>
           
             <div class="card-footer text-muted">

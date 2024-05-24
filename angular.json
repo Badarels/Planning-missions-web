@@ -72,10 +72,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "Businesscenterservice-web:build:production"
+              "buildTarget": "Businesscenterservice-web:build:production"
             },
             "development": {
-              "browserTarget": "Businesscenterservice-web:build:development"
+              "buildTarget": "Businesscenterservice-web:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -83,7 +83,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "Businesscenterservice-web:build"
+            "buildTarget": "Businesscenterservice-web:build"
           }
         },
         "test": {

@@ -19,3 +19,4 @@ describe('EditCentreHospitalierComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+

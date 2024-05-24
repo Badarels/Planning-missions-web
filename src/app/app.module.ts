@@ -10,11 +10,11 @@ import { SharedModule } from './shared/shared.module';
 import { FormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr'; 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JsonContentTypeInterceptor } from './shared/helper/jsonContentType.interceptor';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatButtonModule } from '@angular/material/button';
-import { EditCentreHospitalierComponent } from './centreHospitalier/Component/edit-centre-hospitalier/edit-centre-hospitalier.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UsersPipe } from './pipe/users.pipe';
+
 
 
 @NgModule({
@@ -31,11 +31,9 @@ import { EditCentreHospitalierComponent } from './centreHospitalier/Component/ed
     FormsModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    [MatMenuModule],
+    MatMenuModule,
     NgbDropdownModule,
     NgbModule,
-   
-
   ],
   providers: [ 
     {provide: HTTP_INTERCEPTORS, useClass: JsonContentTypeInterceptor, multi: true }

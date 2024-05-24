@@ -4,17 +4,29 @@ import { SharedModule } from '../shared/shared.module';
 import { AjouterUtilisateurComponent } from './Components/ajouter-utilisateur/ajouter-utilisateur.component';
 import { UtilisateurRoutingModule } from './utilisateur-routing.module';
 import { ListeUtilisateurComponent } from './Components/liste-utilisateur/liste-utilisateur.component';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { EditUtilisateurComponent } from './Components/edit-utilisateur/edit-utilisateur.component';
+import { ProfilUtilisateurComponent } from './Components/profil-utilisateur/profil-utilisateur.component';
+import { UsersPipe } from '../pipe/users.pipe';
+
+
 
 
 
 @NgModule({
   declarations: [
     AjouterUtilisateurComponent,
-    ListeUtilisateurComponent
+    ListeUtilisateurComponent,
+    EditUtilisateurComponent,
+    ProfilUtilisateurComponent,
+    UsersPipe,
+   
   ],
   imports: [
     SharedModule,
-    UtilisateurRoutingModule
+    CommonModule,
+    UtilisateurRoutingModule,
+    NgbDropdownModule
   ]
 })
 export class UtilisateurModule { 

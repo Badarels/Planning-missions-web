@@ -47,7 +47,8 @@ export class AjoutCentreHospitalierComponent implements OnInit {
       adresse_id: [this.adresse_id, Validators.required], 
       // Ajoutez d'autres contrôles si nécessaire
     });
-}
+  }
+
 selectAddress(address: Adresse) {
   this.selectedAddress = address;
   this.adresse_id = address.id;
@@ -59,10 +60,11 @@ deselectAddress() {
   this.showDropdown = false; // Ne pas dérouler la liste après la désélection
 }
 
-toggleDropdown() {
+toggleDropdown(){
   this.showDropdown = !this.showDropdown;
 }
-getAdresse() {
+
+getAdresse(){
   this.adresseServices.getAllAdresses() 
     .subscribe(
       (Adresse: any) => {
@@ -75,35 +77,32 @@ getAdresse() {
     );
 }
 
-AjouterCH() {
-  const formData = this.ChForm.value;
-  const nouveauCentreHospitalier: CentreHospitalier = {
-    nom_ch: formData.nom_ch,
-    email_ch: formData.email_ch,  
-    telephone: formData.telephone,
-    siret: formData.siret,
-    adresse: this.selectedAddress,
-    adresse_id: this.adresse_id,
-  };
-
-  console.log(nouveauCentreHospitalier);
-  // Appeler le service pour ajouter le nouveau Centre Hospitalier
-  const chObservable = this.centrehsoptalierServices.addCh(nouveauCentreHospitalier);
-  this.subscribtion.push(
-    chObservable.subscribe(
-      (addedCentreHospitalier: CentreHospitalier) => {
-        // Traitement après l'ajout réussi
-        console.log('Ajout réussi', addedCentreHospitalier);
-        this.toastService.showSuccessToast()  
-        // Réinitialiser le formulaire ou effectuer d'autres actions si nécessaire
-        this.ChForm.reset();
-      },
-      (error) => {
-        console.error('Erreur lors de l\'ajout du centre hospitalier', error);
-      }
-    )
-  );
-}
-
-
+  AjouterCH(){
+    const formData = this.ChForm.value;
+    const nouveauCentreHospitalier: CentreHospitalier = {
+      nom_ch: formData.nom_ch,
+      email_ch: formData.email_ch,  
+      telephone: formData.telephone,
+      siret: formData.siret,
+      adresse: this.selectedAddress,
+      adresse_id: this.adresse_id,
+    };
+    console.log(nouveauCentreHospitalier);
+    // Appeler le service pour ajouter le nouveau Centre Hospitalier
+    const chObservable = this.centrehsoptalierServices.addCh(nouveauCentreHospitalier);
+    this.subscribtion.push(
+      chObservable.subscribe(
+        (addedCentreHospitalier: CentreHospitalier) => {
+          // Traitement après l'ajout réussi
+          console.log('Ajout réussi', addedCentreHospitalier);
+          this.toastService.showSuccessToast()  
+          // Réinitialiser le formulaire ou effectuer d'autres actions si nécessaire
+          this.ChForm.reset();
+        },
+        (error) => {
+          console.error('Erreur lors de l\'ajout du centre hospitalier', error);
+        }
+      )
+    );
+  }
 }

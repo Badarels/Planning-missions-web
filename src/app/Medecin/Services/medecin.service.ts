@@ -39,8 +39,8 @@ export class MedecinService {
           return throwError(error);
         })
       );
-
   }
+
   getSpecialiteByMedecin(medecinId: number): Observable<Specialite> {
     return this.http.get<Specialite>(`${this.baseUrl}/getSpecialiteByMedecin/${medecinId}`);
   }

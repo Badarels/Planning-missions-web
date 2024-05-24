@@ -16,12 +16,13 @@ import { SearchAdressePipe } from '../pipe/search-adresse.pipe';
     ListeMedecinComponent,
     ProfilMedecinComponent,
     SearchPipe,
-    SearchAdressePipe
+    SearchAdressePipe,
   ],
   imports: [
     SharedModule,
     MedecinRoutingModule,
-  
+    CommonModule
+    
   ]
 })
 export class MedecinModule { }

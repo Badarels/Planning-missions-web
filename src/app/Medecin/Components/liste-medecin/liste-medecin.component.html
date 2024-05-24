@@ -7,7 +7,7 @@
       <div class="col-lg-12">
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">ACCUEIL</a></li>
+          <li class="breadcrumb-item"><a [routerLink]="'/Accueil/accueil'">ACCUEIL</a></li>
           <li class="breadcrumb-item">Liste</li>
           <li class="navmedecin">
             <div class="row mb-3">
@@ -50,7 +50,7 @@
                           <div class="input-group" style="height: 30px;"> 
                             <input class="form-control form-control-sm with-blue-border fas fa-search" type="search" [(ngModel)]="filterText" placeholder="Rechercher" aria-label="Search" name="filterText">
                             <div class="input-group-append" style="height: 30px;">
-                              <span class="input-group-text"><i class="fas fa-search"></i></span>
+                              <span class="input-group-text"><i class="fas fa-search fa-recherche"></i></span>
                             </div>
                           </div>
                         </div>

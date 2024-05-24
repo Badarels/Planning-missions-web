@@ -19,11 +19,23 @@ const routes: Routes = [
         loadChildren: () => import('./layouts/layouts.module').then(m => m.LayoutsModule)
       },
       {
+        path: 'Accueil',
+        loadChildren: () => import('./accueil/accueil.module').then(a => a.AccueilModule)
+      },
+      {
         path: 'ajoutUtilisateur',
         loadChildren: () => import('./Utilisateur/utilisateur.module').then(m => m.UtilisateurModule)
       },
       {
         path: 'listeUtilisateur',
+        loadChildren: () => import('./Utilisateur/utilisateur.module').then(m => m.UtilisateurModule)
+      },
+      {
+        path: 'ModifierUtilisateur',
+        loadChildren: () => import('./Utilisateur/utilisateur.module').then(m => m.UtilisateurModule)
+      },
+      {
+        path: 'ProfilUtilisateur',
         loadChildren: () => import('./Utilisateur/utilisateur.module').then(m => m.UtilisateurModule)
       },
       {
@@ -49,6 +61,26 @@ const routes: Routes = [
       {
         path: 'editCentreHospitalier',
         loadChildren: () => import('./centreHospitalier/centre-hospitalier.module').then(ch => ch.CentreHospitalierModule)
+      },
+      {
+        path: 'ajoutMission',
+        loadChildren: () => import('./missions/mission.module').then(mis => mis.MissionModule)
+      },
+      {
+        path: 'editMission',
+        loadChildren: () => import('./missions/mission.module').then(mis => mis.MissionModule)
+      },
+      {
+        path: 'listeMission',
+        loadChildren: () => import('./missions/mission.module').then(mis => mis.MissionModule)
+      },
+      {
+        path: 'profilMission',
+        loadChildren: () => import('./missions/mission.module').then(mis => mis.MissionModule)
+      },
+      {
+        path: 'planningMission',
+        loadChildren: () => import('./plannings/planning.module').then(pla => pla.PlanningModule)
       },
     ]
   },

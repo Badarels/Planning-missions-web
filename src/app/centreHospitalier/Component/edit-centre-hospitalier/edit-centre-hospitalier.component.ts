@@ -17,7 +17,7 @@ export class EditCentreHospitalierComponent implements OnInit{
 
 chForm!: FormGroup;
 centrehospitalier!: CentreHospitalier;
-chId!: number;
+chId!:number;
 subscription: Subscription[] = [];
 
 constructor(
@@ -28,9 +28,11 @@ constructor(
 ) {}
 
 ngOnInit(): void {
+  // Récupérer chId à partir des paramètres de l'URL
   this.route.params.subscribe(params => {
     this.chId = +params['id']; 
   });
+
   // Initialiser le formulaire
   this.chForm = this.formBuilder.group({
     nom_ch: ['', Validators.required],
@@ -44,7 +46,6 @@ ngOnInit(): void {
     departement: ['', Validators.required],
     complement: ['', Validators.required],
     codePostal: ['', Validators.required],
-    // ... autres champs du formulaire
   });
 
   // Charger les données du centre hospitalier à éditer
@@ -58,10 +59,9 @@ ngOnDestroy(): void {
 
 loadCentreHospitalier(): void {
   // Charger les données du centre hospitalier à éditer en fonction de l'ID
- // this.chId = 1; // Remplacez par la logique pour obtenir l'ID à partir de votre route ou de toute autre source
   this.subscription.push(
     this.centreHospitalierServices.getChById(this.chId).subscribe(
-      (centreHospitalier: CentreHospitalier) => {
+      (centreHospitalier: CentreHospitalier)=>{
         this.centrehospitalier = centreHospitalier;
         // Remplir le formulaire avec les données existantes
         this.chForm.patchValue({
@@ -76,23 +76,22 @@ loadCentreHospitalier(): void {
           numero_Rue: centreHospitalier.adresse?.numeroRue,
           complement: centreHospitalier.adresse?.complement,
           codePostal: centreHospitalier.adresse?.codePostal,
-          // ... autres champs du formulaire
         });
       },
       (error) => {
         console.error('Erreur lors du chargement du centre hospitalier', error);
-        // Gérer l'erreur selon vos besoins
       }
     )
   );
 }
+
+
 onEditCh(): void {
   if (this.chForm.valid) {
     const formData = this.chForm.value;
     if (this.centrehospitalier) {
       const adresseActuelle = this.centrehospitalier.adresse;
       const adresseModifiee = this.isAdresseModifiee(formData, adresseActuelle);
-
       if (adresseModifiee) {
         this.ajouterEtMettreAJour(formData);
       } else {
@@ -137,12 +136,10 @@ private ajouterEtMettreAJour(formData: any): void {
       },
       (error) => {
         console.error('Erreur lors de l\'ajout de la nouvelle adresse', error);
-        // Gérer l'erreur selon vos besoins
       }
     )
   );
 }
-
 
 private mettreAJourCentreHospitalier(formData: any): void {
   this.centrehospitalier.nom_ch = formData.nom_ch;
@@ -150,7 +147,7 @@ private mettreAJourCentreHospitalier(formData: any): void {
   this.centrehospitalier.telephone = formData.telephone;
   this.centrehospitalier.siret = formData.siret;
 
-  const chObservable = this.centreHospitalierServices.editCh(this.chId, this.centrehospitalier);
+  const chObservable = this.centreHospitalierServices.editCh(this.chId!, this.centrehospitalier);
 
   this.subscription.push(
     chObservable.subscribe(
@@ -159,101 +156,9 @@ private mettreAJourCentreHospitalier(formData: any): void {
       },
       (error) => {
         console.error('Erreur lors de la mise à jour du centre hospitalier', error);
-        // Gérer l'erreur selon vos besoins
       }
     )
   );
 }
-
-/*onEditCh(): void {
-  if (this.chForm.valid) {
-    const formData = this.chForm.value;
-    if (this.centrehospitalier) {
-      // Vérifier si l'adresse a été modifiée
-      const adresseModifiee = (
-        this.centrehospitalier.adresse?.region !== formData.region ||
-        this.centrehospitalier.adresse?.codePostal !== formData.codePostal ||
-        this.centrehospitalier.adresse?.complement !== formData.complement ||
-        this.centrehospitalier.adresse?.ville !== formData.ville ||
-        this.centrehospitalier.adresse?.nomRue !== formData.nomRue ||
-        this.centrehospitalier.adresse?.numeroRue !== formData.numero_Rue
-      );
-
-      if (adresseModifiee) {
-        // Créer une nouvelle adresse dans la table Adresse
-        const nouvelleAdresse: Adresse = {
-          region: formData.region,
-          codePostal: formData.codePostal,
-          complement: formData.complement,
-          ville: formData.ville,
-          nomRue: formData.nomRue,
-          numeroRue: formData.numero_Rue,
-          id: undefined,
-          departement: formData.departement,
-        };
-
-        // Appeler le service pour ajouter la nouvelle adresse
-        const adresseObservable = this.adresseServices.ajoutAdresse(nouvelleAdresse);
-
-        // S'abonner à l'observable pour traiter la réponse ou les erreurs
-        this.subscription.push(
-          adresseObservable.subscribe(
-            (nouvelleAdresseAjoutee: Adresse) => {
-              // Mettre à jour l'ID de l'adresse dans le centre hospitalier
-              this.centrehospitalier.id = nouvelleAdresseAjoutee.id as number;
-              //this.centrehospitalier.adresse?.id = nouvelleAdresseAjoutee.id;
-
-              // Mettre à jour les autres propriétés du centre hospitalier avec les nouvelles valeurs du formulaire
-              this.centrehospitalier.nom_ch = formData.nom_ch;
-              this.centrehospitalier.email_ch = formData.email_ch;
-              this.centrehospitalier.telephone = formData.telephone;
-              this.centrehospitalier.siret = formData.siret;
-              // Appeler le service pour effectuer la mise à jour du centre hospitalier
-              const chObservable = this.centreHospitalierServices.editCh(this.chId, this.centrehospitalier);
-              // S'abonner à l'observable pour traiter la réponse ou les erreurs
-              this.subscription.push(
-                chObservable.subscribe(
-                  (updatedCentreHospitalier: CentreHospitalier) => {
-                    // Traitement après la mise à jour réussie
-                    console.log('Mise à jour réussie', updatedCentreHospitalier);
-                  },
-                  (error) => {
-                    console.error('Erreur lors de la mise à jour du centre hospitalier', error);
-                    // Gérer l'erreur selon vos besoins
-                  }
-                )
-              );
-            },
-            (error) => {
-              console.error('Erreur lors de l\'ajout de la nouvelle adresse', error);
-              // Gérer l'erreur selon vos besoins
-            }
-          )
-        );
-      } else {
-        // Aucune modification d'adresse, mettre à jour les autres propriétés du centre hospitalier
-        this.centrehospitalier.nom_ch = formData.nom_ch;
-        this.centrehospitalier.email_ch = formData.email_ch;
-        this.centrehospitalier.telephone = formData.telephone;
-        this.centrehospitalier.siret = formData.siret;
-        // Appeler le service pour effectuer la mise à jour du centre hospitalier
-        const chObservable = this.centreHospitalierServices.editCh(this.chId, this.centrehospitalier);
-        // S'abonner à l'observable pour traiter la réponse ou les erreurs
-        this.subscription.push(
-          chObservable.subscribe(
-            (updatedCentreHospitalier: CentreHospitalier) => {
-              // Traitement après la mise à jour réussie
-              console.log('Mise à jour réussie', updatedCentreHospitalier);
-            },
-            (error) => {
-              console.error('Erreur lors de la mise à jour du centre hospitalier', error);
-              // Gérer l'erreur selon vos besoins
-            }
-          )
-        );
-      }
-    }
-  }
-}*/
 
 }

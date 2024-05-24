@@ -29,7 +29,6 @@ export class AjouterUtilisateurComponent implements OnInit{
   utilisateur = new UtilisateurModel();
   userForm!: FormGroup;
 
-
 constructor(
   private UtilisateurServices: UtilisateurService,
   private toastService: ToastService
@@ -46,11 +45,11 @@ private initForm(utilisateur: UtilisateurModel){
       'adresseuser': new FormControl(utilisateur?.adresseUser, [Validators.required]),
       'passworduser': new FormControl(utilisateur?.passwordUser, [Validators.required]),
       'telephoneuser': new FormControl(utilisateur?.telephoneUser, [Validators.required]),
-      'datenaissuser': new FormControl(utilisateur?.date_naissanceUser,[Validators.required]),
+      'datenaissuser': new FormControl(utilisateur?.dateNaissanceUser,[Validators.required]),
       'sexeuser': new FormControl(utilisateur?.sexeUser, [Validators.required]),
       'emailuser': new FormControl(utilisateur?.emailUser, [Validators.required]),
-      'ineuser': new FormControl(utilisateur?.numero_piece_identiteUser, [Validators.required])
-
+      'ineuser': new FormControl(utilisateur?.numeroPieceIdentiteUser, [Validators.required]),
+      'role': new FormControl(null, [Validators.required]),
     });
   }else{
     this.userForm=new FormGroup({
@@ -62,17 +61,16 @@ private initForm(utilisateur: UtilisateurModel){
       'datenaissuser': new FormControl(null,[Validators.required]),
       'sexeuser': new FormControl(null, [Validators.required]),
       'emailuser': new FormControl(null, [Validators.required]),
-      'ineuser': new FormControl(null, [Validators.required])
+      'ineuser': new FormControl(null, [Validators.required]),
+      'role': new FormControl(null, [Validators.required]),
     })
   }
 }
 
-
   ngOnInit(): void {
       this.initForm(new UtilisateurModel());
-    
+      this.getRoles();
   }
-
 
   shouldShowNomRequiredError() {
     const nomuser = this.userForm.controls['nomuser'];
@@ -123,21 +121,37 @@ private initForm(utilisateur: UtilisateurModel){
     });
   }*/
 
+  getRoles() {
+    this.subscriptions.push(
+      this.UtilisateurServices.getRoles().subscribe(
+        (data: any) => {
+          // Assurez-vous que la structure des données correspond à ce que vous attendez
+          // Si les utilisateurs sont directement dans 'data', vous pouvez faire comme ceci :
+          this.roles = data;
+          console.log(this.roles)  
+        },
+        (error) => {
+          console.error('Erreur lors de la récupération des Roles :', error);
+        }
+      )
+    );
+  }
+
   onSaveUtilisateurs() {
     if (this.userForm.valid) {
       const formData = this.userForm.value;
-  
       if (this.utilisateur) {
         this.utilisateur.nomUser = formData.nomuser;
         this.utilisateur.prenomUser = formData.prenomuser;
         this.utilisateur.adresseUser = formData.adresseuser;
         this.utilisateur.passwordUser = formData.passworduser;
-        this.utilisateur.date_naissanceUser = formData.datenaissuser;
+        this.utilisateur.dateNaissanceUser = formData.datenaissuser;
         this.utilisateur.telephoneUser = formData.telephoneuser;
         this.utilisateur.sexeUser = formData.sexeuser;
         this.utilisateur.emailUser = formData.emailuser;
-        this.utilisateur.numero_piece_identiteUser = formData.ineuser;
-  
+        this.utilisateur.numeroPieceIdentiteUser = formData.ineuser;
+        this.utilisateur.roles = formData.role; // Assurez-vous que formData.role contient l'objet de rôle sélectionné
+        console.log(formData.role.id);
         const userObservable = this.utilisateur.id
           ? this.UtilisateurServices.editUser(this.utilisateur, this.utilisateur.id)
           : this.UtilisateurServices.addUser(this.utilisateur);
@@ -146,18 +160,19 @@ private initForm(utilisateur: UtilisateurModel){
           userObservable.subscribe(
             () => {
               console.log('Utilisateur ajouté ou mis à jour avec succès.');
-              this.toastService.showSuccessToast()
+              this.toastService.showSuccessToast();
               // Réinitialiser le formulaire après la soumission
               this.userForm.reset();
             },
             (error) => {
               console.error('Erreur lors de l\'ajout ou de la mise à jour de l\'utilisateur :', error);
-              this.toastService.showErrorToast()
+              this.toastService.showErrorToast();
             }
           )
         );
       }
     }
   }
+  
   
 }
