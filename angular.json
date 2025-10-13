@@ -17,28 +17,58 @@
             "index": "src/index.html",
             "main": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": ["zone.js"],
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "**/*",
+                "input": "node_modules/tinymce",
+                "output": "tinymce/"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/chart.js/dist",
+                "output": "assets/vendor/chart.js"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/apexcharts/dist",
+                "output": "assets/vendor/apexcharts"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/echarts/dist",
+                "output": "assets/vendor/echarts"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/datatables.net",
+                "output": "assets/vendor/datatables"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/datatables.net-dt",
+                "output": "assets/vendor/datatables-dt"
+              }
             ],
             "styles": [
-              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
-              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+              "./node_modules/bootstrap-icons/font/bootstrap-icons.css",
+              "./node_modules/datatables.net-dt/css/jquery.dataTables.css",
               "./node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": [
-              "./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+              "./node_modules/jquery/dist/jquery.min.js",
               "./node_modules/popper.js/dist/umd/popper.min.js",
-              "./node_modules/bootstrap/dist/js/bootstrap.min.js",
-              "src/assets/vendor/bootstrap/js/bootstrap.min.js",
-              "src/assets/js/main.js",
-              "src/assets/vendor/apexcharts/apexcharts.min.js",
-              "src/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"
+              "./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+              "./node_modules/datatables.net/js/jquery.dataTables.js",
+              "./node_modules/apexcharts/dist/apexcharts.min.js",
+              "./node_modules/chart.js/dist/chart.umd.js",
+              "./node_modules/echarts/dist/echarts.min.js",
+              "./node_modules/tinymce/tinymce.min.js"
             ]
           },
           "configurations": {
@@ -46,8 +76,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "4mb",
+                  "maximumError": "5mb"
                 },
                 {
                   "type": "anyComponentStyle",

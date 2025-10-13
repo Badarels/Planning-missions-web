@@ -14,6 +14,10 @@ import { JsonContentTypeInterceptor } from './shared/helper/jsonContentType.inte
 import { MatMenuModule } from '@angular/material/menu';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UsersPipe } from './pipe/users.pipe';
+import { AuthService } from './authentification/Services/auth.service';
+import { JwtInterceptor } from './shared/helper/jwt.interceptor';
+import { AuthServices } from './authentification/Services/auth.services';
+import { TinyMCEModule } from './shared/tinymce.module';
 
 
 
@@ -34,10 +38,11 @@ import { UsersPipe } from './pipe/users.pipe';
     MatMenuModule,
     NgbDropdownModule,
     NgbModule,
+    TinyMCEModule
   ],
   providers: [ 
-    {provide: HTTP_INTERCEPTORS, useClass: JsonContentTypeInterceptor, multi: true }
-  ],
+      { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+    ],
   bootstrap: [AppComponent],
   
 })

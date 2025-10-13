@@ -15,13 +15,20 @@ import { ProfilUtilisateurComponent } from './Components/profil-utilisateur/prof
   
     RouterModule.forChild([
       {
-        path: 'Ajout-Utilisateur',
+        path: '',
+        component: ListeUtilisateurComponent,
+      },
+      {
+        path: 'ajout',
         component: AjouterUtilisateurComponent,
       },
       {
-        path: 'list-utilisateur',
-        component: ListeUtilisateurComponent,
-        
+        path: 'edit/:id',
+        component: EditUtilisateurComponent,
+      },
+      {
+        path: 'profil/:id',
+        component: ProfilUtilisateurComponent,
       },
       {
         path: 'edit-utilisateur/:id',

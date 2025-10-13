@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../Services/auth.service';
+import { Router } from '@angular/router';
+import { AuthServices } from '../Services/auth.services';
 
 @Component({
   selector: 'app-login',
@@ -8,42 +10,48 @@ import { AuthService } from '../Services/auth.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-
   form: FormGroup;
-  err='';
-  router: any;
-  
-  constructor (
+  err = '';
+  passwordFieldType: string = 'password';
+
+  constructor(
     private formBuilder: FormBuilder,
-    private auth: AuthService
-  ){
-      this.form = this.formBuilder.group({
-          login:[null,Validators.compose([Validators.required])],
-          password: [null,Validators.compose([Validators.required])]
-      });
+    private authService: AuthServices,
+    private router: Router
+  ) {
+    this.form = this.formBuilder.group({
+      username: [null, Validators.compose([Validators.required, Validators.email])],
+      password: [null, Validators.compose([Validators.required])]
+    });
   }
 
-  ngOnInit():void{}
-  /*login(): void {
-    const val = this.form?.value;
-    this.auth.login(val.login!).then(
-      this.router.navigateByUrl('/')
-    );
-  }*/
-  login(){
-    const val = this.form?.value;
-    if(val.login && val.password){
-      this.auth.login(val).then(
-        (x)=>{
-          if(x){
-            this.err='Login ou mot de passe incorrect';
-          }else{
-            this.err='';
+  togglePasswordVisibility(event: Event) {
+    const checkbox = event.target as HTMLInputElement;
+    this.passwordFieldType = checkbox.checked ? 'text' : 'password';
+  }
+
+  login(): void {
+    
+    console.log("login")
+    const val = this.form.value;
+    if (val.username && val.password) {
+      this.authService.login(val).subscribe({
+        next: (success) => {
+          if (success) {
+            console.log("Succes", success)
+            this.router.navigateByUrl('/Accueil/accueil');
+          } else {
+            console.log("Error", success)
+            
+            this.err = 'Login ou mot de passe incorrect';
           }
+        },
+        error: (error) => {
+          this.err = (error && error.error && error.error.message) ? error.error.message : 'Une erreur est survenue lors de la connexion';
         }
-      ); 
-    }else{
-      this.err='Tous les champs sont obligatoires';
+      });
+    } else {
+      this.err = 'Tous les champs sont obligatoires';
     }
   }
 }

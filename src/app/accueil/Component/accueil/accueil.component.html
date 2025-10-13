@@ -1,15 +1,3 @@
-<!-- Vendor JS Files -->
-<script src="/src/assets/vendor/apexcharts/apexcharts.min.js"></script>
-<script src="/src/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="/src/assets/vendor/chart.js/chart.umd.js"></script>
-<script src="/src/assets/vendor/echarts/echarts.min.js"></script>
-<script src="/src/assets/vendor/quill/quill.min.js"></script>
-<script src="/src/assets/vendor/simple-datatables/simple-datatables.js"></script>
-<script src="/src/assets/vendor/tinymce/tinymce.min.js"></script>
-<script src="/src/assets/vendor/php-email-form/validate.js"></script>
-
-<!-- Template Main JS File -->
-<script src="/src/assets/js/main.js"></script>
 <main id="main" class="main">
 
     <div class="pagetitle">
@@ -336,9 +324,9 @@
             </div>
 
             <div class="card-body">
-              <h3 class="card-title"><b>Recent Activité </b><span>| Today</span></h3>
+              <h3 class="card-title"><b>Activités Recentes</b></h3>
               <h5 class="card-title">Date de mission  <span>|  Details</span></h5>
-              <div class="activity" *ngFor="let miss of mission">
+              <div class="activity" *ngFor="let miss of mission | slice:0:5">
 
                 <div class="activity-item d-flex">
                   <div class="activite-label">{{miss.dateMissions}}</div>

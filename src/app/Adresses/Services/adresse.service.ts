@@ -2,14 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Adresse } from 'src/app/shared/Model/Adresse';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdresseService {
 
-  private baseUrl = 'http://localhost:9006/api'; 
-
+  private baseUrl = environment.apiUrl;
 
   constructor(private http: HttpClient ) { }
 

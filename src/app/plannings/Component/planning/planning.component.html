@@ -53,8 +53,8 @@
                       <!-- Contenu de la ligne -->
                       <td>{{miss?.centreHospitalier?.nom_ch}}</td>
                       <td>{{miss?.specialite?.nomSpecialite}}</td>
-                      <td [ngStyle]="getDateCellStyle(miss?.dateMissions)">
-                        {{miss?.dateMissions | date:'dd/MM/yyyy'}}
+                      <td [ngStyle]="getDateCellStyle(miss?.dateFinMissions)">
+                        {{miss?.dateFinMissions| date:'dd/MM/yyyy'}}
                       </td>
                       <td>{{miss?.typeHoraireMission}}</td>
                       <td>

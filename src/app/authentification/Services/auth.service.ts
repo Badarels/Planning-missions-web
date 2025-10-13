@@ -1,99 +1,162 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http'
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { UtilisateurModel } from 'src/app/shared/Model/Utilisateur.model';
+import { Observable, throwError } from 'rxjs';
+import { tap, catchError } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
+// Définir l'interface à l'extérieur de la classe
+interface LoginResponse {
+  token: string;
+  user?: any;
+  passwordChanged?: boolean;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  
-  SECRET = 'smartmaskosc2020';
-  errCon = false; 
+  private apiUrl = environment.apiUrl;
+  SECRET = 'businesscenter';
+  errCon = false;
 
   constructor(
     private http: HttpClient,
     private router: Router
-    ){ }
+  ) { }
 
-  async authenticationProcess(url: string, body: any) {
-    await this.http.post<any>(url, body).toPromise()
-      .then((data) => {
-        console.log(data);
-        this.setSession(data).then(x => {
-          this.identity().subscribe((user: any) => {
-            if (user.passwordChanged) {
-              if (this.hasAuthority(['ADMIN'], user)){
-                this.storeUser(user)
-                  .then(() => {
-                    this.router.navigate(['']);
-                  });
-              } else {
-                this.storeUser(user)
-                  .then(() => {
-                    this.router.navigate(['']);
-                  });
-              }
-            } else {
-              this.router.navigate(['/login/reset-password']);
+  login(username: string, password: string): Observable<LoginResponse> {
+    const loginRequest = {
+      username: username,
+      password: password
+    };
+
+    // Configuration des headers pour la requête
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }),
+      withCredentials: true,
+      observe: 'response' as const
+    };
+
+    console.log('Tentative de connexion:', {
+      url: `${this.apiUrl}/login`,
+      body: loginRequest,
+      headers: httpOptions.headers,
+      withCredentials: httpOptions.withCredentials
+    });
+
+    return this.http.post<LoginResponse>(`${this.apiUrl}/login`, loginRequest, httpOptions)
+      .pipe(
+        tap((response: any) => {
+          console.log('Réponse complète du serveur:', response);
+          if (response.body && response.body.token) {
+            localStorage.setItem('id_token', response.body.token);
+            console.log('Token stocké:', response.body.token);
+            
+            if (response.body.user) {
+              localStorage.setItem('mdd_user', JSON.stringify(response.body.user));
             }
-          }, (error: any) => console.log(error));
-        });
-      }).catch((error1) => this.errCon = true);
-    return this.errCon;
+          }
+        }),
+        catchError(error => {
+          console.error('Erreur de connexion:', {
+            status: error.status,
+            message: error.message,
+            error: error.error
+          });
+          this.errCon = true;
+          return throwError(() => error);
+        })
+      );
   }
 
-  async login(credentials: any) {
-    return this.authenticationProcess('/api/login', {username: credentials.login, password: credentials.password});
+  async authenticationProcess(url: string, body: any): Promise<boolean> {
+    try {
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      });
+
+      const options = {
+        headers: headers,
+        withCredentials: true
+      };
+
+      const fullUrl = `${this.apiUrl}${url}`;
+      console.log('Envoi de la requête:', {
+        url: fullUrl,
+        body: body
+      });
+
+      const data = await this.http.post<LoginResponse>(fullUrl, body, options).toPromise();
+      console.log('Réponse:', data);
+
+      if (data?.token) {
+        await this.setSession(data);
+        const user = await this.identity().toPromise();
+        if (user?.passwordChanged) {
+          await this.storeUser(user);
+          this.router.navigate(['']);
+        } else {
+          this.router.navigate(['/login/reset-password']);
+        }
+      }
+      return false;
+    } catch (error) {
+      console.error('Erreur d\'authentification:', error);
+      this.errCon = true;
+      return true;
+    }
   }
 
-  async setSession(authResult: any) {
-
-    localStorage.removeItem('id_token');
-    localStorage.setItem('id_token', authResult.token);
+  async setSession(authResult: LoginResponse): Promise<void> {
+    try {
+      if (authResult && authResult.token) {
+        localStorage.setItem('id_token', authResult.token);
+        console.log('Token stocké avec succès:', authResult.token);
+      } else {
+        console.error('Pas de token dans la réponse');
+      }
+    } catch (error) {
+      console.error('Erreur lors du stockage du token:', error);
+    }
   }
 
-  async storeUser(user: any) {
+  async storeUser(user: any): Promise<void> {
     localStorage.removeItem('mdd_user');
-    localStorage.setItem('mdd_user',JSON.stringify(user));
-    // this.storage.store('mdd_user', this.convertText('encrypt', user));
+    localStorage.setItem('mdd_user', JSON.stringify(user));
   }
 
-  token() {
-    return localStorage.getItem('id_token')?.toString();
+  getToken(): string | null {
+    const token = localStorage.getItem('id_token');
+    console.log('Token récupéré:', token);
+    return token;
   }
 
-  /*public isLoggedIn() {
-    return moment().isBefore(this.getExpiration());
-  }*/
+  isAuthenticated(): boolean {
+    const token = this.getToken();
+    return !!token;
+  }
 
-  logout() {
-    localStorage.removeItem('id_token');
-    localStorage.removeItem('expires_at');
-    localStorage.removeItem('mdd_user');
+  logout(): void {
+    localStorage.clear(); // Nettoie tout le localStorage
     this.router.navigate(['/login']);
   }
 
-  public identity() {
-    return this.http.get<any>('/api/connected-user');
+  identity(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/connected-user`, {
+      withCredentials: true
+    });
   }
-
-  // convertText(conversion: string, user: any) {
-  //   if (conversion === 'encrypt') {
-  //     return CryptoJS.AES.encrypt(JSON.stringify(user).trim(), this.SECRET.trim()).toString();
-  //   } else {
-  //     const bytes = CryptoJS.AES.decrypt(user, this.SECRET.trim());
-  //     if (bytes.toString()) {
-  //       return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-  //     }
-  //   }
-  // }
 
   hasAuthority(authorities: string[], user: UtilisateurModel): boolean {
     for (const authority of authorities) {
       if (user?.roles?.nomRoles === authority) {
-        return true;  
+        return true;
       }
     }
     return false;

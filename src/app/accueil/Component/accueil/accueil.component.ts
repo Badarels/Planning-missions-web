@@ -36,7 +36,7 @@ export class AccueilComponent {
     this.subscription.push(
       this.MissionServices.getMissions().subscribe(
         (data:Missions[])=>{
-          this.mission=data;
+          this.mission=data.filter(miss=> miss.archived==0);
           this.totalMission = this.countElements(this.mission.filter(mis => mis.archived == 0))
         },
         (error)=>{

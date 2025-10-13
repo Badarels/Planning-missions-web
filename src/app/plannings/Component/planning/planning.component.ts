@@ -71,14 +71,13 @@ getDateCellStyle(dateString: string | undefined): { [key: string]: string } {
     return { color: 'red' }; // Rouge pour les dates passées
   }
 }
+
 // Style pour les statuts des missions
 getStatutAnnonceStyle(statutAnnonce: string | undefined): { [key: string]: string } {
   if (!statutAnnonce) {
     return {}; // Aucun style si le statut est indéfini
   }
-
   let style: { [key: string]: string } = {};
-
   switch (statutAnnonce.toLowerCase()) {
     case 'validé':
       style['color'] = 'green';
@@ -112,10 +111,10 @@ getStatutAnnonceStyle(statutAnnonce: string | undefined): { [key: string]: strin
 
     // Ouvrez le modal avec le composant que vous souhaitez afficher
     const modalRef = this.modalService.open(ProfilMissionComponent, modalOptions);
-
     // Passez les données de la mission au composant du modal
     modalRef.componentInstance.mission = mission;
   }
+
   supprimerMissions(event: Event, id?: number): void {
     event.preventDefault();
     if (id !== undefined) {

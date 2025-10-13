@@ -4,13 +4,14 @@ import { Observable } from 'rxjs';
 import { subscriptionLogsToBeFn } from 'rxjs/internal/testing/TestScheduler';
 import { RoleModel } from 'src/app/shared/Model/Role.Model';
 import { UtilisateurModel } from 'src/app/shared/Model/Utilisateur.model';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UtilisateurService {
 
-  private baseUrl = 'http://localhost:9006/api/users'; 
+  private baseUrl = `${environment.apiUrl}/users`; 
 
   constructor(private http: HttpClient){}
 
@@ -43,5 +44,7 @@ export class UtilisateurService {
     const url = `${this.baseUrl}/archive/${utilisateurId}`;
     return this.http.put<UtilisateurModel>(url, {});
   }
+
+  
 
 }

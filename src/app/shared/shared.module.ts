@@ -15,6 +15,7 @@ import { MissionPipe } from '../pipe/mission.pipe';
     CommonModule
   ],
   exports:[
+    CommonModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule,

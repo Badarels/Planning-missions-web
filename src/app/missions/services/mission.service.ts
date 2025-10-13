@@ -2,13 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Missions } from 'src/app/shared/Model/Missions';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MissionService {
-
-  private baseUrl = 'http://localhost:9006/api';
+  private baseUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
 

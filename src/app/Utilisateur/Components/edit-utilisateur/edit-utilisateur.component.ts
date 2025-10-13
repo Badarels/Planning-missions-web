@@ -73,6 +73,8 @@ ngOnDestroy(): void {
   this.subscription.forEach(sub => sub.unsubscribe());
 }
 
+
+
 loadUser(): void {
   // Charger les données de l'utilisateur à éditer en fonction de l'ID
   this.subscription.push(

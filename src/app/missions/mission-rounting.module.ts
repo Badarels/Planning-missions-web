@@ -14,22 +14,29 @@ import { ProfilMissionComponent } from './component/profil-mission/profil-missio
   imports: [
     RouterModule.forChild([
       {
-        path: 'Ajout-mission',
-        component: AjoutMissionComponent,
+        path: '',
+        component: MissionComponent
       },
       {
-        path: 'edit-mission/:id',
-        component: EditMissionComponent,
+        path: 'ajout',
+        component: AjoutMissionComponent
       },
+      {
+        path: 'edit/:id',
+        component: EditMissionComponent
+      },
+      {
+        path: 'profil/:id',
+        component: ProfilMissionComponent
+      },
+      // Anciens chemins maintenus pour la rétrocompatibilité
       {
         path: 'list-mission',
-        component: MissionComponent,
-        
+        redirectTo: ''
       },
       {
-        path: 'profil-mission/:id',
-        component: ProfilMissionComponent,
-        
+        path: 'Ajout-mission',
+        redirectTo: 'ajout'
       }
     ])
     

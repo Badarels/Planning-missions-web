@@ -2,100 +2,95 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MainContaintsComponent } from './layouts/main-containts/main-containts.component';
 
-
 const routes: Routes = [
-  {
-    path: '',
-    redirectTo: 'login',
-    pathMatch: 'full'
-  },
+  // Redirection par défaut vers Accueil
+  { path: '', redirectTo: 'Accueil', pathMatch: 'full' },
+
+  // Layout principal
   {
     path: '',
     component: MainContaintsComponent,
     children: [
-  
-      {
-        path: 'main',
-        loadChildren: () => import('./layouts/layouts.module').then(m => m.LayoutsModule)
-      },
+      // Accueil
       {
         path: 'Accueil',
-        loadChildren: () => import('./accueil/accueil.module').then(a => a.AccueilModule)
+        loadChildren: () =>
+          import('./accueil/accueil.module').then(m => m.AccueilModule)
       },
+
+      // Layout global (barre latérale, header…)
       {
-        path: 'ajoutUtilisateur',
-        loadChildren: () => import('./Utilisateur/utilisateur.module').then(m => m.UtilisateurModule)
+        path: 'main',
+        loadChildren: () =>
+          import('./layouts/layouts.module').then(m => m.LayoutsModule)
       },
+
+      // Utilisateur
       {
         path: 'listeUtilisateur',
-        loadChildren: () => import('./Utilisateur/utilisateur.module').then(m => m.UtilisateurModule)
+        loadChildren: () =>
+          import('./Utilisateur/utilisateur.module').then(m => m.UtilisateurModule),
+        data: { title: 'Liste des utilisateurs' }
       },
+      { path: 'ajoutUtilisateur', redirectTo: 'listeUtilisateur/ajout', pathMatch: 'full' },
+      { path: 'ModifierUtilisateur', redirectTo: 'listeUtilisateur/edit', pathMatch: 'full' },
+      { path: 'ProfilUtilisateur', redirectTo: 'listeUtilisateur/profil', pathMatch: 'full' },
+
+      // Médecin
       {
-        path: 'ModifierUtilisateur',
-        loadChildren: () => import('./Utilisateur/utilisateur.module').then(m => m.UtilisateurModule)
+        path: 'medecin',
+        loadChildren: () =>
+          import('./Medecin/medecin.module').then(m => m.MedecinModule)
       },
+
+      // Centre hospitalier
       {
-        path: 'ProfilUtilisateur',
-        loadChildren: () => import('./Utilisateur/utilisateur.module').then(m => m.UtilisateurModule)
+        path: 'list-CentreHospitalier',
+        loadChildren: () =>
+          import('./centreHospitalier/centre-hospitalier.module').then(
+            m => m.CentreHospitalierModule
+          ),
+        data: { title: 'Liste des centres hospitaliers' }
       },
+      { path: 'ajoutCentreHospitalier', redirectTo: 'list-CentreHospitalier/ajout', pathMatch: 'full' },
+      { path: 'editCentreHospitalier/:id', redirectTo: 'list-CentreHospitalier/edit/:id', pathMatch: 'full' },
+
+      // Mission
       {
-      path: 'ajoutMedecin',
-        loadChildren: () => import('./Medecin/medecin.module').then(m => m.MedecinModule)
+        path: 'mission',
+        loadChildren: () =>
+          import('./missions/mission.module').then(m => m.MissionModule)
       },
-      {
-        path: 'listeMedecin',
-        loadChildren: () => import('./Medecin/medecin.module').then(m => m.MedecinModule)
-      },
-      {
-        path: 'profilMedecin',
-        loadChildren: () => import('./Medecin/medecin.module').then(m => m.MedecinModule)
-      },
-      {
-        path: 'ajoutCentreHospitalier',
-        loadChildren: () => import('./centreHospitalier/centre-hospitalier.module').then(ch => ch.CentreHospitalierModule)
-      },
-      {
-        path: 'listeCentreHospitalier',
-        loadChildren: () => import('./centreHospitalier/centre-hospitalier.module').then(ch => ch.CentreHospitalierModule)
-      },
-      {
-        path: 'editCentreHospitalier',
-        loadChildren: () => import('./centreHospitalier/centre-hospitalier.module').then(ch => ch.CentreHospitalierModule)
-      },
-      {
-        path: 'ajoutMission',
-        loadChildren: () => import('./missions/mission.module').then(mis => mis.MissionModule)
-      },
-      {
-        path: 'editMission',
-        loadChildren: () => import('./missions/mission.module').then(mis => mis.MissionModule)
-      },
-      {
-        path: 'listeMission',
-        loadChildren: () => import('./missions/mission.module').then(mis => mis.MissionModule)
-      },
-      {
-        path: 'profilMission',
-        loadChildren: () => import('./missions/mission.module').then(mis => mis.MissionModule)
-      },
+
+      // Planning
       {
         path: 'planningMission',
-        loadChildren: () => import('./plannings/planning.module').then(pla => pla.PlanningModule)
+        loadChildren: () =>
+          import('./plannings/planning.module').then(m => m.PlanningModule)
       },
+
+      // Employé
+      {
+        path: 'employe',
+        loadChildren: () =>
+          import('./Employe/employe.module').then(m => m.EmployeModule)
+      }
     ]
   },
+
+  // Authentification
   {
     path: 'login',
-    loadChildren: () => import('./authentification/authetification.module').then(m => m.AuthetificationModule )
-  }
-  
- /*{ path: 'login', component: LoginComponent },
-  {path: 'ajouterUtulisateur', component: AjouterUtilisateurComponent},
-  { path: 'main', component: MainContaintsComponent}*/
+    loadChildren: () =>
+      import('./authentification/authetification.module').then(m => m.AuthetificationModule)
+  },
+
+  // Redirection si route non trouvée
+  { path: '**', redirectTo: 'Accueil' }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled' })],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

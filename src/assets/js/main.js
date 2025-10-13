@@ -5,7 +5,7 @@
 * Author: BootstrapMade.com
 * License: https://bootstrapmade.com/license/
 */
-(function() {
+document.addEventListener('DOMContentLoaded', () => {
   "use strict";
 
   /**
@@ -39,12 +39,23 @@
   }
 
   /**
-   * Sidebar toggle
+   * Toggle sidebar
    */
-  if (select('.toggle-sidebar-btn')) {
-    on('click', '.toggle-sidebar-btn', function(e) {
-      select('body').classList.toggle('toggle-sidebar')
-    })
+  const toggleSidebar = select('.toggle-sidebar-btn');
+  if (toggleSidebar) {
+    toggleSidebar.addEventListener('click', function(e) {
+      select('body').classList.toggle('toggle-sidebar');
+    });
+  }
+
+  /**
+   * Toggle nav
+   */
+  const toggleNav = select('.toggle-nav-btn');
+  if (toggleNav) {
+    toggleNav.addEventListener('click', function(e) {
+      select('body').classList.toggle('toggle-nav');
+    });
   }
 
   /**
@@ -93,27 +104,38 @@
   }
 
   /**
-   * Back to top button
+   * Scroll to top button
    */
-  let backtotop = select('.back-to-top')
-  if (backtotop) {
-    const toggleBacktotop = () => {
-      if (window.scrollY > 100) {
-        backtotop.classList.add('active')
-      } else {
-        backtotop.classList.remove('active')
-      }
+  let scrollTop = select('.back-to-top');
+  if (scrollTop) {
+    const togglescrollTop = function() {
+      window.scrollY > 100 ? scrollTop.classList.add('active') : scrollTop.classList.remove('active');
     }
-    window.addEventListener('load', toggleBacktotop)
-    onscroll(document, toggleBacktotop)
+    window.addEventListener('load', togglescrollTop);
+    document.addEventListener('scroll', togglescrollTop);
+    scrollTop.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
   }
 
   /**
-   * Initiate tooltips
+   * Initialize tooltips
    */
   var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
   var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
     return new bootstrap.Tooltip(tooltipTriggerEl)
+  })
+
+  /**
+   * Initialize popovers
+   */
+  var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+  var popoverList = popoverTriggerList.map(function(popoverTriggerEl) {
+    return new bootstrap.Popover(popoverTriggerEl)
   })
 
   /**
@@ -318,4 +340,4 @@
     }, 200);
   }
 
-})();
+});

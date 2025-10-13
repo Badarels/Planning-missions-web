@@ -9,21 +9,33 @@ import { EditCentreHospitalierComponent } from './Component/edit-centre-hospital
 
 
 @NgModule({
-
-imports: [
-  RouterModule.forChild([
-    {
-      path: 'Ajout-CentreHospitalier',
-      component: AjoutCentreHospitalierComponent
-    },
-    {
-      path: 'list-CentreHospitalier',
-      component: ListeCentreHospitalierComponent
-    },  
-    {
-      path: 'edit-CentreHospitalier/:id',
-      component: EditCentreHospitalierComponent
-    },
+  imports: [
+    RouterModule.forChild([
+      {
+        path: '',
+        component: ListeCentreHospitalierComponent
+      },
+      {
+        path: 'ajout',
+        component: AjoutCentreHospitalierComponent
+      },
+      {
+        path: 'edit/:id',
+        component: EditCentreHospitalierComponent
+      },
+      // Anciens chemins maintenus pour la rétrocompatibilité
+      {
+        path: 'list-CentreHospitalier',
+        redirectTo: ''
+      },
+      {
+        path: 'Ajout-CentreHospitalier',
+        redirectTo: 'ajout'
+      },
+      {
+        path: 'edit-CentreHospitalier/:id',
+        redirectTo: 'edit/:id'
+      }
   ])
 ],
 exports: [RouterModule]

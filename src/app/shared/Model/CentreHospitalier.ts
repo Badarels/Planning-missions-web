@@ -10,5 +10,5 @@ export class CentreHospitalier {
   public telephone?: string;
   public adresse?: Adresse;
   public adresse_id?: number; 
-  public archived?: number;
+  public archived?: number; 
 }

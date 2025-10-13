@@ -1,34 +1,25 @@
 <main id="main" class="main">
-
     <div class="pagetitle">
-      <h1>Liste des utilisateurs</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a [routerLink]="'/Accueil/accueil'">ACCUEIL</a></li>
-          <li class="breadcrumb-item">Liste</li>
-          
-        </ol>
-      </nav>
+        <h1>Liste des utilisateurs</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a [routerLink]="'/Accueil/accueil'">ACCUEIL</a></li>
+                <li class="breadcrumb-item">Liste</li>
+            </ol>
+        </nav>
     </div><!-- End Page Title -->
-<section class="section">
-<!--**********************************
-    Nav header end
-***********************************-->
 
-<!--**********************************
-    Content body start
-***********************************-->
-<div class="content-body">
-    <!-- row -->
-    <div class="container-fluid">       
-        <div class="row">
-            
-				<div class="row">
+    <section class="section">
+        <!-- Content body start -->
+        <div class="content-body">
+            <!-- row -->
+            <div class="container-fluid">       
+                <div class="row">
                     <div class="col-lg-12">
                         <ul class="nav nav-pills mb-3">
                             <li class="nav-item"><a href="#list-view" data-toggle="tab" class="nav-link btn-primary mr-1 show active">Vue Liste</a></li>
                             <li class="nav-item"><a href="#grid-view" data-toggle="tab" class="nav-link btn-primary">Vue Grille</a></li>
-                            <li class="nav-item"><a  data-toggle="tab" class="nav-link btn-primary" [routerLink]="'/ajoutUtilisateur/Ajout-Utilisateur'">+ Ajouter nouveau</a></li>
+                            <li class="nav-item"><a  data-toggle="tab" class="nav-link btn-primary" [routerLink]="'/ajoutUtilisateur/ajout'">+ Ajouter nouveau</a></li>
 
                         </ul>
                     </div>
@@ -61,7 +52,7 @@
                                             <th scope="col" style="width: 600px;">Adresse</th>
                                             <th scope="col" style="width: 200px;">Sexe</th>
                                             <th scope="col" style="width: 800px;">Date de Naissance</th>
-                                            <th scope="col" style="width: 200px;">Email</th>
+                                            <th scope="col" style="width: 200px;">Email</th>  
                                             <th scope="col" style="width: 200px;">Telephone</th>
                                             <th scope="col" style="width: 200px;">N° piece d'indentité</th>
                                             <th scope="col" style="width: 200px;">Role</th>
@@ -88,10 +79,10 @@
                                                 <div ngbDropdownMenu [ngClass]="{'show': isDropdownOpen}" aria-labelledby="dropdownMenuButton">
                                                   <!-- Utilisez [routerLink] pour "Modifier" et (click) pour "Supprimer" -->
                                                   
-                                                  <button class="dropdown-item" [routerLink]="['/ProfilUtilisateur/profil-utilisateur', user?.id]" >Aperçue</button>
-                                                  <button class="dropdown-item" [routerLink]="['/ModifierUtilisateur/edit-utilisateur', user?.id]">Modifier</button>
+                                                  <button class="dropdown-item" [routerLink]="['/ProfilUtilisateur/profil', user?.id]">Aperçue</button>
+                                                  <button class="dropdown-item" [routerLink]="['/ModifierUtilisateur/edit', user?.id]">Modifier</button>
                                                   <button class="dropdown-item" (click)="supprimerUsers($event, user?.id)">Supprimer</button>
-                                                </div>
+                                                </div> 
                                               </div>
                                             </td>
                                         </tr>
@@ -115,14 +106,13 @@
                                
                                               <div ngbDropdownMenu [ngClass]="{'show': isDropdownOpen}" aria-labelledby="dropdownMenuButton">
                                                   <!-- Utilisez [routerLink] pour "Modifier" et (click) pour "Supprimer" -->
-                                                  <button class="dropdown-item" [routerLink]="['/ModifierUtilisateur/edit-utilisateur', user?.id]">Modifier</button>
+                                                  <button class="dropdown-item" [routerLink]="['/ModifierUtilisateur', user?.id]">Modifier</button>
                                                   <button class="dropdown-item" (click)=" supprimerUsers($event, user?.id)">Supprimer</button>
                                               </div>
                                           </div>
                                           
                                           </div>
-                                          
-                                          
+                                
                                             <div class="card-body pt-2">
                                                 <div class="text-center">
                                                     <div class="profile-photo">
@@ -134,33 +124,26 @@
                                                         <li class="list-group-item px-0 d-flex justify-content-between">
                                                             <span>Role :</span><strong>{{user?.roles?.nomRoles}}</strong></li>
                                                         <li class="list-group-item px-0 d-flex justify-content-between">
-                                                            <span class="mb-0">N° Telephone :</span><strong>{{user?.telephoneUser}}</strong></li>
                                                         <li class="list-group-item px-0 d-flex justify-content-between">
-                                                            <span class="mb-0">Adresse. :</span><strong>{{user?.adresseUser}}</strong></li>
+                                                            <span class="mb-0">N° Téléphone :</span><strong>{{user?.telephoneUser}}</strong>
+                                                        </li>
+                                                        <li class="list-group-item px-0 d-flex justify-content-between">
+                                                            <span class="mb-0">Adresse :</span><strong>{{user?.adresseUser}}</strong>
+                                                        </li>
                                                         <li class="list-group-item px-0 d-flex justify-content-between">
                                                             <span class="mb-0">Email:</span><strong>{{user?.emailUser}}</strong></li>
                                                     </ul>
-                                                    <a class="btn btn-outline-primary btn-rounded mt-3 px-4" 
-                                                    value="" [routerLink]="['/ProfilUtilisateur/profil-utilisateur', user?.id]">Aperçu</a>
+                                                    <a class="btn btn-outline-primary btn-rounded mt-3 px-4" [routerLink]="['/ProfilUtilisateur', user?.id]">Aperçu</a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>  
-                            </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-        </div>
             </div>
         </div>
-       
-    
-
-<!--**********************************
-    Content body end
-***********************************-->
-</section>
-
+    </section>
 </main>
-
