@@ -9,9 +9,10 @@ import { Adresse } from 'src/app/shared/Model/Adresse';
 import { AdresseService } from 'src/app/Adresses/Services/adresse.service';
 
 @Component({
-  selector: 'app-edit-centre-hospitalier',
-  templateUrl: './edit-centre-hospitalier.component.html',
-  styleUrls: ['./edit-centre-hospitalier.component.css']
+    selector: 'app-edit-centre-hospitalier',
+    templateUrl: './edit-centre-hospitalier.component.html',
+    styleUrls: ['./edit-centre-hospitalier.component.css'],
+    standalone: false
 })
 export class EditCentreHospitalierComponent implements OnInit{
 

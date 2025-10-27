@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { CentreHospitalier } from '../shared/Model/CentreHospitalier';
 
 @Pipe({
-  name: 'searchCH'
+    name: 'searchCH',
+    standalone: false
 })
 export class SearchCHPipe implements PipeTransform {
 

@@ -1,17 +1,31 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { UtilisateurModel } from 'src/app/shared/Model/Utilisateur.model';
 import { UtilisateurService } from '../../Services/utilisateur.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { AdresseService } from 'src/app/Adresses/Services/adresse.service';
 import { Adresse } from 'src/app/shared/Model/Adresse';
 import { RoleModel } from 'src/app/shared/Model/Role.Model';
+import { CommonModule } from '@angular/common';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrModule } from 'ngx-toastr';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @Component({
-  selector: 'app-edit-utilisateur',
-  templateUrl: './edit-utilisateur.component.html',
-  styleUrls: ['./edit-utilisateur.component.css']
+    selector: 'app-edit-utilisateur',
+    templateUrl: './edit-utilisateur.component.html',
+    styleUrls: ['./edit-utilisateur.component.css'],
+    standalone: true,
+    imports: [
+      CommonModule,
+      ReactiveFormsModule,
+      RouterModule,
+      FormsModule,
+      ToastrModule,
+      NgbDropdownModule,
+      SharedModule,
+    ]
 })
 export class EditUtilisateurComponent {
   

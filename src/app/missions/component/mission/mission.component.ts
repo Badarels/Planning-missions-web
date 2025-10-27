@@ -3,18 +3,46 @@ import { Component, ViewChild } from '@angular/core';
 import { Missions } from 'src/app/shared/Model/Missions';
 import { MissionService } from '../../services/mission.service';
 import { ToastrService } from 'ngx-toastr';
-import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalOptions, NgbTimepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { ProfilMissionComponent } from '../profil-mission/profil-mission.component';
 import { Observable, Subscription, catchError, tap } from 'rxjs';
 
-import { MatMenuTrigger } from '@angular/material/menu';
-
+import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
+import { MissionPipe } from "../../../pipe/mission.pipe";
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { RouterLink, RouterModule } from '@angular/router';
+import { SharedModule } from "../../../shared/shared.module";
 
 
 @Component({
-  selector: 'app-mission',
-  templateUrl: './mission.component.html',
-  styleUrls: ['./mission.component.css']
+    selector: 'app-mission',
+    templateUrl: './mission.component.html',
+    styleUrls: ['./mission.component.css'],
+    standalone: true,
+    imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    NgbDatepickerModule,
+    NgbTimepickerModule,
+    MatMenuModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    FormsModule,
+    RouterModule,
+    SharedModule
+],
+   
+    providers: [NgbModal],
 })
 export class MissionComponent {
   mission!: Missions;

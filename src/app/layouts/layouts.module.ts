@@ -10,10 +10,7 @@ import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
-    MainContaintsComponent,
-    HeaderComponent,
-    SidebarComponent,
-    FooterComponent
+    
   ],
   exports: [
     MainContaintsComponent,
@@ -25,7 +22,11 @@ import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
     CommonModule,
     RouterModule,
     SharedModule,
-    NgbDropdownModule
+    NgbDropdownModule,
+    MainContaintsComponent,
+    HeaderComponent,
+    SidebarComponent,
+    FooterComponent
   ]
 })
 export class LayoutsModule { }

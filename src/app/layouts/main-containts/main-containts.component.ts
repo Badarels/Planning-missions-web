@@ -1,11 +1,27 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd, RouterModule } from '@angular/router';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { filter } from 'rxjs/operators';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { HeaderComponent } from '../header/header.component';
+import { SidebarComponent } from '../sidebar/sidebar.component';
+import { FooterComponent } from '../footer/footer.component';
 
 @Component({
-  selector: 'app-main-containts',
-  templateUrl: './main-containts.component.html',
-  styleUrls: ['./main-containts.component.css']
+    selector: 'app-main-containts',
+    templateUrl: './main-containts.component.html',
+    styleUrls: ['./main-containts.component.css'],
+    standalone: true,
+     imports: [
+        CommonModule,
+        RouterModule,
+        SharedModule,
+        NgbDropdownModule,
+        HeaderComponent,
+        SidebarComponent,
+        FooterComponent
+],
 })
 export class MainContaintsComponent implements OnInit {
   title: string = 'Tableau de bord';

@@ -14,15 +14,12 @@ import { UsersPipe } from '../pipe/users.pipe';
 
 
 @NgModule({
-  declarations: [
-    AjouterUtilisateurComponent,
+
+  imports: [
     ListeUtilisateurComponent,
     EditUtilisateurComponent,
     ProfilUtilisateurComponent,
-    UsersPipe,
-   
-  ],
-  imports: [
+    AjouterUtilisateurComponent,
     SharedModule,
     CommonModule,
     UtilisateurRoutingModule,

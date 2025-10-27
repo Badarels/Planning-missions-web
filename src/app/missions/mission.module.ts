@@ -1,33 +1,49 @@
 import { NgModule } from '@angular/core';
-import { MissionComponent } from './component/mission/mission.component';
-import { AjoutMissionComponent } from './component/ajout-mission/ajout-mission.component';
-import { MissionRountingModule } from './mission-rounting.module';
-import { SharedModule } from '../shared/shared.module';
-import { NgbDropdownModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
-import { MissionPipe } from '../pipe/mission.pipe';
-import { EditMissionComponent } from './component/edit-mission/edit-mission.component';
-import { ProfilMissionComponent } from './component/profil-mission/profil-mission.component';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { SharedModule } from '../shared/shared.module';
+import { MissionRoutingModule } from './mission-routing.module';
+
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatMenuModule } from '@angular/material/menu';
 
 
-
-
-@NgModule({
-  declarations: [
-    MissionComponent,
-    AjoutMissionComponent,
-    EditMissionComponent,
-    ProfilMissionComponent,
+  @NgModule({
+    declarations: [
     
-  ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    MissionRountingModule,
-    NgbDropdownModule,
-    NgbModalModule,
-   
-
+    ],
+imports: [
+  // Angular Modules
+  CommonModule,
+  FormsModule,
+  ReactiveFormsModule,
+  RouterModule,
+  
+  // Material Modules
+  MatButtonModule,
+  MatIconModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatSelectModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
+  MatDialogModule,
+  MatMenuModule,
+  
+  // Custom Modules
+  SharedModule,
+  MissionRoutingModule
+],
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'fr-FR' }
   ]
 })
 export class MissionModule { }

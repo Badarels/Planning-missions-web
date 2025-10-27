@@ -12,16 +12,17 @@ import { SearchAdressePipe } from '../pipe/search-adresse.pipe';
 
 @NgModule({
   declarations: [
+    
+  ],
+  imports: [
+    SharedModule,
+    MedecinRoutingModule,
+    CommonModule,
     AjoutMedecinComponent,
     ListeMedecinComponent,
     ProfilMedecinComponent,
     SearchPipe,
     SearchAdressePipe,
-  ],
-  imports: [
-    SharedModule,
-    MedecinRoutingModule,
-    CommonModule
     
   ]
 })

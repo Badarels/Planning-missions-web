@@ -8,9 +8,10 @@ import { AdresseService } from 'src/app/Adresses/Services/adresse.service';
 import { ToastService } from 'src/app/Utilisateur/Services/toast.service';
 
 @Component({
-  selector: 'app-ajout-centre-hospitalier',
-  templateUrl: './ajout-centre-hospitalier.component.html',
-  styleUrls: ['./ajout-centre-hospitalier.component.css']
+    selector: 'app-ajout-centre-hospitalier',
+    templateUrl: './ajout-centre-hospitalier.component.html',
+    styleUrls: ['./ajout-centre-hospitalier.component.css'],
+    standalone: false
 })
 export class AjoutCentreHospitalierComponent implements OnInit {
 

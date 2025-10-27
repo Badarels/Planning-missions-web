@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { Missions } from '../shared/Model/Missions';
 
 @Pipe({
-  name: 'mission'
+    name: 'mission',
+    standalone: false
 })
 export class MissionPipe implements PipeTransform {
 

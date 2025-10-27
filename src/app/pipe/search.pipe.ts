@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { Medecin } from '../shared/Model/Medecin';
 
 @Pipe({
-  name: 'search'
+    name: 'search',
+    standalone: true
 })
 export class SearchPipe implements PipeTransform {
   transform(medecins: Medecin[], searchText: string): any[] {

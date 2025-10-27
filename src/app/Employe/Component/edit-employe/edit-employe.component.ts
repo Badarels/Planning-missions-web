@@ -1,17 +1,42 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { ToastService } from 'src/app/Utilisateur/Services/toast.service';
 import { Employe } from 'src/app/shared/Model/Employe';
 import { EmployeService } from '../../Services/employe.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { BsLocaleService } from 'ngx-bootstrap/datepicker';
-import { defineLocale, frLocale } from 'ngx-bootstrap/chronos';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuTrigger, MatMenuModule } from '@angular/material/menu';
+import { MatSelectModule } from '@angular/material/select';
+import { NgbDatepickerModule, NgbTimepickerModule } from '@ng-bootstrap/ng-bootstrap';
+import { MissionRoutingModule } from 'src/app/missions/mission-routing.module';
+import { MissionPipe } from 'src/app/pipe/mission.pipe';
 
 @Component({
-  selector: 'app-edit-employe',
-  templateUrl: './edit-employe.component.html',
-  styleUrl: './edit-employe.component.css'
+    selector: 'app-edit-employe',
+    templateUrl: './edit-employe.component.html',
+    styleUrl: './edit-employe.component.css',
+    standalone: true,
+
+    imports: [
+    MissionRoutingModule,
+    CommonModule,
+    ReactiveFormsModule,
+    NgbDatepickerModule,
+    NgbTimepickerModule,
+    MatMenuModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    FormsModule,
+    RouterModule
+],
 })
 export class EditEmployeComponent {
 
@@ -35,10 +60,7 @@ export class EditEmployeComponent {
     private formBuilder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-    private localeService: BsLocaleService){
-      defineLocale('fr', frLocale);
-    this.localeService.use('fr');
-    }
+    ){}
 
   ngOnInit(): void {
     this.initForm();    

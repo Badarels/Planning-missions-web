@@ -1,4 +1,8 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { MedecinService } from 'src/app/Medecin/Services/medecin.service';
 import { CentreHospitalierService } from 'src/app/centreHospitalier/Services/centre-hospitalier.service';
@@ -9,9 +13,16 @@ import { Missions } from 'src/app/shared/Model/Missions';
 import { error } from 'toastr';
 
 @Component({
-  selector: 'app-accueil',
-  templateUrl: './accueil.component.html',
-  styleUrl: './accueil.component.css'
+    selector: 'app-accueil',
+    templateUrl: './accueil.component.html',
+    styleUrl: './accueil.component.css',
+    standalone: true,
+    imports: [
+      CommonModule,
+      RouterModule,
+      FormsModule,  
+      HttpClientModule
+    ]
 })
 export class AccueilComponent {
 

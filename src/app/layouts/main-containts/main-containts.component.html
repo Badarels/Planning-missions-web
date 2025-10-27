@@ -1,25 +1,35 @@
-<!-- ======= Header ======= -->
-<app-header></app-header>
+<main id="main-layout" class="d-flex flex-column vh-100">
 
-<!-- ======= Sidebar ======= -->
-<app-sidebar></app-sidebar>
+  <!-- ======= Header ======= -->
+  <app-header></app-header>
 
-<!-- ======= Main Content ======= -->
-<main id="main" class="main">
-  <div class="pagetitle">
-    <h1>{{ title }}</h1>
-    <nav>
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a routerLink="/">Accueil</a></li>
-        <li class="breadcrumb-item active">{{ title }}</li>
-      </ol>
-    </nav>
-  </div>
-  
-  <div class="container-fluid">
-    <router-outlet></router-outlet>
-  </div>
+  <div class="d-flex flex-grow-1">
+
+    <!-- ======= Sidebar ======= -->
+    <app-sidebar></app-sidebar>
+
+    <!-- ======= Contenu principal ======= -->
+    <div class="content flex-grow-1 p-4">
+
+      <div class="pagetitle">
+        <h1>{{ title }}</h1>
+        <nav>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a routerLink="/">Accueil</a></li>
+            <li class="breadcrumb-item active">{{ title }}</li>
+          </ol>
+        </nav>
+      </div>
+
+      <div class="container-fluid">
+        <router-outlet></router-outlet>
+      </div>
+
+    </div> <!-- Fin contenu principal -->
+
+  </div> <!-- Fin bloc sidebar + contenu -->
+
+  <!-- ======= Footer ======= -->
+  <app-footer></app-footer>
+
 </main>
-
-<!-- ======= Footer ======= -->
-<app-footer></app-footer>

@@ -3,12 +3,27 @@ import { UtilisateurModel } from 'src/app/shared/Model/Utilisateur.model';
 import { UtilisateurService } from '../../Services/utilisateur.service';
 import { Subscription } from 'rxjs';
 import { RoleModel } from 'src/app/shared/Model/Role.Model';
-import { ToastrService } from 'ngx-toastr';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { UsersPipe } from 'src/app/pipe/users.pipe';
 
 @Component({
-  selector: 'app-liste-utilisateur',
-  templateUrl: './liste-utilisateur.component.html',
-  styleUrls: ['./liste-utilisateur.component.css']
+    selector: 'app-liste-utilisateur',
+    templateUrl: './liste-utilisateur.component.html',
+    styleUrls: ['./liste-utilisateur.component.css'],
+    standalone: true,
+    imports: [
+      CommonModule,
+      ReactiveFormsModule,
+      FormsModule,
+      ToastrModule,
+      NgbDropdownModule,
+      SharedModule,
+      UsersPipe,
+    ]
 })
 export class ListeUtilisateurComponent implements OnInit {
   

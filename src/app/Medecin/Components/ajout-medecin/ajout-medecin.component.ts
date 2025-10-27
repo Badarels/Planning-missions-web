@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Medecin } from 'src/app/shared/Model/Medecin';
 import { MedecinService } from '../../Services/medecin.service';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Adresse } from 'src/app/shared/Model/Adresse';
 import { Observable, Subscription, catchError, switchMap, tap } from 'rxjs';
 
@@ -9,15 +9,42 @@ import { AdresseService } from 'src/app/Adresses/Services/adresse.service';
 import { Specialite } from 'src/app/shared/Model/Specialite';
 
 import { ToastrService } from 'ngx-toastr';
-import { formatDate } from '@angular/common';
+import { CommonModule, formatDate } from '@angular/common';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSelectModule } from '@angular/material/select';
+import { RouterModule } from '@angular/router';
+import { NgbDatepickerModule, NgbTimepickerModule } from '@ng-bootstrap/ng-bootstrap';
+import { MissionRoutingModule } from 'src/app/missions/mission-routing.module';
+import { SearchAdressePipe } from "../../../pipe/search-adresse.pipe";
 
 
 
 
 @Component({
-  selector: 'app-ajout-medecin',
-  templateUrl: './ajout-medecin.component.html',
-  styleUrls: ['./ajout-medecin.component.css']
+    selector: 'app-ajout-medecin',
+    templateUrl: './ajout-medecin.component.html',
+    styleUrls: ['./ajout-medecin.component.css'],
+    standalone: true,
+       imports: [
+    MissionRoutingModule,
+    CommonModule,
+    ReactiveFormsModule,
+    NgbDatepickerModule,
+    NgbTimepickerModule,
+    MatMenuModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    FormsModule,
+    RouterModule,
+    SearchAdressePipe
+],
 })
 export class AjoutMedecinComponent implements OnInit{
 

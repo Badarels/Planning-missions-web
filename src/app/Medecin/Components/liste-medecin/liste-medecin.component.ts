@@ -4,13 +4,30 @@ import { Medecin } from 'src/app/shared/Model/Medecin';
 import { MedecinService } from '../../Services/medecin.service';
 import { Subscription } from 'rxjs';
 import { AdresseService } from 'src/app/Adresses/Services/adresse.service';
-
-
+import { CommonModule } from '@angular/common';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { MatMenuModule } from '@angular/material/menu';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { SearchPipe } from "../../../pipe/search.pipe";
 
 @Component({
-  selector: 'app-liste-medecin',
-  templateUrl: './liste-medecin.component.html',
-  styleUrls: ['./liste-medecin.component.css']
+    selector: 'app-liste-medecin',
+    templateUrl: './liste-medecin.component.html',
+    styleUrls: ['./liste-medecin.component.css'],
+    standalone: true,
+    imports: [
+    CommonModule,
+    SharedModule,
+    MatMenuModule,
+    NgbDropdownModule,
+    NgbModule,
+    FormsModule,
+    RouterModule,
+    SearchPipe
+]
 })
 export class ListeMedecinComponent implements OnInit {
 

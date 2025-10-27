@@ -1,10 +1,12 @@
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'ngx-bootstrap/datepicker/bs-datepicker.css';
+import '@angular/material/prebuilt-themes/indigo-pink.css';
+import 'ngx-toastr/toastr.css';
 
-import { AppModule } from './app/app.module';
+import { bootstrapApplication } from '@angular/platform-browser';
+import { AppComponent } from './app/app.component';
+import { appConfig } from './app/app.config';
 
-
-platformBrowserDynamic().bootstrapModule(AppModule)
+bootstrapApplication(AppComponent, appConfig)
   .catch(err => console.error(err));
-
-
-   

@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { UtilisateurModel } from '../shared/Model/Utilisateur.model';
 
 @Pipe({
-  name: 'users',
+    name: 'users',
+    standalone: true
 })
 export class UsersPipe implements PipeTransform {
   transform(users: UtilisateurModel[], searchText: string): any[] {

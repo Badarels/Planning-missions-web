@@ -1,228 +1,196 @@
+<main class="main">
+  <div class="pagetitle">
+    <h1>Modifier Mission</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="'/'">Accueil</a></li>
+        <li class="breadcrumb-item"><a [routerLink]="'/missions'">Missions</a></li>
+        <li class="breadcrumb-item active">Édition</li>
+      </ol>
+    </nav>
+  </div>
 
-<main id="main" class="main">
+  <section class="section profile">
+    <div class="row">
+      <div class="col-xl-8">
+        <div class="card">
+          <form [formGroup]="missionForm" (ngSubmit)="modifierMission()">
+            <div class="card-body pt-3">
 
-    <div class="pagetitle">
-      <h1>Modifier Mission</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a [routerLink]="'/Acceuil/accueil'">Accueil</a></li>
-          <li class="breadcrumb-item"><a [routerLink]="'/listeMission/list-mission'">Missions</a></li>
-          <li class="breadcrumb-item active">EditerMission</li>
-        </ol>
-      </nav>
-    </div><!-- End Page Title -->
+              <ul class="nav nav-tabs nav-tabs-bordered">
+                <li class="nav-item">
+                  <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#mission-info">Informations</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" data-bs-toggle="tab" data-bs-target="#mission-horaires">Horaires</a>
+                </li>
+              </ul>
 
-    <section class="section profile" >
-      <div class="row">
-        
-       
-        <div class="col-xl-8">
-           <div class="card">
-                <form [formGroup]="missionForm" (ngSubmit)="modifierMission()">
-                    <div class="card-body pt-3">
-                    <!-- Bordered Tabs -->
-                    <ul class="nav nav-tabs nav-tabs-bordered">
-                        <li class="nav-item">
-                            <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit Mission</a>
-                        </li>
-                        <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-overview">Horaire Mission</a>
-                        </li>
-                    </ul>
+              <div class="tab-content pt-2">
+                <!-- Infos mission -->
+                <div class="tab-pane fade show active pt-3" id="mission-info">
 
-                    <div class="tab-content pt-2">
-                        <div class="tab-pane fade show active profile-edit pt-3" id="profile-edit">
-                            <div class="row mb-3">
-                                <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Detail Mission</label>  
-                                <div class="col-md-8 col-lg-8">      
-                                    <textarea  name="detailMission" placeholder="Détail Mission" class="form-control" id="detailMission" style="height: 100px;" formControlName="detailMission"></textarea>
-                                </div>    
-                            </div>    
-                               
-                            <div class="row mb-3">
-                                <label for="statutAnnonce" class="col-md-4 col-lg-3 col-form-label">Statut de l'annonce</label> 
-                                <div class="col-md-8 col-lg-8">      
-                                    <div class="form-floating mb-3">
-                                        <select class="form-select" id="statutAnnonce" formControlName="statutAnnonce" aria-label="statutAnnonce">
-                                            <option value="En Cours">En Cours</option>
-                                            <option value="Validée">  Validée</option>  
-                                            <option value="Annulation CH">Annulation CH</option>
-                                            <option value="En Attente">En Attente</option>  
-                                            <option value="Annulation Medecin">Annulation Medecin</option>  
-                                        </select>
-                                        <label for="floatingSelect">Statut</label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label for="salaire" class="col-md-4 col-lg-3 col-form-label">Salaire</label>  
-                                <div class="col-md-8 col-lg-8">      
-                                    <input type="number" placeholder="0.00" class="form-control" id="salaireMission" formControlName="salaireMission">
-                                </div>    
-                            </div>
-                            
-                            <div class="row mb-3">
-                                <label for="specilaite" class="col-md-4 col-lg-3 col-form-label" >Specilaité</label>
-                                <div class="col-md-5 col-lg-5">
-                                  <div #dropdown class="dropdown" (click)="toggleDropdownSpecialite()">
-                                    <button type="button" class="btn btn-light dropdown-toggle border-subtle-blue" data-bs-toggle="dropdown" aria-expanded="false" style="width: 400px;">
-                                    <span *ngIf="!selectedSpecialite">Choisir une specialité...</span>
-                                    <span *ngIf="selectedSpecialite">
-                                        {{ selectedSpecialite.nomSpecialite}}
-                                        <button type="button" class="btn btn-close btn-lg" aria-label="Close" (click)="deselectSpecialite()"></button>
-                                    </span>
-                                    </button>
-                                    <ul class="dropdown-menu" [class.show]="showDropdownSpecialiste">
-                                    <li style="margin: 10px;">
-                                        <div class="col-md-8 col-lg-8">
-                                        <div class="input-group" style="width: 350px;">
-                                            <input type="search" class="form-control fas fa-search with-blue-border" placeholder="Rechercher" [(ngModel)]="searchText" name="searchText" style="width: 300px;">
-                                            <div class="input-group-append">
-                                            <span class="input-group-text"><i class="fas fa-search"></i></span>
-                                            </div>
-                                        </div>
-                                        </div>   
-                                    </li>
-                                    <li *ngFor="let specialite of specialites">
-                                        <a class="dropdown-item" (click)="selectSpecialite(specialite)">
-                                        {{ specialite.nomSpecialite }}
-                                        </a>
-                                    </li>
-                                    </ul>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label for="Medecin" class="col-md-4 col-lg-3 col-form-label" >Medecin</label>
-                                <div class="col-md-5 col-lg-5">
-                                  <div #dropdown class="dropdown" (click)="toggleDropdownMedecin()">
-                                    <button type="button" class="btn btn-light dropdown-toggle border-subtle-blue" data-bs-toggle="dropdown" aria-expanded="false" style="width: 400px;">
-                                    <span *ngIf="!selectedMedecin">Choisir un Médecin...</span>
-                                    <span *ngIf="selectedMedecin">
-                                       Dr. {{ selectedMedecin.prenomMedecin}} {{ selectedMedecin.nomMedecin}}
-                                        <button type="button" class="btn btn-close btn-lg" aria-label="Close" (click)="deselectMedecin()"></button>
-                                    </span>
-                                    </button>
-                                    <ul class="dropdown-menu" [class.show]="showDropdownMed">
-                                    <li style="margin: 10px;">
-                                        <div class="col-md-8 col-lg-8">
-                                        <div class="input-group" style="width: 350px;">
-                                            <input type="search" class="form-control fas fa-search with-blue-border" placeholder="Rechercher" [(ngModel)]="searchText" name="searchText" style="width: 300px;">
-                                            <div class="input-group-append">
-                                            <span class="input-group-text"><i class="fas fa-search"></i></span>
-                                            </div>
-                                        </div>
-                                        </div>   
-                                    </li>
-                                    <li *ngFor="let medecin of medecins">
-                                        <a class="dropdown-item" (click)="selectMedecin(medecin)">
-                                          Dr. {{medecin.prenomMedecin}} {{medecin.nomMedecin}}
-                                        </a>
-                                    </li>
-                                    </ul>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label for="Job" class="col-md-4 col-lg-3 col-form-label" >Cleint</label>
-                                <div class="col-md-8 col-lg-9">
-                                    <div #dropdown class="dropdown" (click)="toggleDropdownCh()">
-                                    <button type="button" class="btn btn-light dropdown-toggle border-subtle-blue" data-bs-toggle="dropdown" aria-expanded="false" [disabled]="afficherFormulaireAdresse" style="width: 400px;">
-                                    <span *ngIf="!selectedCh">Choisir un CH...</span>
-                                    <span *ngIf="selectedCh">
-                                        {{ selectedCh.nom_ch }}
-                                        <button type="button" class="btn btn-close btn-lg" aria-label="Close" (click)="deselectCh()"></button>
-                                    </span> 
-                                    </button>
-                                    <ul class="dropdown-menu" [class.show]="showDropdownCh">
-                                    <li style="margin: 10px;">
-                                        <div class="col-md-8 col-lg-8">
-                                        <div class="input-group" style="width: 350px;">
-                                            <input type="search" class="form-control fas fa-search with-blue-border" placeholder="Rechercher" [(ngModel)]="searchText" name="searchText" style="width: 300px;">
-                                            <div class="input-group-append">
-                                            <span class="input-group-text"><i class="fas fa-search"></i></span>
-                                            </div>
-                                        </div>
-                                        </div>   
-                                    </li>
-                                    <li *ngFor="let ch of chs">
-                                        <a class="dropdown-item" (click)="selectCh(ch)">
-                                            {{ch.nom_ch}} 
-                                        </a>
-                                    </li>
-                                    </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-        
-                        <div class="tab-pane fade  profile-overview" id="profile-overview">
-                        <h5 class="card-title">Horaire du Missions</h5>
-                      
-
-                        <div class="row mb-3">
-                            <label for="typeHoraireMission" class="col-md-4 col-lg-3 col-form-label horairelabel">Type Horaire Mission</label> 
-                            <div class="col-md-6 col-lg-6">      
-                                <div class="form-floating mb-3">
-                                    <select class="form-select" id="typeHoraireMission" formControlName="typeHoraireMission" aria-label="typeHoraireMission">
-                                        <option value="JOUR">Jour</option>
-                                        <option value="NUIT">Nuit</option>
-                                        <option value="Matin">Matin</option>
-                                        <option value="Garde 24H">Garde 24H</option>  
-                                        <option value="Journée + Astreinte">Journée + Astreinte</option>  
-                                        <option value="Astreinte">Astreinte</option>
-                                    </select>
-                                    <label for="floatingSelect">Type Mission</label>
-                                </div>
-                            </div>
-                        </div>
-                        
-                            <div class="row rowprofil">
-                                <div class="col-lg-3 col-md-4 label horairelabel">Date de début</div>
-                                <div class="col-md-5 col-lg-5">
-                                     <input type="date" id="dateMissions" formControlName="dateMissions" aria-label="dateMissions" class="form-control input-small border-subtle-blue horaire_date">                 
-                                </div>
-                            </div>
-   
-                            <div class="row rowprofil">
-                                <div class="col-lg-3 col-md-4 label horairelabel">Date de fin</div>
-                                <div class="col-md-5 col-lg-5">
-                                     <input type="date" id="dateFinMissions" formControlName="dateFinMissions" class="form-control input-small border-subtle-blue horaire_date">                 
-                                </div>
-                            </div>
-
-                            <!-- Add this code inside the "profile-overview" tab -->
-                            <div class="row mb-3">
-                                <label for="startTime" class="col-md-4 col-lg-3 col-form-label horairelabel">Heure de début</label>
-                                <div class="col-md-5 col-lg-5">
-                                     <input type="time" class="form-control" id="startTime" placeholder="Choisir une heure" formControlName="startTime" >
-                                </div>
-                            </div>
-                            
-                            <div class="row mb-3">
-                                <label for="endTime" class="col-md-4 col-lg-3 col-form-label horairelabel">Heure de fin</label>
-                                <div class="col-md-5 col-lg-5">
-                                    <input type="time" class="form-control" id="endTime" placeholder="Choisir une heure" formControlName="endTime">
-                                </div>
-                            </div>
-
-                        </div>
-                    </div><!-- End Bordered Tabs -->
-
+                  <div class="mb-3">
+                    <label for="detailMission" class="form-label fw-bold">Détail Mission <span class="text-danger">*</span></label>
+                    <textarea id="detailMission" formControlName="detailMission" 
+                              class="form-control" rows="3"
+                              [ngClass]="{'is-invalid': missionForm.get('detailMission')?.invalid && missionForm.get('detailMission')?.touched}"
+                              required></textarea>
+                    <div *ngIf="missionForm.get('detailMission')?.invalid && missionForm.get('detailMission')?.touched" 
+                         class="invalid-feedback">
+                      Le détail de la mission est obligatoire
                     </div>
-                        <div class="card-footer text-muted">
-                            <div class="text-center">
-                                <button type="submit" class="btn btn-primary">Enregistrer</button>
-                                <button type="reset" class="btn btn-secondary" [routerLink]="'/listeMission/list-mission'" style="margin-left: 10px;">Annuler</button>
-                            </div>
-                        </div>
-                </form>  
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="statutAnnonce" class="form-label fw-bold">Statut <span class="text-danger">*</span></label>
+                    <select id="statutAnnonce" class="form-select" 
+                            formControlName="statutAnnonce"
+                            [ngClass]="{'is-invalid': missionForm.get('statutAnnonce')?.invalid && missionForm.get('statutAnnonce')?.touched}"
+                            required>
+                      <option value="" disabled selected>Sélectionnez un statut</option>
+                      <option *ngFor="let statut of statutsDisponibles" [value]="statut.value">
+                        {{ statut.label }}
+                      </option>
+                    </select>
+                    <div *ngIf="missionForm.get('statutAnnonce')?.invalid && missionForm.get('statutAnnonce')?.touched" 
+                         class="invalid-feedback">
+                      Veuillez sélectionner un statut
+                    </div>
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="salaireMission" class="form-label fw-bold">Salaire <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                      <input type="number" id="salaireMission" 
+                             formControlName="salaireMission" 
+                             class="form-control" 
+                             placeholder="0.00"
+                             min="0"
+                             step="0.01"
+                             [ngClass]="{'is-invalid': missionForm.get('salaireMission')?.invalid && missionForm.get('salaireMission')?.touched}"
+                             required>
+                      <span class="input-group-text">€</span>
+                      <div *ngIf="missionForm.get('salaireMission')?.invalid && missionForm.get('salaireMission')?.touched" 
+                           class="invalid-feedback">
+                        Le salaire doit être un nombre positif
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <!-- Horaires -->
+                <div class="tab-pane fade pt-3" id="mission-horaires">
+                  <div class="mb-3">
+                    <label for="typeHoraireMission" class="form-label fw-bold">Type Horaire <span class="text-danger">*</span></label>
+                    <select id="typeHoraireMission" 
+                            class="form-select" 
+                            formControlName="typeHoraireMission"
+                            [ngClass]="{'is-invalid': missionForm.get('typeHoraireMission')?.invalid && missionForm.get('typeHoraireMission')?.touched}"
+                            required>
+                      <option value="" disabled selected>Sélectionnez un type d'horaire</option>
+                      <option *ngFor="let type of typesHoraires" [value]="type.value">
+                        {{ type.label }}
+                      </option>
+                    </select>
+                    <div *ngIf="missionForm.get('typeHoraireMission')?.invalid && missionForm.get('typeHoraireMission')?.touched" 
+                         class="invalid-feedback">
+                      Veuillez sélectionner un type d'horaire
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <div class="col-md-6">
+                      <label for="dateMissions" class="form-label fw-bold">Date de début <span class="text-danger">*</span></label>
+                      <input type="date" 
+                             id="dateMissions" 
+                             formControlName="dateMissions" 
+                             class="form-control"
+                             [ngClass]="{'is-invalid': missionForm.get('dateMissions')?.invalid && missionForm.get('dateMissions')?.touched}"
+                             [min]="today"
+                             required>
+                      <div *ngIf="missionForm.get('dateMissions')?.invalid && missionForm.get('dateMissions')?.touched" 
+                           class="invalid-feedback">
+                        La date de début est requise et doit être aujourd'hui ou ultérieure
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="dateFinMissions" class="form-label fw-bold">Date de fin <span class="text-danger">*</span></label>
+                      <input type="date" 
+                             id="dateFinMissions" 
+                             formControlName="dateFinMissions" 
+                             class="form-control"
+                             [ngClass]="{'is-invalid': (missionForm.get('dateFinMissions')?.invalid || missionForm.hasError('dateFinInvalide')) && missionForm.get('dateFinMissions')?.touched}"
+                             [min]="missionForm.get('dateMissions')?.value || today"
+                             required>
+                      <div *ngIf="missionForm.get('dateFinMissions')?.invalid && missionForm.get('dateFinMissions')?.touched" 
+                           class="invalid-feedback">
+                        La date de fin est requise
+                      </div>
+                      <div *ngIf="missionForm.hasError('dateFinInvalide') && !missionForm.get('dateFinMissions')?.invalid" 
+                           class="invalid-feedback">
+                        La date de fin doit être postérieure à la date de début
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <div class="col-md-6">
+                      <label for="startTime" class="form-label fw-bold">Heure de début <span class="text-danger">*</span></label>
+                      <input type="time" 
+                             id="startTime" 
+                             formControlName="startTime" 
+                             class="form-control"
+                             [ngClass]="{'is-invalid': missionForm.get('startTime')?.invalid && missionForm.get('startTime')?.touched}"
+                             required>
+                      <div *ngIf="missionForm.get('startTime')?.invalid && missionForm.get('startTime')?.touched" 
+                           class="invalid-feedback">
+                        L'heure de début est requise
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="endTime" class="form-label fw-bold">Heure de fin <span class="text-danger">*</span></label>
+                      <input type="time" 
+                             id="endTime" 
+                             formControlName="endTime" 
+                             class="form-control"
+                             [ngClass]="{'is-invalid': (missionForm.get('endTime')?.invalid || missionForm.hasError('heureFinInvalide')) && missionForm.get('endTime')?.touched}"
+                             [min]="missionForm.get('startTime')?.value"
+                             required>
+                      <div *ngIf="missionForm.get('endTime')?.invalid && missionForm.get('endTime')?.touched" 
+                           class="invalid-feedback">
+                        L'heure de fin est requise
+                      </div>
+                      <div *ngIf="missionForm.hasError('heureFinInvalide') && !missionForm.get('endTime')?.invalid" 
+                           class="invalid-feedback">
+                        L'heure de fin doit être postérieure à l'heure de début
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="text-center mt-4">
+                <button type="submit" 
+                        class="btn btn-primary"
+                        [disabled]="missionForm.invalid || isSubmitting">
+                  <span *ngIf="!isSubmitting">Enregistrer</span>
+                  <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                  <span *ngIf="isSubmitting" class="ms-2">Enregistrement en cours...</span>
+                </button>
+                <button type="button" 
+                        class="btn btn-outline-secondary ms-2"
+                        [routerLink]="'/missions'"
+                        [disabled]="isSubmitting">
+                  Annuler
+                </button>
+              </div>
+
             </div>
+          </form>
         </div>
       </div>
-    </section>
-  </main><!-- End #main -->
-
+    </div>
+  </section>
+</main>

@@ -13,9 +13,10 @@ import { Missions } from 'src/app/shared/Model/Missions';
 
 
 @Component({
-  selector: 'app-planning',
-  templateUrl: './planning.component.html',
-  styleUrls: ['./planning.component.css']
+    selector: 'app-planning',
+    templateUrl: './planning.component.html',
+    styleUrls: ['./planning.component.css'],
+    standalone: false
 })
 export class PlanningComponent {
   mission: Missions | undefined;

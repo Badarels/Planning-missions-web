@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { Adresse } from '../shared/Model/Adresse';
 
 @Pipe({
-  name: 'searchAdresse'
+    name: 'searchAdresse',
+    standalone: true
 })
 export class SearchAdressePipe implements PipeTransform {
 

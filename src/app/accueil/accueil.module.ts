@@ -8,9 +8,10 @@ import { AccueilRoutingModule } from './accueil-routing.module';
 
 @NgModule({
   declarations: [
-    AccueilComponent,
+   
   ],
   imports: [
+    AccueilComponent,
     SharedModule,
     CommonModule,
     AccueilRoutingModule

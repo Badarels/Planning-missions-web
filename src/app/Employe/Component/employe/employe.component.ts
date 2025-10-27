@@ -3,11 +3,42 @@ import { Subscription } from 'rxjs';
 import { Employe } from 'src/app/shared/Model/Employe';
 import { EmployeService } from '../../Services/employe.service';
 import { ToastrService } from 'ngx-toastr';
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuTrigger, MatMenuModule } from '@angular/material/menu';
+import { MatSelectModule } from '@angular/material/select';
+import { NgbDatepickerModule, NgbTimepickerModule } from '@ng-bootstrap/ng-bootstrap';
+import { MissionRoutingModule } from 'src/app/missions/mission-routing.module';
+import { MissionPipe } from 'src/app/pipe/mission.pipe';
+import { EmployePipe } from 'src/app/pipe/employe.pipe';
 
 @Component({
-  selector: 'app-employe',
-  templateUrl: './employe.component.html',
-  styleUrl: './employe.component.css'
+    selector: 'app-employe',
+    templateUrl: './employe.component.html',
+    styleUrl: './employe.component.css',
+    standalone: true,
+
+   imports: [
+    MissionRoutingModule,
+    CommonModule,
+    EmployePipe,
+    ReactiveFormsModule,
+    NgbDatepickerModule,
+    NgbTimepickerModule,
+    MatMenuModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    FormsModule,
+    RouterModule
+],
 })
 export class EmployeComponent implements OnInit{
 
@@ -15,6 +46,7 @@ export class EmployeComponent implements OnInit{
   employe: Employe[]=[];
   subscription: Subscription[]=[];
   isDropdownOpen = false;
+  
 
   constructor(private employeService: EmployeService, private toastr: ToastrService){}
 

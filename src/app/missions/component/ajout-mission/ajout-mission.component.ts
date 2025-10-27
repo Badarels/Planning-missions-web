@@ -1,28 +1,67 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
+import { Location } from '@angular/common';
+
+// Material Modules
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatCardModule } from '@angular/material/card';
+
+// Services
 import { AdresseService } from 'src/app/Adresses/Services/adresse.service';
 import { MedecinService } from 'src/app/Medecin/Services/medecin.service';
 import { ToastService } from 'src/app/Utilisateur/Services/toast.service';
 import { CentreHospitalierService } from 'src/app/centreHospitalier/Services/centre-hospitalier.service';
+import { MissionService } from '../../services/mission.service';
+
+// Models
 import { Adresse } from 'src/app/shared/Model/Adresse';
 import { CentreHospitalier } from 'src/app/shared/Model/CentreHospitalier';
 import { Medecin } from 'src/app/shared/Model/Medecin';
 import { Missions } from 'src/app/shared/Model/Missions';
 import { Specialite } from 'src/app/shared/Model/Specialite';
-import { MissionService } from '../../services/mission.service';
-import { Location } from '@angular/common';
-import { Router } from '@angular/router';
-import { BsLocaleService } from 'ngx-bootstrap/datepicker';
-import { defineLocale } from 'ngx-bootstrap/chronos';
-import { frLocale } from 'ngx-bootstrap/locale';
+import { Subscription } from 'rxjs';
+
+interface SelectOption {
+  value: string;
+  label: string;
+}
+
+type ToastType = 'success' | 'error' | 'warning';
 
 @Component({
   selector: 'app-ajout-mission',
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule,
+    MatButtonModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatCardModule
+  ],
+  providers: [
+    MatDatepickerModule,
+    MatNativeDateModule
+  ],
   templateUrl: './ajout-mission.component.html',
   styleUrls: ['./ajout-mission.component.css']
 })
 export class AjoutMissionComponent {
+  [x: string]: any;
   mission!: Missions;
   subscribtion=[] as Subscription[];
   missionForm!:FormGroup;
@@ -58,14 +97,10 @@ export class AjoutMissionComponent {
     private centrehsoptalierServices: CentreHospitalierService,
     private medecinServices: MedecinService,
     private missionServices: MissionService,
-    private toastService: ToastService,
     private formBuilder: FormBuilder,
     private adresseServices: AdresseService,
     private router: Router,
-    private localeService: BsLocaleService){
-      defineLocale('fr', frLocale);
-    this.localeService.use('fr');
-    }
+  ){}
 
   ngOnInit(): void {
     this.initForm();
@@ -223,7 +258,7 @@ AjouterMission(){
       (addedMission: Missions) => {
         // Traitement après l'ajout réussi  
         console.log('Ajout réussi', addedMission);
-        this.toastService.showSuccessToast()  
+        this['toastService'].showSuccessToast()  
         // Réinitialiser le formulaire ou effectuer d'autres actions si nécessaire
         this.missionForm.reset();
       },

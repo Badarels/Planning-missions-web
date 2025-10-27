@@ -8,14 +8,26 @@ import { UtilisateurService } from '../../Services/utilisateur.service';
 import { ToastService } from 'src/app/Utilisateur/Services/toast.service'
 //import toastr from 'toastr';
 
-
-
-import { ToastrService } from 'ngx-toastr';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { ToastrModule } from 'ngx-toastr';
+import { ListeUtilisateurComponent } from '../liste-utilisateur/liste-utilisateur.component';
 
 @Component({
-  selector: 'app-ajouter-utilisateur',
-  templateUrl: './ajouter-utilisateur.component.html',
-  styleUrls: ['./ajouter-utilisateur.component.css']
+    selector: 'app-ajouter-utilisateur',
+    templateUrl: './ajouter-utilisateur.component.html',
+    styleUrls: ['./ajouter-utilisateur.component.css'],
+    standalone: true, 
+    imports: [
+      CommonModule,
+      ReactiveFormsModule,
+      HttpClientModule,
+      RouterModule,
+      FormsModule,
+    ]
 })
 export class AjouterUtilisateurComponent implements OnInit{
   

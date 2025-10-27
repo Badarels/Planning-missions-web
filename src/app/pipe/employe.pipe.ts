@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { Employe } from '../shared/Model/Employe';
 
 @Pipe({
-  name: 'employepipe',
+    name: 'employepipe',
+    standalone: true
 })
 export class EmployePipe implements PipeTransform {
 

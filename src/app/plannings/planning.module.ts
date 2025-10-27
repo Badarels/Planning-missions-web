@@ -1,29 +1,28 @@
 import { NgModule } from '@angular/core';
-import { MissionPipe } from '../pipe/mission.pipe';
-import { SharedModule } from '../shared/shared.module';
-import { MissionRountingModule } from '../missions/mission-rounting.module';
-import { PlanningRoutingModule } from './planning-routing.module';
-import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { NgbDropdownModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
-import { PlanningComponent } from './Component/planning/planning.component';
-import { MissionModule } from '../missions/mission.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { NgbDropdownModule, NgbModalModule, NgbDatepickerModule, NgbTimepickerModule } from '@ng-bootstrap/ng-bootstrap';
 
+import { SharedModule } from '../shared/shared.module';
+import { PlanningRoutingModule } from './planning-routing.module';
+import { PlanningComponent } from './Component/planning/planning.component';
 
 @NgModule({
-  declarations: [ 
+  declarations: [
     PlanningComponent
   ],
   imports: [
     CommonModule,
-    SharedModule,
-    MissionRountingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule,
     NgbDropdownModule,
     NgbModalModule,
-    PlanningRoutingModule,
-    FormsModule,
-    MissionModule
-
+    NgbDatepickerModule,
+    NgbTimepickerModule,
+    SharedModule,
+    PlanningRoutingModule
   ]
 })
 export class PlanningModule { }

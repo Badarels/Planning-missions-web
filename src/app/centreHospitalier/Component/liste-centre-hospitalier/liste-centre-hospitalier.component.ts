@@ -8,9 +8,10 @@ import { ToastService } from 'src/app/Utilisateur/Services/toast.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-liste-centre-hospitalier',
-  templateUrl: './liste-centre-hospitalier.component.html',
-  styleUrls: ['./liste-centre-hospitalier.component.css']
+    selector: 'app-liste-centre-hospitalier',
+    templateUrl: './liste-centre-hospitalier.component.html',
+    styleUrls: ['./liste-centre-hospitalier.component.css'],
+    standalone: false
 })
 export class ListeCentreHospitalierComponent implements OnInit{
   
